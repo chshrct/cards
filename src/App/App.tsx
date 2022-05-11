@@ -16,7 +16,7 @@ function App() {
     <>
       <Nav />
       <Routes>
-        <Route path={RoutePaths.index} element={<h2>home page</h2>} />
+        <Route path={RoutePaths.empty} element={<h2>home page</h2>} />
         <Route path={RoutePaths.random} element={<NotFound />} />
         <Route path={RoutePaths.login} element={<Login />} />
         <Route path={RoutePaths.passwordCreate} element={<PasswordCreate />} />

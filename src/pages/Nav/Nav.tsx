@@ -8,7 +8,7 @@ const Nav = () => {
     <div>
       <h2>Navigation</h2>
       <nav className={s.nav}>
-        <NavLink to={RoutePaths.index}>Home</NavLink>
+        <NavLink to={RoutePaths.empty}>Home</NavLink>
         <NavLink to={RoutePaths.login}>Login</NavLink>
         <NavLink to={RoutePaths.notFound}>404</NavLink>
         <NavLink to={RoutePaths.passwordCreate}>Password create</NavLink>
