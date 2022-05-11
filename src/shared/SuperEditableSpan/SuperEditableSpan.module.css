@@ -1,0 +1,10 @@
+.spanStyle{
+    display: inline-block;
+    min-width: 30px;  /*for better clicking */
+    font-style: italic;
+    cursor: pointer;
+}
+.spanStyle::before{
+    content: '📝';
+    font-style: normal;
+}

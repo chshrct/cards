@@ -1,0 +1,28 @@
+.superInput {
+    outline: none;
+    border: 1px solid black;
+    border-radius: 3px;
+    transition: transform 200ms;
+    background-color: #ffe26a;
+}
+
+.superInput:focus{
+    box-shadow: 2px 3px grey;
+    transition: transform 200ms;
+    transform: scale(1.01);
+}
+
+.errorInput {
+    background-color: #ffe26a;
+    border: 2px solid red ;
+    border-radius: 3px;
+    outline:none;
+}
+
+.error {
+    color: red;
+}
+
+
+
+

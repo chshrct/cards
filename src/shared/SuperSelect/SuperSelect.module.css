@@ -1,0 +1,23 @@
+.select {
+    appearance: none;
+    outline: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 3px 0 3px 5px;
+    padding-right:30px;
+    background-color: #ffe26a;
+    background-image: url('./arrow.svg');
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position-y: 50%;
+    background-position-x: 85%;
+}
+
+.select:focus{
+    box-shadow: 2px 3px 2px  grey;
+}
+
+.select option:checked{
+    font-weight: bold;
+}
