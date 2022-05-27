@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { HashRouter as Router, Routes } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import App from "./App/App";
 import "./index.css";
-import { store } from "./redux/store";
+import { store } from "./store/store";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(

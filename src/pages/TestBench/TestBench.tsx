@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { incCounter } from "../../redux/testReducer";
+import { RootState } from "../../store/store";
+import { incCounter } from "../../store/testReducer";
 import SuperButton from "../../shared/FormControls/SuperButton/SuperButton";
 import SuperCheckbox from "../../shared/FormControls/SuperCheckbox/SuperCheckbox";
 import SuperEditableSpan from "../../shared/FormControls/SuperEditableSpan/SuperEditableSpan";

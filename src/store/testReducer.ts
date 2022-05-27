@@ -14,7 +14,7 @@ const initialState = {
   count: 0,
 };
 
-export default (
+const testReducer = (
   state: TestStateType = initialState,
   { type, payload }: TestRootAction
 ) => {
@@ -33,3 +33,5 @@ export const incCounter = (payload: { count: number }) =>
     type: TestActionsTypes.incCounter,
     payload,
   } as const);
+
+export default testReducer;
