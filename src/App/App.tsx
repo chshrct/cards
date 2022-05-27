@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { RoutePaths } from "../constants/routerPaths";
 import Login from "../pages/Login/Login";
 import Nav from "../pages/Nav/Nav";
@@ -16,8 +16,12 @@ function App() {
     <>
       <Nav />
       <Routes>
-        <Route path={RoutePaths.basic} element={<h2>home page</h2>} />
-        <Route path={RoutePaths.random} element={<NotFound />} />
+        <Route path={RoutePaths.index} element={<h2>home page</h2>} />
+        <Route
+          path={RoutePaths.random}
+          element={<Navigate to={RoutePaths.notFound} />}
+        />
+        <Route path={RoutePaths.notFound} element={<NotFound />} />
         <Route path={RoutePaths.login} element={<Login />} />
         <Route path={RoutePaths.passwordCreate} element={<PasswordCreate />} />
         <Route

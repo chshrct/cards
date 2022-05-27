@@ -7,6 +7,5 @@ export enum RoutePaths {
   testBench = "test-bench",
   random = "*",
   notFound = "404-not-found",
-  index = "/*",
-  basic = "",
+  index = "/",
 }
