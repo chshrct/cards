@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { RoutePaths } from "../constants/routerPaths";
+import { RoutePaths } from "../constants/routePaths";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
 import PasswordCreate from "../pages/PasswordCreate/PasswordCreate";

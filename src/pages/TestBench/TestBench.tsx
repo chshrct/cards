@@ -1,19 +1,19 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { incCounter } from "../../store/testReducer";
-import SuperButton from "../../shared/FormControls/SuperButton/SuperButton";
-import SuperCheckbox from "../../shared/FormControls/SuperCheckbox/SuperCheckbox";
-import SuperEditableSpan from "../../shared/FormControls/SuperEditableSpan/SuperEditableSpan";
-import SuperInputText from "../../shared/FormControls/SuperInputText/SuperInputText";
-import SuperRadio from "../../shared/FormControls/SuperRadio/SuperRadio";
-import SuperRange from "../../shared/FormControls/SuperRange/SuperRange";
-import SuperSelect from "../../shared/FormControls/SuperSelect/SuperSelect";
+import { AppRootStateType, useAppDispatch } from "../../store/store";
+import SuperButton from "../../components/shared/SuperButton/SuperButton";
+import SuperCheckbox from "../../components/shared/SuperCheckbox/SuperCheckbox";
+import SuperEditableSpan from "../../components/shared/SuperEditableSpan/SuperEditableSpan";
+import SuperInputText from "../../components/shared/SuperInputText/SuperInputText";
+import SuperRadio from "../../components/shared/SuperRadio/SuperRadio";
+import SuperRange from "../../components/shared/SuperRange/SuperRange";
+import SuperSelect from "../../components/shared/SuperSelect/SuperSelect";
+import { setEmailTestThunk } from "../Login/loginReducer";
 
 const TestBench = () => {
-  const count = useSelector<RootState>((state) => state.test.count);
-  const dispatch = useDispatch();
+  const count = useSelector<AppRootStateType>((state) => state.profile.count);
+  const dispatch = useAppDispatch();
 
   return (
     <div>
@@ -51,9 +51,7 @@ const TestBench = () => {
         <div>
           <h3>count</h3>
           <div>{`${count}`}</div>
-          <button onClick={() => dispatch(incCounter({ count: 3 }))}>
-            inc
-          </button>
+          <button onClick={() => dispatch(setEmailTestThunk())}>inc</button>
         </div>
       </div>
     </div>

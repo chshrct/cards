@@ -1,25 +1,25 @@
-enum TestActionsTypes {
+enum ProfileActionsTypes {
   incCounter = "TEST/INCREASE_COUNTER",
 }
 
-type TestStateType = {
+type ProfileStateType = {
   count: number;
 };
 
 type IncCounter = ReturnType<typeof incCounter>;
 
-type TestRootAction = IncCounter;
+export type ProfileRootActionType = IncCounter;
 
 const initialState = {
   count: 0,
 };
 
-const testReducer = (
-  state: TestStateType = initialState,
-  { type, payload }: TestRootAction
+const profileReducer = (
+  state: ProfileStateType = initialState,
+  { type, payload }: ProfileRootActionType
 ) => {
   switch (type) {
-    case TestActionsTypes.incCounter:
+    case ProfileActionsTypes.incCounter:
       return { ...state, count: state.count + payload.count };
 
     default:
@@ -30,8 +30,8 @@ const testReducer = (
 //action
 export const incCounter = (payload: { count: number }) =>
   ({
-    type: TestActionsTypes.incCounter,
+    type: ProfileActionsTypes.incCounter,
     payload,
   } as const);
 
-export default testReducer;
+export default profileReducer;
