@@ -48,7 +48,7 @@ const Registration = () => {
                 errors.confirmPassword = 'Required';
             } else if (values.confirmPassword.length < 2) {
                 errors.confirmPassword = 'Must be 8 characters or more';
-            }else if(values.password !== values.confirmPassword){
+            } else if (values.password !== values.confirmPassword) {
                 errors.confirmPassword = 'confirm password must be equal password';
             }
 
@@ -63,40 +63,44 @@ const Registration = () => {
     });
 
     const navigateToLogin = () => {
-        navigate(`../${RoutePaths.login}`, {replace: true})
+        navigate(RoutePaths.login)
     }
 
     if (error === 'Created') {
-        return <Navigate to={`../${RoutePaths.login}`} replace={true}/>
+        return <Navigate to={RoutePaths.login}/>
     }
 
     return (
-        <div>
-            <h2>Registration</h2>
-            <h3>Sign up</h3>
-            <h1>{error}</h1>
-            <form onSubmit={formik.handleSubmit} className={s.formBlock}>
-                <input placeholder={'email'}
-                       type="text"
-                       {...formik.getFieldProps('email')}/>
-                {formik.touched.email && formik.errors.email &&
-                    <div>{formik.errors.email}</div>}
+        <div className={s.register}>
+            <div className={s.container}>
+                <h2>Registration</h2>
+                <h3>Sign up</h3>
+                <span>{error}</span>
+                <form onSubmit={formik.handleSubmit} className={s.formBlock}>
+                    <input placeholder={'email'}
+                           type="text"
+                           {...formik.getFieldProps('email')}/>
+                    {formik.touched.email && formik.errors.email ?
+                        <div>{formik.errors.email}</div> : <div/>}
 
-                <input placeholder={'password'}
-                       type="password"
-                       {...formik.getFieldProps('password')}/>
-                {formik.touched.password && formik.errors.password &&
-                    <div>{formik.errors.password}</div>}
+                    <input placeholder={'password'}
+                           type="password"
+                           {...formik.getFieldProps('password')}/>
+                    {formik.touched.password && formik.errors.password ?
+                        <div>{formik.errors.password}</div> : <div/>}
 
-                <input placeholder={'confirm password'}
-                       type="password"
-                       {...formik.getFieldProps('confirmPassword')}/>
-                {formik.touched.confirmPassword && formik.errors.confirmPassword &&
-                    <div>{formik.errors.confirmPassword}</div>}
+                    <input placeholder={'confirm password'}
+                           type="password"
+                           {...formik.getFieldProps('confirmPassword')}/>
+                    {formik.touched.confirmPassword && formik.errors.confirmPassword ?
+                        <div>{formik.errors.confirmPassword}</div> : <div/>}
 
-                <button onClick={navigateToLogin}>return to Login</button>
-                <button type="submit">Register</button>
-            </form>
+                    <div className={s.buttonBlock}>
+                        <button className={s.buttonLog} onClick={navigateToLogin}>back to Login</button>
+                        <button className={s.buttonReg} type="submit">Register</button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
