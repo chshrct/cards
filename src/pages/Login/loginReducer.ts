@@ -1,64 +1,89 @@
-import { authAPI } from "../../api/api";
-import { ThunkApp } from "../../store/store";
+import {authAPI} from '../../api/api';
+import {ThunkApp} from '../../store/store';
 
 enum LoginActionsTypes {
-  incCounter = "LOGIN/INCREASE_COUNTER",
-  setEmail = "LOGIN/SET_EMAIL",
+    setUserData = 'LOGIN/SET_USER_DATA',
+    setEmail = 'LOGIN/SET_EMAIL',
 }
 
-type LoginStateType = {
-  count: number;
-  email: string;
-};
+type UserDataType = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number; // количество колод
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+    error?: string;
+}
 
-type IncCounter = ReturnType<typeof incCounter>;
+type SetUserData = ReturnType<typeof setUserData>;
 type SetEmail = ReturnType<typeof setEmail>;
 
-export type LoginRootActionType = IncCounter | SetEmail;
+export type LoginRootActionType = SetUserData | SetEmail;
 
 const initialState = {
-  count: 0,
-  email: "",
+    email: '',
+    password: '',
+    rememberMe: false,
+    user: null as UserDataType | null
 };
 
-const loginReducer = (
-  state: LoginStateType = initialState,
-  action: LoginRootActionType
-) => {
-  switch (action.type) {
-    case LoginActionsTypes.incCounter:
-      return { ...state, count: state.count + action.payload.count };
-    case LoginActionsTypes.setEmail:
-      return { ...state, email: action.email };
+export type LoginStateType = typeof initialState
 
-    default:
-      return state;
-  }
+const loginReducer = (
+    state: LoginStateType = initialState,
+    action: LoginRootActionType
+) => {
+    switch (action.type) {
+        case LoginActionsTypes.setUserData:
+            return {...state, ...action.payload};
+        default:
+            return state;
+    }
 };
 
 //action
-export const incCounter = (payload: { count: number }) =>
-  ({
-    type: LoginActionsTypes.incCounter,
-    payload,
-  } as const);
 export const setEmail = (email: string) =>
-  ({
-    type: LoginActionsTypes.setEmail,
-    email,
-  } as const);
+    ({
+        type: LoginActionsTypes.setEmail,
+        email,
+    } as const);
+export const setUserData = (payload: { user: UserDataType }) =>
+    ({
+        type: LoginActionsTypes.setUserData,
+        payload,
+    } as const);
 
 const data = {
-  email: "nya-admin@nya.nya",
-  password: "1qazxcvBG",
-  rememberMe: false,
+    email: 'nya-admin@nya.nya',
+    password: '1qazxcvBG',
+    rememberMe: false,
 };
 
 //thunk
 export const setEmailTestThunk = (): ThunkApp => (dispatch) => {
-  authAPI.login(data).then((res) => {
-    dispatch(setEmail(res.data.email));
-  });
+    authAPI.login(data).then((res) => {
+        dispatch(setEmail(res.data.email));
+    });
+};
+export const login = (email: string, password: string, rememberMe: boolean): ThunkApp => {
+    return (dispatch) => {
+        authAPI.login({email, password, rememberMe})
+            .then((res) => {
+                dispatch(setUserData(res.data));
+                console.log(JSON.stringify(res.data));
+            })
+            .catch((e) => {
+                const error = e.response
+                    ? e.response.data.error
+                    : (e.message + ', more details in the console');
+                console.log('Error: ', {...e});
+            });
+    };
 };
 
 export default loginReducer;
