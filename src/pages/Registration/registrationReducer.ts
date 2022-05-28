@@ -1,37 +1,50 @@
+import {ThunkApp} from '../../store/store';
+import {authAPI, RegisterData} from '../../api/api';
+import {AxiosError} from 'axios';
+
 enum RegistrationActionsTypes {
-  incCounter = "TEST/INCREASE_COUNTER",
+    setError = 'REGISTER/SET=ERROR',
 }
 
-type RegistrationStateType = {
-  count: number;
-};
+type RegistrationStateType = typeof initialState
 
-type IncCounter = ReturnType<typeof incCounter>;
+type IncCounter = ReturnType<typeof setError>;
 
 export type RegistrationRootActionType = IncCounter;
 
 const initialState = {
-  count: 0,
+    error: '',
 };
 
 const registrationReducer = (
-  state: RegistrationStateType = initialState,
-  { type, payload }: RegistrationRootActionType
+    state: RegistrationStateType = initialState,
+    {type, payload}: RegistrationRootActionType
 ) => {
-  switch (type) {
-    case RegistrationActionsTypes.incCounter:
-      return { ...state, count: state.count + payload.count };
-
-    default:
-      return state;
-  }
+    switch (type) {
+        case RegistrationActionsTypes.setError:
+            return {...state, ...payload}
+        default:
+            return state;
+    }
 };
 
 //action
-export const incCounter = (payload: { count: number }) =>
-  ({
-    type: RegistrationActionsTypes.incCounter,
-    payload,
-  } as const);
+export const setError = ( error: string ) =>
+    ({type: RegistrationActionsTypes.setError, payload: {error},} as const);
 
 export default registrationReducer;
+
+
+//thunk
+export const setRegister = (data: RegisterData): ThunkApp => (dispatch) => {
+    authAPI.register(data)
+        .then((res) => {
+            dispatch(setError(res.statusText))
+        })
+        .then(res => dispatch(setError('')))
+        .catch((e) => {
+            debugger
+            dispatch(setError(e.response.data.error))
+        })
+};
+
