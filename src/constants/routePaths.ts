@@ -1,6 +1,6 @@
 export enum RoutePaths {
   login = "/login",
-  passwordCreate = "/password-create",
+  passwordCreate = "/password-create/:token",
   passwordRecovery = "/password-recovery",
   profile = "/profile",
   registration = "/registration",
