@@ -16,6 +16,35 @@ link</a>
 </div>`, // хтмп-письмо, вместо $token$ бэк вставит токен
 };
 
+export const authAPI = {
+  login(data: LoginData) {
+    return instance.post<ProfileResponseType>("/auth/login", data);
+  },
+  logout() {
+    return instance.delete<BackResponseType>("/auth/me");
+  },
+  register(data: Omit<LoginData, "rememberMe">) {
+    return instance.post<RegisterResponseType>("/auth/register", data);
+  },
+  authMe() {
+    return instance.post<ProfileResponseType>("/auth/me", {});
+  },
+  editProfile(data: ProfileData) {
+    return instance.put<EditResponseType>("/auth/me", data);
+  },
+  passRecover(email: string) {
+    return instance.post<BackResponseType>("/auth/forgot", {
+      ...letter,
+      email,
+    });
+  },
+  setNewPassword(data: PasswordResetData) {
+    return instance.post<BackResponseType>("/auth/set-new-password", data);
+  },
+};
+
+//types
+
 type LoginData = {
   email: string;
   password: string;
@@ -31,26 +60,33 @@ type PasswordResetData = {
   resetPasswordToken: string;
 };
 
-export const authAPI = {
-  login(data: LoginData) {
-    return instance.post("/auth/login", data);
-  },
-  logout() {
-    return instance.delete("/auth/me");
-  },
-  register(data: Omit<LoginData, "rememberMe">) {
-    return instance.post("/auth/register", data);
-  },
-  authMe() {
-    return instance.post("/auth/me", {});
-  },
-  editProfile(data: ProfileData) {
-    return instance.put("/auth/me", data);
-  },
-  passRecover() {
-    return instance.post("/auth/forgot", letter);
-  },
-  setNewPassword(data: PasswordResetData) {
-    return instance.post("/auth/set-new-password", data);
-  },
+type BackResponseType = {
+  info: string;
+  error: string;
+};
+
+type ProfileResponseType = {
+  _id: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  publicCardPacksCount: number; // количество колод
+
+  created: Date;
+  updated: Date;
+  isAdmin: boolean;
+  verified: boolean; // подтвердил ли почту
+  rememberMe: boolean;
+
+  error?: string;
+};
+
+type RegisterResponseType = {
+  addedUser: any;
+  error?: string;
+};
+
+type EditResponseType = {
+  updatedUser: any;
+  error?: string;
 };
