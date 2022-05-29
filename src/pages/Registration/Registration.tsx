@@ -1,10 +1,13 @@
 import {useFormik} from 'formik';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Navigate, useLocation, useNavigate} from 'react-router-dom';
 import {RoutePaths} from '../../constants/routePaths';
 import {useAppDispatch, useAppSelector} from '../../store/store';
 import {setError, setRegister} from './registrationReducer';
 import s from './Registration.module.css'
+import viewOp from '../../pages/Registration/view.png'
+import viewCl from '../../pages/Registration/viewClose.png'
+import {useSelector} from 'react-redux';
 
 type FormValues = {
     email: string
@@ -13,6 +16,17 @@ type FormValues = {
 }
 
 const Registration = () => {
+
+    const viewOpen = {
+        backgroundImage: `url(${viewOp})`,
+    };
+
+    const viewClose = {
+        backgroundImage: `url(${viewCl})`,
+    };
+
+    const [view, setView] = useState(false)
+
     const dispatch = useAppDispatch();
     const error = useAppSelector(state => state.registration.error)
 
@@ -52,23 +66,17 @@ const Registration = () => {
                 errors.confirmPassword = 'confirm password must be equal password';
             }
 
-
             return errors;
         },
         onSubmit: values => {
             dispatch(setRegister({email: values.email, password: values.password}))
-            // formik.resetForm()
-            // alert(JSON.stringify(values, null, 2));
         },
     });
 
-    const navigateToLogin = () => {
-        navigate(RoutePaths.login)
-    }
+    const changeView = () => setView(!view)
+    const navigateToLogin = () => navigate(RoutePaths.login)
 
-    if (error === 'Created') {
-        return <Navigate to={RoutePaths.login}/>
-    }
+    if (error === 'Created') return <Navigate to={RoutePaths.login}/>
 
     return (
         <div className={s.register}>
@@ -83,20 +91,32 @@ const Registration = () => {
                     {formik.touched.email && formik.errors.email ?
                         <div>{formik.errors.email}</div> : <div/>}
 
-                    <input placeholder={'password'}
-                           type="password"
-                           {...formik.getFieldProps('password')}/>
+                    <div className={s.passBlock}>
+                        <input placeholder={'password'}
+                               type={view ? 'text' : 'password'}
+                               {...formik.getFieldProps('password')}/>
+                        <div className={s.icon}
+                             style={view ? viewOpen : viewClose}
+                             onClick={changeView}/>
+                    </div>
                     {formik.touched.password && formik.errors.password ?
                         <div>{formik.errors.password}</div> : <div/>}
 
-                    <input placeholder={'confirm password'}
-                           type="password"
-                           {...formik.getFieldProps('confirmPassword')}/>
+                    <div className={s.passBlock}>
+                        <input placeholder={'confirm password'}
+                               type={view ? 'text' : 'password'}
+                               {...formik.getFieldProps('confirmPassword')}/>
+                        <div className={s.icon}
+                             style={view ? viewOpen : viewClose}
+                             onClick={changeView}/>
+                    </div>
                     {formik.touched.confirmPassword && formik.errors.confirmPassword ?
                         <div>{formik.errors.confirmPassword}</div> : <div/>}
 
                     <div className={s.buttonBlock}>
-                        <button className={s.buttonLog} onClick={navigateToLogin}>back to Login</button>
+                        <button className={s.buttonLog} onClick={navigateToLogin}>back to
+                            Login
+                        </button>
                         <button className={s.buttonReg} type="submit">Register</button>
                     </div>
                 </form>

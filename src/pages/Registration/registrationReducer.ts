@@ -43,7 +43,6 @@ export const setRegister = (data: RegisterData): ThunkApp => (dispatch) => {
         })
         .then(res => dispatch(setError('')))
         .catch((e) => {
-            debugger
             dispatch(setError(e.response.data.error))
         })
 };
