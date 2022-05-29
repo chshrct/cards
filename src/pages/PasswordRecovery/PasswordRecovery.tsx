@@ -31,11 +31,10 @@ const PasswordRecovery = () => {
       setSending(false);
     })
   };
-  const onEnter = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
+  const onEnterHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && !sendDisabled) {
       sendHandler();
     }
-
   }
   return (
     <div className={s.pRecWrapper}>
@@ -47,7 +46,7 @@ const PasswordRecovery = () => {
           value={email}
           onChangeText={emailOnChangeHandler}
           error={error}
-          onKeyDown={onEnter}
+          onKeyDown={onEnterHandler}
           disabled={sending}
         />
         <p>Enter your email address and we will send you further instructions</p>

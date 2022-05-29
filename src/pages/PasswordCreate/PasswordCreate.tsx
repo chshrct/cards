@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { KeyboardEvent, useState } from "react";
 import SuperButton from "../../components/shared/SuperButton/SuperButton";
 import s from './PasswordCreate.module.css';
 import { validatePassword } from "../../helpers/validation/inputValidators";
@@ -34,13 +34,18 @@ const PasswordCreate = () => {
       setSending(false);
     })
   }
+  const onEnterHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && !createPasswordDisabled) {
+      createPasswordHandler()
+    }
+  }
 
 
   return (
     <div className={s.pCrWrapper}>
       <h2>it-incubator</h2>
       <h3>Create new password</h3>
-      <SuperInputPassword type={'password'} placeholder='Password' value={password} onChangeText={passwordOnChangeHandler} error={error} disabled={sending} />
+      <SuperInputPassword type={'password'} placeholder='Password' value={password} onChangeText={passwordOnChangeHandler} error={error} disabled={sending} onKeyDown={onEnterHandler} />
       <p>Create new password and we will send you further instructions to email</p>
       <SuperButton onClick={createPasswordHandler} disabled={createPasswordDisabled}>Create new password</SuperButton>
     </div>
