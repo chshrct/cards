@@ -83,7 +83,6 @@ const Registration = () => {
             <div className={s.container}>
                 <h2>Registration</h2>
                 <h3>Sign up</h3>
-                <span>{error}</span>
                 <form onSubmit={formik.handleSubmit} className={s.formBlock}>
                     <input placeholder={'email'}
                            type="text"
@@ -120,6 +119,7 @@ const Registration = () => {
                         <button className={s.buttonReg} type="submit">Register</button>
                     </div>
                 </form>
+                <span>{error}</span>
             </div>
         </div>
     );
