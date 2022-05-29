@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import s from "./SuperInputPassword.module.css";
 import { ReactComponent as EyeIcon } from '../../../assets/icons/eye.svg';
+import { ReactComponent as EyeSlashIcon } from '../../../assets/icons/eye-slash.svg';
 
 // тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<
@@ -66,7 +67,9 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = ({
                     className={finalInputClassName}
                     {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
                 />
-                <EyeIcon onClick={passwordVisibleToggler} className={s.eyeIcon} />
+                {inputType === 'password'
+                    ? <EyeIcon onClick={passwordVisibleToggler} className={s.eyeIcon} height={25} width={25} fill={error && 'red'} />
+                    : <EyeSlashIcon onClick={passwordVisibleToggler} className={s.eyeIcon} height={25} width={25} fill={error && 'red'} />}
             </div>
             {<span className={finalSpanClassName}>{error}</span>}
         </>
