@@ -1,8 +1,42 @@
 .errorMessage {
     color: red;
-    margin: 0 10px 0 10px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.showPassword {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.showPassword img {
+    width: 22px;
+    height: 15px;
+    margin: 0;
 }
 
 .input {
-    margin: 5px;
+    width: 200px;
+    border: none;
+    outline: none;
+    margin: 0;
 }
+
+.hr {
+    width: 230px;
+    border: none;
+    background-color: #ececf1;
+    height: 1.58px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.checkbox {
+    margin: 4px 7px 0 0;
+} 
+

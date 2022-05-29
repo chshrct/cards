@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ErrorMessage, Field, Form, Formik,} from 'formik';
 import s from './LoginForm.module.css';
 import SuperButton from '../../../components/shared/SuperButton/SuperButton';
 import {useAppDispatch} from '../../../store/store';
 import {login} from '../loginReducer';
+import eye from './eye.png'
 
 
 export const LoginForm = () => {
@@ -11,6 +12,12 @@ export const LoginForm = () => {
     const dispatch = useAppDispatch()
 
     const initialValues = {email: '', password: '', rememberMe: false}
+    const [isVisible, setIsVisible] = useState<boolean>(false)
+    const finalPasswordType = isVisible ? "text": "password"
+
+    const showPassword = () => {
+        setIsVisible(!isVisible)
+    }
 
   return (
     <div>
@@ -42,17 +49,20 @@ export const LoginForm = () => {
               status
           }) => (
             <Form>
-                <div>
+                <div >
                     <Field placeholder={"login"} type="email" name="email" className={s.input}/>
+                    <hr className={s.hr}/>
                 </div>
                 <ErrorMessage name="email" component="div" className={s.errorMessage}/>
-                <div>
-                    <Field placeholder={"password"} type="password" name="password" className={s.input}/>
+                <div className={s.showPassword}>
+                    <Field placeholder={"password"} type={finalPasswordType} name="password" className={s.input}/>
+                    <img onClick={showPassword} className={s.eye} src={eye} alt=""/>
                 </div>
+                <hr className={s.hr}/>
                 <ErrorMessage name="password" component="div" className={s.errorMessage}/>
-                <div>
-                    <div className={s.errorMessage}>{status}</div>
-                    <Field type={'checkbox'} name={'rememberMe'}/>
+                <div className={s.remember}>
+                    <div>{status}</div>
+                    <Field className={s.checkbox} type={'checkbox'} name={'rememberMe'}/>
                     <label htmlFor={'rememberMe'}> remember me </label>
                 </div>
                 <SuperButton type="submit">Login</SuperButton>
