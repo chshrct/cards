@@ -1,7 +1,14 @@
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .errorMessage {
     color: red;
     margin: 5px;
     font-size: 14px;
+    align-self: start;
 }
 
 .showPassword {
@@ -33,10 +40,19 @@
 .remember {
     display: flex;
     align-items: center;
-    justify-content: end;
+    align-self: end;
 }
 
 .checkbox {
     margin: 4px 7px 0 0;
-} 
+}
+
+.forgotPassword {
+    display: flex;
+    align-self: end;
+}
+
+.loginButton {
+    margin: 10px;
+}
 
