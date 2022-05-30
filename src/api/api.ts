@@ -22,6 +22,8 @@ type LoginData = {
   rememberMe: boolean;
 };
 
+export type RegisterData = Omit<LoginData, "rememberMe">
+
 type ProfileData = {
   name: string;
   avatar: string;
@@ -38,7 +40,7 @@ export const authAPI = {
   logout() {
     return instance.delete("/auth/me");
   },
-  register(data: Omit<LoginData, "rememberMe">) {
+  register(data: RegisterData) {
     return instance.post("/auth/register", data);
   },
   authMe() {
