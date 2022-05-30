@@ -3,7 +3,7 @@
     height: 216px;
 
     background-color: #D9D9F1;
-    border-radius: 8px;
+    border-radius: 8px 0 8px 8px;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -38,7 +38,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 1.2;
-    
+
     margin: 0 0 4px 0;
     padding: 0;
     color: #2D2E46;
