@@ -8,6 +8,7 @@ import s from './Registration.module.css'
 import viewOp from '../../pages/Registration/view.png'
 import viewCl from '../../pages/Registration/viewClose.png'
 import {useSelector} from 'react-redux';
+import SuperButton from '../../components/shared/SuperButton/SuperButton';
 
 type FormValues = {
     email: string
@@ -81,7 +82,7 @@ const Registration = () => {
     return (
         <div className={s.register}>
             <div className={s.container}>
-                <h2>Registration</h2>
+                <h2>It-incubator</h2>
                 <h3>Sign up</h3>
                 <form onSubmit={formik.handleSubmit} className={s.formBlock}>
                     <input placeholder={'email'}
@@ -113,10 +114,10 @@ const Registration = () => {
                         <div>{formik.errors.confirmPassword}</div> : <div/>}
 
                     <div className={s.buttonBlock}>
-                        <button className={s.buttonLog} onClick={navigateToLogin}>back to
+                        <SuperButton className={s.buttonLog} onClick={navigateToLogin}>back to
                             Login
-                        </button>
-                        <button className={s.buttonReg} type="submit">Register</button>
+                        </SuperButton>
+                        <SuperButton className={s.buttonReg} type="submit">Register</SuperButton>
                     </div>
                 </form>
                 <span>{error}</span>
