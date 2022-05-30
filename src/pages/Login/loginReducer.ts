@@ -1,9 +1,9 @@
-import { authAPI } from "../../api/api";
-import { ThunkApp } from "../../store/store";
+import { authAPI } from '../../api/api';
+import { ThunkApp } from '../../store/store';
 
 enum LoginActionsTypes {
-  incCounter = "LOGIN/INCREASE_COUNTER",
-  setEmail = "LOGIN/SET_EMAIL",
+  incCounter = 'LOGIN/INCREASE_COUNTER',
+  setEmail = 'LOGIN/SET_EMAIL',
 }
 
 type LoginStateType = {
@@ -18,13 +18,13 @@ export type LoginRootActionType = IncCounter | SetEmail;
 
 const initialState = {
   count: 0,
-  email: "",
+  email: '',
 };
 
 const loginReducer = (
   state: LoginStateType = initialState,
-  action: LoginRootActionType
-) => {
+  action: LoginRootActionType,
+): LoginStateType => {
   switch (action.type) {
     case LoginActionsTypes.incCounter:
       return { ...state, count: state.count + action.payload.count };
@@ -36,7 +36,7 @@ const loginReducer = (
   }
 };
 
-//action
+// action
 export const incCounter = (payload: { count: number }) =>
   ({
     type: LoginActionsTypes.incCounter,
@@ -49,14 +49,14 @@ export const setEmail = (email: string) =>
   } as const);
 
 const data = {
-  email: "nya-admin@nya.nya",
-  password: "1qazxcvBG",
+  email: 'nya-admin@nya.nya',
+  password: '1qazxcvBG',
   rememberMe: false,
 };
 
-//thunk
-export const setEmailTestThunk = (): ThunkApp => (dispatch) => {
-  authAPI.login(data).then((res) => {
+// thunk
+export const setEmailTestThunk = (): ThunkApp => dispatch => {
+  authAPI.login(data).then(res => {
     dispatch(setEmail(res.data.email));
   });
 };
