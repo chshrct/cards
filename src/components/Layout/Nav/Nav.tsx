@@ -5,7 +5,7 @@ import s from "./Nav.module.css";
 
 const Nav = () => {
   return (
-    <>
+    <div>
       <div>
         <h2>Navigation</h2>
         <nav className={s.nav}>
@@ -19,7 +19,7 @@ const Nav = () => {
           <NavLink to={RoutePaths.testBench}>Test bench</NavLink>
         </nav>
       </div>
-    </>
+    </div>
   );
 };
 
