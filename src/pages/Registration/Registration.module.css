@@ -55,7 +55,7 @@
     position: relative;
 }
 
-input {
+.input {
     border: 0;
     border-bottom: 2px solid gray;
     outline: 0;
@@ -81,34 +81,34 @@ input {
     margin-top: 30px;
 }
 
-.buttonLog, .buttonReg {
+.buttonBlock .buttonLog, .buttonReg {
     border-radius: 15px;
     border: none;
     align-self: center;
     box-shadow: none;
 }
 
-.buttonLog {
+.buttonBlock .buttonLog {
     background-color: #D7D8EF;
     color: #21268F;
     padding: 5px 10px;
 
 }
 
-.buttonLog:hover{
+.buttonBlock .buttonLog:hover{
     box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
     -23px 0 20px -23px rgba(0, 0, 0, .8),
     23px 0 20px -23px rgba(0, 0, 0, .8),
     0 0 40px rgba(0, 0, 0, .1) inset;
 }
 
-.buttonReg {
+.buttonBlock .buttonReg {
     background-color: #21268F;
     color: #ECECF9;
     padding: 5px 35px;
 }
 
-.buttonReg:hover {
+.buttonBlock .buttonReg:hover {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
     -23px 0 20px -23px rgba(0, 0, 0, .8),
     23px 0 20px -23px rgba(0, 0, 0, .8),

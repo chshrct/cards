@@ -7,7 +7,6 @@ import {setError, setRegister} from './registrationReducer';
 import s from './Registration.module.css'
 import viewOp from '../../pages/Registration/view.png'
 import viewCl from '../../pages/Registration/viewClose.png'
-import {useSelector} from 'react-redux';
 import SuperButton from '../../components/shared/SuperButton/SuperButton';
 
 type FormValues = {
@@ -85,14 +84,14 @@ const Registration = () => {
                 <h2>It-incubator</h2>
                 <h3>Sign up</h3>
                 <form onSubmit={formik.handleSubmit} className={s.formBlock}>
-                    <input placeholder={'email'}
+                    <input className={s.input} placeholder={'email'}
                            type="text"
                            {...formik.getFieldProps('email')}/>
                     {formik.touched.email && formik.errors.email ?
                         <div>{formik.errors.email}</div> : <div/>}
 
                     <div className={s.passBlock}>
-                        <input placeholder={'password'}
+                        <input className={s.input} placeholder={'password'}
                                type={view ? 'text' : 'password'}
                                {...formik.getFieldProps('password')}/>
                         <div className={s.icon}
@@ -103,7 +102,7 @@ const Registration = () => {
                         <div>{formik.errors.password}</div> : <div/>}
 
                     <div className={s.passBlock}>
-                        <input placeholder={'confirm password'}
+                        <input className={s.input} placeholder={'confirm password'}
                                type={view ? 'text' : 'password'}
                                {...formik.getFieldProps('confirmPassword')}/>
                         <div className={s.icon}
@@ -114,10 +113,14 @@ const Registration = () => {
                         <div>{formik.errors.confirmPassword}</div> : <div/>}
 
                     <div className={s.buttonBlock}>
-                        <SuperButton className={s.buttonLog} onClick={navigateToLogin}>back to
-                            Login
+                        <SuperButton className={s.buttonLog}
+                                     onClick={navigateToLogin}>
+                            back to Login
                         </SuperButton>
-                        <SuperButton className={s.buttonReg} type="submit">Register</SuperButton>
+                        <SuperButton className={s.buttonReg}
+                                     type="submit">
+                            Register
+                        </SuperButton>
                     </div>
                 </form>
                 <span>{error}</span>
