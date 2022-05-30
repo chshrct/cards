@@ -3,6 +3,7 @@ export enum RoutePaths {
   passwordCreate = "/password-create",
   passwordRecovery = "/password-recovery",
   profile = "/profile",
+  editProfile = "/edit-profile",
   registration = "/registration",
   testBench = "/test-bench",
   random = "*",

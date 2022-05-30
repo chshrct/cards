@@ -1,13 +1,15 @@
-import SuperButton from '../../../components/shared/SuperButton/SuperButton'
-import s from './UserCard.module.css'
+import {Link} from 'react-router-dom';
+import s from './UserCard.module.css';
+import {RoutePaths } from '../../../constants/routePaths'
+
 
 const UserCard:React.FC = () => {
-  return (
+   return (
     <div className={s.userContainer}>
       <img src={'https://play-lh.googleusercontent.com/CWzqShf8hi-AhV9dUjzsqk2URzdIv8Vk2LmxBzf-Hc8T-oGkLVXe6pMpcXv36ofpvtc'} alt=''/>
       <h2>User's name</h2>
       <h3>Role</h3>
-      <SuperButton className={s.outlinedBtn}>Edit profile</SuperButton>
+      <Link className={s.outlined} to={RoutePaths.editProfile}>Edit profile</Link>
     </div>
   );
 };

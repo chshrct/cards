@@ -1,0 +1,73 @@
+.container {
+    width: 413px;
+    height: 540px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    margin: 24px auto 96px;
+    padding: 36px 33px 60px; 
+    background: #F9F9FE;
+    border-radius: 8px;
+}
+
+.container img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+
+    background: #21268F;
+    margin-bottom: 38px;
+}
+
+.container h2 {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.5;
+
+    color: #2D2E46;
+    margin: 0 0 15px;
+}
+
+.formRow {
+    position: relative;
+    margin-bottom: 40px;
+    font-size: 1.1em;
+    color: $mainTextColor;
+    display: block;
+    width: 100%;
+    padding: 0 10px;
+    line-height: 2em;
+    font-family: 'Roboto', sans-serif;
+    background: none;
+    border-width: 0;
+    border-bottom: 2px solid $themeColor;
+    transition: all 0.2s ease;
+}
+
+.formRow:focus {
+    outline: 0;
+    border-color: $menuTextColor;
+  }
+
+ .formRow:focus + label,  .formRow:valid + label {
+    transform: translateY(-70px);
+    font-size: 0.8em;
+    font-weight: 400;
+    outline: 0;
+    border-color: $themeColor;
+    color: $themeColor;
+  }
+
+.formRow label {
+      position: absolute;
+      left: 0;
+      top: 45px;
+      color: $menuTextColor;
+      font-size: 1em;
+      font-weight: 300;
+      transform: translateY(-35px);
+      transition: all 0.2s ease;
+    }

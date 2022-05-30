@@ -44,7 +44,7 @@
     color: #2D2E46;
     opacity: 0.5;
 }
-.outlinedBtn {
+.outlined {
     border: 1px solid rgba(99, 93, 128, 0.5);
     border-radius: 2px;
     padding: 4px 8px;
@@ -52,13 +52,14 @@
     max-width: 82px;
 
     color: #21268F;
+    text-decoration: none;
     font-family: Roboto, sans-serif;
     font-weight: 600;
     font-size: 12px;
     line-height: 1.17;  
 
  }
- .outlinedBtn:hover { 
+ .outlined:hover { 
     background-color: #21268F;
     color: #FFFFFF;
     transition: 0.8s;

@@ -6,6 +6,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import PasswordCreate from "../pages/PasswordCreate/PasswordCreate";
 import PasswordRecovery from "../pages/PasswordRecovery/PasswordRecovery";
 import Profile from "../pages/Profile/Profile";
+import EditProfile from "../pages/Profile/EditProfile/EditProfile"
 import Registration from "../pages/Registration/Registration";
 import TestBench from "../pages/TestBench/TestBench";
 import "./App.css";
@@ -32,6 +33,7 @@ function App() {
             element={<PasswordRecovery />}
           />
           <Route path={RoutePaths.profile} element={<Profile />} />
+          <Route path={RoutePaths.editProfile} element={<EditProfile />} />
           <Route path={RoutePaths.registration} element={<Registration />} />
           <Route path={RoutePaths.testBench} element={<TestBench />} />
         </Route>
