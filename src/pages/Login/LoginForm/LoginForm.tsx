@@ -70,9 +70,7 @@ export const LoginForm = () => {
                         <div className={s.forgotPassword}>
                             <NavLink to={RoutePaths.passwordRecovery}>Forgot Password</NavLink>
                         </div>
-                        <SuperButton type="submit" className={s.loginButton}>
-                            <NavLink to={RoutePaths.profile}>Login</NavLink>
-                        </SuperButton>
+                        <SuperButton type="submit" className={s.loginButton}>Login</SuperButton>
                         <span>Don't have an account?</span>
                         <NavLink to={RoutePaths.registration}>Sign Up</NavLink>
                     </Form>

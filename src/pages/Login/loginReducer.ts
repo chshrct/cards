@@ -2,6 +2,7 @@ import {authAPI} from '../../api/api';
 import {ThunkApp} from '../../store/store';
 
 enum LoginActionsTypes {
+    setAuthUserData = 'LOGIN/SET_AUTH_USER_DATA',
     setUserData = 'LOGIN/SET_USER_DATA',
     setEmail = 'LOGIN/SET_EMAIL',
 }
@@ -20,16 +21,17 @@ type UserDataType = {
     error?: string;
 }
 
+type SetAuthUserData = ReturnType<typeof setAuthUserData>;
 type SetUserData = ReturnType<typeof setUserData>;
 type SetEmail = ReturnType<typeof setEmail>;
 
-export type LoginRootActionType = SetUserData | SetEmail;
+export type LoginRootActionType = SetUserData | SetEmail | SetAuthUserData;
 
 const initialState = {
     email: '',
-    password: '',
     rememberMe: false,
-    user: null as UserDataType | null
+    isAuth: false,
+    user: null as UserDataType | null,
 };
 
 export type LoginStateType = typeof initialState
@@ -39,6 +41,9 @@ const loginReducer = (
     action: LoginRootActionType
 ) => {
     switch (action.type) {
+        case LoginActionsTypes.setEmail:
+            return {...state, email: action.email};
+        case LoginActionsTypes.setAuthUserData:
         case LoginActionsTypes.setUserData:
             return {...state, ...action.payload};
         default:
@@ -57,6 +62,10 @@ export const setUserData = (payload: { user: UserDataType }) =>
         type: LoginActionsTypes.setUserData,
         payload,
     } as const);
+export const setAuthUserData = (email: string, rememberMe: boolean, isAuth: boolean) => ({
+    type: LoginActionsTypes.setAuthUserData,
+    payload: {email, rememberMe, isAuth},
+} as const);
 
 const data = {
     email: 'nya-admin@nya.nya',
@@ -74,6 +83,7 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
     return (dispatch) => {
         authAPI.login({email, password, rememberMe})
             .then((res) => {
+                dispatch(setAuthUserData(email, rememberMe, true));
                 dispatch(setUserData(res.data));
                 console.log(JSON.stringify(res.data));
             })
