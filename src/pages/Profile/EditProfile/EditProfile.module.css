@@ -17,7 +17,7 @@
   border-radius: 50%;
 
   background: #21268f;
-  margin-bottom: 38px;
+  margin-bottom: 58px;
 }
 
 .container h2 {
@@ -28,4 +28,38 @@
 
   color: #2d2e46;
   margin: 0 0 15px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-self: stretch;
+  align-items: flex-end;
+  flex: 1 0 auto;
+}
+.primary {
+  color: #ececf9;
+  background: #21268f;
+  box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35),
+    inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.primary:hover,
+.primary:focus,
+.primary:active {
+  filter: brightness(1.25);
+  color: #ececf9;
+}
+
+.secondary {
+  background: #d7d8ef;
+  color: #21268f;
+  opacity: 0.8;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.secondary:hover,
+.secondary:focus {
+  filter: brightness(0.95);
+  color: #21268f;
 }

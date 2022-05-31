@@ -1,4 +1,5 @@
 import React from 'react'
+import SuperButton from '../../../components/shared/SuperButton/SuperButton'
 import SuperInputText from '../../../components/shared/SuperInputText/SuperInputText'
 import { useInput } from '../../../hooks/useInput/useInput'
 import s from './EditProfile.module.css'
@@ -40,6 +41,10 @@ const EditProfile: React.FC = () => {
         label={'Email'}
         id={'email'}
       />
+      <div className={s.buttonsWrapper}>
+        <SuperButton className={s.secondary}>Cancel</SuperButton>
+        <SuperButton className={s.primary}>Save</SuperButton>
+      </div>
     </div>
   )
 }
