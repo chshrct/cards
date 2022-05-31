@@ -1,38 +1,80 @@
+.superInputWrapper {
+  width: 100%;
+  position: relative;
+  margin-bottom: 44px;
+}
+
 .superInput {
   border: none;
   outline: none;
   background: transparent;
   border-bottom: 2px solid rgba(36, 37, 74, 0.2);
   width: 100%;
-  font-family: "Roboto", sans-serif;
+  transition: all 0.2s ease;
+
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
-  color: #2D2E46;
+  color: #2d2e46;
 }
 
 .superInput::placeholder {
   opacity: 0.5;
-  color: #2D2E46;
-}
+  color: #2d2e46;
 
-.superInput:focus {
-  opacity: 1;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.71;
 }
 
 .errorInput {
-  border-bottom: 2px solid red;
-  color: red;
-}
-.errorInput:focus {
-  opacity: 1;
+  border-bottom: 2px solid #f1453d;
+  color: #f1453d;
 }
 
 .error {
   height: 15px;
   margin-top: 5px;
-  color: red;
-  font-family: "Roboto", sans-serif;
+  color: #f1453d;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 14px;
+}
+
+.superInputWrapper label {
+  position: absolute;
+  left: 0;
+  top: 45px;
+  transform: translateY(-45px);
+  transition: all 0.2s ease;
+  color: #24254a;
+  opacity: 0.5;
+
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.superInput:valid + label,
+.superInput:focus + label {
+  transform: translateY(-66px);
+  font-size: 13px;
+  line-height: 1.54;
+  font-weight: 400;
+}
+
+/* styles for autocomplete */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: all 5000s ease-in-out 0s;
+  transition-property: #f9f9fe, #2d2e46;
+}
+input[data-autocompleted] {
+  background-color: transparent !important;
 }
