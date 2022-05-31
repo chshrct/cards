@@ -1,12 +1,12 @@
 enum RegistrationActionsTypes {
-  incCounter = "TEST/INCREASE_COUNTER",
+  incCounter = 'TEST/INCREASE_COUNTER',
 }
 
 type RegistrationStateType = {
   count: number;
 };
 
-type IncCounter = ReturnType<typeof incCounter>;
+type IncCounter = ReturnType<typeof incCounterRegistration>;
 
 export type RegistrationRootActionType = IncCounter;
 
@@ -14,10 +14,10 @@ const initialState = {
   count: 0,
 };
 
-const registrationReducer = (
+export const registrationReducer = (
   state: RegistrationStateType = initialState,
-  { type, payload }: RegistrationRootActionType
-) => {
+  { type, payload }: RegistrationRootActionType,
+): RegistrationStateType => {
   switch (type) {
     case RegistrationActionsTypes.incCounter:
       return { ...state, count: state.count + payload.count };
@@ -27,11 +27,9 @@ const registrationReducer = (
   }
 };
 
-//action
-export const incCounter = (payload: { count: number }) =>
+// action
+export const incCounterRegistration = (payload: { count: number }) =>
   ({
     type: RegistrationActionsTypes.incCounter,
     payload,
   } as const);
-
-export default registrationReducer;

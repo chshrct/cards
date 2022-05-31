@@ -1,11 +1,9 @@
-import React from "react";
+import React, { FC } from 'react';
 
-const Login = () => {
+export const Login: FC = () => {
   return (
     <div>
       <h2>Login</h2>
     </div>
   );
 };
-
-export default Login;

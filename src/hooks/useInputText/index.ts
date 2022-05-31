@@ -1,0 +1,1 @@
+export { useSuperInput } from './useInputText';

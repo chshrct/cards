@@ -1,28 +1,31 @@
 .superInput {
-    outline: none;
-    border: 1px solid black;
-    border-radius: 3px;
-    transition: transform 200ms;
-    background-color: #ffe26a;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 2px solid black;
+  opacity: 0.5;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
 }
-
-.superInput:focus{
-    box-shadow: 2px 3px grey;
-    transition: transform 200ms;
-    transform: scale(1.01);
+.superInput:focus {
+  opacity: 1;
 }
 
 .errorInput {
-    background-color: #ffe26a;
-    border: 2px solid red ;
-    border-radius: 3px;
-    outline:none;
+  border-bottom: 2px solid red;
+  color: red;
+}
+.errorInput:focus {
+  opacity: 1;
 }
 
 .error {
-    color: red;
+  height: 15px;
+  margin-top: 5px;
+  color: red;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
 }
-
-
-
-

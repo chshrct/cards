@@ -1,46 +1,41 @@
-import React, { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react'
-import s from './SuperRange.module.css'
+import React, { ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes } from 'react';
 
-// тип пропсов обычного инпута
+import s from './SuperRange.module.css';
+
 type DefaultInputPropsType = DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
->
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
-// здесь мы говорим что у нашего инпута будут такие же пропсы как у обычного инпута
-// (чтоб не писать value: string, onChange: ...; они уже все описаны в DefaultInputPropsType)
 type SuperRangePropsType = DefaultInputPropsType & {
-    // и + ещё пропсы которых нет в стандартном инпуте
-    onChangeRange?: (value: number) => void
-}
+  onChangeRange?: (value: number) => void;
+};
 
-const SuperRange: React.FC<SuperRangePropsType> = ({
-    type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
-    onChange,
-    onChangeRange,
-    className,
+export const SuperRange: FC<SuperRangePropsType> = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type,
+  onChange,
+  onChangeRange,
+  className,
 
-    ...restProps // все остальные пропсы попадут в объект restProps
+  ...restProps
 }) => {
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange && onChange(e) // сохраняем старую функциональность
+  const onChangeCallback = (e: ChangeEvent<HTMLInputElement>): void => {
+    onChange?.(e);
 
-        onChangeRange && onChangeRange(+e.currentTarget.value)
-    }
+    onChangeRange?.(+e.currentTarget.value);
+  };
 
-    const finalRangeClassName = `${s.range} ${className ? className : ''}`
+  const finalRangeClassName = `${s.range} ${className || ''}`;
 
-    return (
-        <>
-            <input
-                title="SuperRange"
-                type={'range'}
-                onChange={onChangeCallback}
-                className={finalRangeClassName}
-                {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
-            />
-        </>
-    )
-}
-
-export default SuperRange
+  return (
+    <input
+      title="SuperRange"
+      type="range"
+      onChange={onChangeCallback}
+      className={finalRangeClassName}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...restProps}
+    />
+  );
+};
