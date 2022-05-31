@@ -7,23 +7,24 @@ import s from './PasswordRecovery.module.css';
 import { authAPI } from 'api';
 import { ReactComponent as EmailIcon } from 'assets/icons/email.svg';
 import { SuperButton, SuperInputText } from 'components';
-import { RoutePaths } from 'constant';
+import { EMPTY_STRING } from 'constant';
 import { validateEmail } from 'helpers';
+import { AppRoutePaths } from 'routes';
 
 export const PasswordRecovery: FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [email, setEmail] = useState<string>(EMPTY_STRING);
+  const [error, setError] = useState<string>(EMPTY_STRING);
   const [isSending, setIsSending] = useState<boolean>(false);
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
 
-  const isEmailControlDisabled = !!error || isSending;
+  const isEmailControlsDisabled = !!error || isSending;
 
-  const handleEmailChange = (value: string): void => {
+  const onEmailChange = (value: string): void => {
     setEmail(value);
     setError(validateEmail(value));
   };
 
-  const onSendClick = (): void => {
+  const onSendEmailClick = (): void => {
     setIsSending(true);
     authAPI
       .passRecover(email)
@@ -39,8 +40,8 @@ export const PasswordRecovery: FC = () => {
   };
 
   const onEmailKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter' && !isEmailControlDisabled) {
-      onSendClick();
+    if (event.key === 'Enter' && !isEmailControlsDisabled) {
+      onSendEmailClick();
     }
   };
 
@@ -53,17 +54,17 @@ export const PasswordRecovery: FC = () => {
           <SuperInputText
             placeholder="Email"
             value={email}
-            onChangeText={handleEmailChange}
+            onChangeText={onEmailChange}
             error={error}
             onKeyDown={onEmailKeyDown}
             disabled={isSending}
           />
           <p>Enter your email address and we will send you further instructions</p>
-          <SuperButton disabled={isEmailControlDisabled} onClick={onSendClick}>
+          <SuperButton disabled={isEmailControlsDisabled} onClick={onSendEmailClick}>
             Send Instructions
           </SuperButton>
           <p>Did you remember your password?</p>
-          <Link to={RoutePaths.login} className={s.link}>
+          <Link to={AppRoutePaths.LOGIN} className={s.link}>
             Try logging in
           </Link>
         </>

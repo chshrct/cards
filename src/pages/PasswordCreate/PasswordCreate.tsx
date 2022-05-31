@@ -6,37 +6,38 @@ import s from './PasswordCreate.module.css';
 
 import { authAPI } from 'api';
 import { SuperButton, SuperInputPassword } from 'components';
-import { MAX_PASSWORD_LENGTH, RoutePaths } from 'constant';
+import { EMPTY_STRING, MAX_PASSWORD_LENGTH } from 'constant';
 import { validatePassword } from 'helpers';
+import { AppRoutePaths } from 'routes';
 
 export const PasswordCreate: FC = () => {
-  const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<string>('');
-  const [sending, setSending] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>(EMPTY_STRING);
+  const [error, setError] = useState<string>(EMPTY_STRING);
+  const [isSending, setIsSending] = useState<boolean>(false);
   const { token } = useParams();
   const navigate = useNavigate();
-  const createPasswordDisabled =
-    !!error || sending || password.length <= MAX_PASSWORD_LENGTH;
+  const isPasswordControlsDisabled =
+    !!error || isSending || password.length <= MAX_PASSWORD_LENGTH;
   const passwordOnChangeHandler = (value: string): void => {
     setPassword(value);
     setError(validatePassword(value));
   };
   const createPasswordHandler = (): void => {
-    setSending(true);
+    setIsSending(true);
     authAPI
       .setNewPassword({ password, resetPasswordToken: token! })
       .then(() => {
-        navigate(RoutePaths.login);
+        navigate(AppRoutePaths.LOGIN);
       })
       .catch(e => {
         setError(e.response.data.error);
       })
       .finally(() => {
-        setSending(false);
+        setIsSending(false);
       });
   };
   const onEnterHandler = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter' && !createPasswordDisabled) {
+    if (event.key === 'Enter' && !isPasswordControlsDisabled) {
       createPasswordHandler();
     }
   };
@@ -51,11 +52,11 @@ export const PasswordCreate: FC = () => {
         value={password}
         onChangeText={passwordOnChangeHandler}
         error={error}
-        disabled={sending}
+        disabled={isSending}
         onKeyDown={onEnterHandler}
       />
       <p>Create new password and we will send you further instructions to email</p>
-      <SuperButton onClick={createPasswordHandler} disabled={createPasswordDisabled}>
+      <SuperButton onClick={createPasswordHandler} disabled={isPasswordControlsDisabled}>
         Create new password
       </SuperButton>
     </div>
