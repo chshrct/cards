@@ -24,7 +24,7 @@ type SuperInputTextPropsType = DefaultInputPropsType & {
   spanClassName?: string;
 };
 
-const SuperInputText: FC<SuperInputTextPropsType> = ({
+export const SuperInputPassword: FC<SuperInputTextPropsType> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type,
   onChange,
@@ -88,5 +88,3 @@ const SuperInputText: FC<SuperInputTextPropsType> = ({
     </>
   );
 };
-
-export default SuperInputText;

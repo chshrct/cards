@@ -1,4 +1,4 @@
-import { authAPI } from '../../api/api';
+import { authAPI } from '../../api/authApi';
 import { ThunkApp } from '../../store/store';
 
 enum LoginActionsTypes {
@@ -11,17 +11,17 @@ type LoginStateType = {
   email: string;
 };
 
-type IncCounter = ReturnType<typeof incCounter>;
+type IncCounterLogin = ReturnType<typeof incCounterLogin>;
 type SetEmail = ReturnType<typeof setEmail>;
 
-export type LoginRootActionType = IncCounter | SetEmail;
+export type LoginRootActionType = IncCounterLogin | SetEmail;
 
 const initialState = {
   count: 0,
   email: '',
 };
 
-const loginReducer = (
+export const loginReducer = (
   state: LoginStateType = initialState,
   action: LoginRootActionType,
 ): LoginStateType => {
@@ -37,7 +37,7 @@ const loginReducer = (
 };
 
 // action
-export const incCounter = (payload: { count: number }) =>
+export const incCounterLogin = (payload: { count: number }) =>
   ({
     type: LoginActionsTypes.incCounter,
     payload,
@@ -60,5 +60,3 @@ export const setEmailTestThunk = (): ThunkApp => dispatch => {
     dispatch(setEmail(res.data.email));
   });
 };
-
-export default loginReducer;

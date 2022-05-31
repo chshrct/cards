@@ -6,7 +6,7 @@ type ProfileStateType = {
   count: number;
 };
 
-type IncCounter = ReturnType<typeof incCounter>;
+type IncCounter = ReturnType<typeof incCounterProfile>;
 
 export type ProfileRootActionType = IncCounter;
 
@@ -14,7 +14,7 @@ const initialState = {
   count: 0,
 };
 
-const profileReducer = (
+export const profileReducer = (
   state: ProfileStateType = initialState,
   { type, payload }: ProfileRootActionType,
 ): ProfileStateType => {
@@ -28,10 +28,8 @@ const profileReducer = (
 };
 
 // action
-export const incCounter = (payload: { count: number }) =>
+export const incCounterProfile = (payload: { count: number }) =>
   ({
     type: ProfileActionsTypes.incCounter,
     payload,
   } as const);
-
-export default profileReducer;

@@ -4,25 +4,26 @@ import { Link } from 'react-router-dom';
 
 import s from './PasswordRecovery.module.css';
 
-import { authAPI } from 'api/api';
+import { authAPI } from 'api';
 import { ReactComponent as EmailIcon } from 'assets/icons/email.svg';
-import SuperButton from 'components/shared/SuperButton/SuperButton';
-import SuperInputText from 'components/shared/SuperInputText/SuperInputText';
-import { RoutePaths } from 'constants/routePaths';
-import { validateEmail } from 'helpers/validation/inputValidators';
+import { SuperButton, SuperInputText } from 'components';
+import { RoutePaths } from 'constant';
+import { validateEmail } from 'helpers';
 
-const PasswordRecovery: FC = () => {
+export const PasswordRecovery: FC = () => {
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [isSending, setIsSending] = useState<boolean>(false);
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
-  const sendDisabled = !!error || isSending;
-  const emailOnChangeHandler = (value: string): void => {
+
+  const isEmailControlDisabled = !!error || isSending;
+
+  const handleEmailChange = (value: string): void => {
     setEmail(value);
     setError(validateEmail(value));
   };
 
-  const sendHandler = (): void => {
+  const onSendClick = (): void => {
     setIsSending(true);
     authAPI
       .passRecover(email)
@@ -36,11 +37,13 @@ const PasswordRecovery: FC = () => {
         setIsSending(false);
       });
   };
-  const onEnterHandler = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter' && !sendDisabled) {
-      sendHandler();
+
+  const onEmailKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter' && !isEmailControlDisabled) {
+      onSendClick();
     }
   };
+
   return (
     <div className={s.pRecWrapper}>
       <h2>it-incubator</h2>
@@ -50,13 +53,13 @@ const PasswordRecovery: FC = () => {
           <SuperInputText
             placeholder="Email"
             value={email}
-            onChangeText={emailOnChangeHandler}
+            onChangeText={handleEmailChange}
             error={error}
-            onKeyDown={onEnterHandler}
+            onKeyDown={onEmailKeyDown}
             disabled={isSending}
           />
           <p>Enter your email address and we will send you further instructions</p>
-          <SuperButton disabled={sendDisabled} onClick={sendHandler}>
+          <SuperButton disabled={isEmailControlDisabled} onClick={onSendClick}>
             Send Instructions
           </SuperButton>
           <p>Did you remember your password?</p>
@@ -74,5 +77,3 @@ const PasswordRecovery: FC = () => {
     </div>
   );
 };
-
-export default PasswordRecovery;

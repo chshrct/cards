@@ -18,7 +18,7 @@ type SuperSelectPropsType = DefaultSelectPropsType & {
   onChangeOption?: (option: any) => void;
 };
 
-const SuperSelect: FC<SuperSelectPropsType> = ({
+export const SuperSelect: FC<SuperSelectPropsType> = ({
   options,
   onChange,
   onChangeOption,

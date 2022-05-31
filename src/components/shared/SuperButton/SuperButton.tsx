@@ -11,11 +11,13 @@ type SuperButtonPropsType = DefaultButtonPropsType & {
   red?: boolean;
 };
 
-const SuperButton: FC<SuperButtonPropsType> = ({ red, className, ...restProps }) => {
+export const SuperButton: FC<SuperButtonPropsType> = ({
+  red,
+  className,
+  ...restProps
+}) => {
   const finalClassName = `${red ? `${s.button} ${s.red}` : s.button} ${className}`;
 
   // eslint-disable-next-line react/jsx-props-no-spreading
   return <button type="button" className={finalClassName} {...restProps} />;
 };
-
-export default SuperButton;

@@ -18,7 +18,7 @@ type SuperRadioPropsType = DefaultRadioPropsType & {
   onChangeOption?: (option: any) => void;
 };
 // @ts-ignore
-const SuperRadio: FC<SuperRadioPropsType> = ({
+export const SuperRadio: FC<SuperRadioPropsType> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type,
   name,
@@ -61,5 +61,3 @@ const SuperRadio: FC<SuperRadioPropsType> = ({
 
   return mappedOptions;
 };
-
-export default SuperRadio;

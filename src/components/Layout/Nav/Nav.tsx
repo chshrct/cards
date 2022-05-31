@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 
 import s from './Nav.module.css';
 
-import { RoutePaths } from 'constants/routePaths';
+import { RoutePaths } from 'constant';
 
-const Nav: FC = () => {
+export const Nav: FC = () => {
   return (
     <div>
       <h2>Navigation</h2>
@@ -23,5 +23,3 @@ const Nav: FC = () => {
     </div>
   );
 };
-
-export default Nav;

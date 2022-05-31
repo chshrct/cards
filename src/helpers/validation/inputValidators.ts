@@ -1,7 +1,7 @@
-import { validationConstants } from 'constants/validation';
+import { EMPTY_STRING, MAX_PASSWORD_LENGTH } from 'constant';
 
 export const validateEmail = (email: string): string => {
-  if (email === validationConstants.emptyString) {
+  if (email === EMPTY_STRING) {
     return '';
   }
   const emailRegExp =
@@ -11,10 +11,10 @@ export const validateEmail = (email: string): string => {
 };
 
 export const validatePassword = (password: string): string => {
-  if (password === validationConstants.emptyString) {
+  if (password === EMPTY_STRING) {
     return '';
   }
-  if (password.length <= validationConstants.maxPasswordLength) {
+  if (password.length <= MAX_PASSWORD_LENGTH) {
     return 'Password must be at least 8 characters long';
   }
   return '';

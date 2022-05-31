@@ -2,17 +2,19 @@ import React, { FC } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import SuperButton from 'components/shared/SuperButton/SuperButton';
-import SuperCheckbox from 'components/shared/SuperCheckbox/SuperCheckbox';
-import SuperEditableSpan from 'components/shared/SuperEditableSpan/SuperEditableSpan';
-import SuperInputText from 'components/shared/SuperInputText/SuperInputText';
-import SuperRadio from 'components/shared/SuperRadio/SuperRadio';
-import SuperRange from 'components/shared/SuperRange/SuperRange';
-import SuperSelect from 'components/shared/SuperSelect/SuperSelect';
-import { setEmailTestThunk } from 'pages/Login/loginReducer';
-import { AppRootStateType, useAppDispatch } from 'store/store';
+import {
+  SuperButton,
+  SuperCheckbox,
+  SuperEditableSpan,
+  SuperInputText,
+  SuperRadio,
+  SuperRange,
+  SuperSelect,
+} from 'components';
+import { setEmailTestThunk } from 'pages';
+import { AppRootStateType, useAppDispatch } from 'store';
 
-const TestBench: FC = () => {
+export const TestBench: FC = () => {
   const count = useSelector<AppRootStateType>(state => state.profile.count);
   const dispatch = useAppDispatch();
 
@@ -60,5 +62,3 @@ const TestBench: FC = () => {
     </div>
   );
 };
-
-export default TestBench;

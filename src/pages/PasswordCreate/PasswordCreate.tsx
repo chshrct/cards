@@ -4,21 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import s from './PasswordCreate.module.css';
 
-import { authAPI } from 'api/api';
-import SuperButton from 'components/shared/SuperButton/SuperButton';
-import SuperInputPassword from 'components/shared/SuperInputPassword/SuperInputPassword';
-import { RoutePaths } from 'constants/routePaths';
-import { validationConstants } from 'constants/validation';
-import { validatePassword } from 'helpers/validation/inputValidators';
+import { authAPI } from 'api';
+import { SuperButton, SuperInputPassword } from 'components';
+import { MAX_PASSWORD_LENGTH, RoutePaths } from 'constant';
+import { validatePassword } from 'helpers';
 
-const PasswordCreate: FC = () => {
+export const PasswordCreate: FC = () => {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const { token } = useParams();
   const navigate = useNavigate();
   const createPasswordDisabled =
-    !!error || sending || password.length <= validationConstants.maxPasswordLength;
+    !!error || sending || password.length <= MAX_PASSWORD_LENGTH;
   const passwordOnChangeHandler = (value: string): void => {
     setPassword(value);
     setError(validatePassword(value));
@@ -63,5 +61,3 @@ const PasswordCreate: FC = () => {
     </div>
   );
 };
-
-export default PasswordCreate;

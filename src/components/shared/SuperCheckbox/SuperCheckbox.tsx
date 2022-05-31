@@ -18,7 +18,7 @@ type SuperCheckboxPropsType = DefaultInputPropsType & {
   spanClassName?: string;
 };
 
-const SuperCheckbox: FC<SuperCheckboxPropsType> = ({
+export const SuperCheckbox: FC<SuperCheckboxPropsType> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type,
   onChange,
@@ -54,5 +54,3 @@ const SuperCheckbox: FC<SuperCheckboxPropsType> = ({
     </label>
   );
 };
-
-export default SuperCheckbox;

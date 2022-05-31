@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import Nav from './Nav/Nav';
+import { Nav } from './Nav';
 
-const Layout: FC = () => {
+export const Layout: FC = () => {
   return (
     <>
       <Nav />
@@ -12,5 +12,3 @@ const Layout: FC = () => {
     </>
   );
 };
-
-export default Layout;

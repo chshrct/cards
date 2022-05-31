@@ -2,15 +2,17 @@ import React, { FC } from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Layout from 'components/Layout/Layout';
-import { RoutePaths } from 'constants/routePaths';
-import Login from 'pages/Login/Login';
-import NotFound from 'pages/NotFound/NotFound';
-import PasswordCreate from 'pages/PasswordCreate/PasswordCreate';
-import PasswordRecovery from 'pages/PasswordRecovery/PasswordRecovery';
-import Profile from 'pages/Profile/Profile';
-import Registration from 'pages/Registration/Registration';
-import TestBench from 'pages/TestBench/TestBench';
+import { Layout } from 'components';
+import { RoutePaths } from 'constant';
+import {
+  Login,
+  NotFound,
+  PasswordCreate,
+  PasswordRecovery,
+  Profile,
+  Registration,
+  TestBench,
+} from 'pages';
 
 import './App.css';
 

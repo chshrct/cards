@@ -6,9 +6,9 @@ import React, {
   FC,
 } from 'react';
 
-import SuperInputText from '../SuperInputText/SuperInputText';
-
 import s from './SuperEditableSpan.module.css';
+
+import { SuperInputText } from 'components';
 
 type DefaultInputPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -27,7 +27,7 @@ type SuperEditableSpanType = DefaultInputPropsType & {
   spanProps?: DefaultSpanPropsType;
 };
 
-const SuperEditableSpan: FC<SuperEditableSpanType> = ({
+export const SuperEditableSpan: FC<SuperEditableSpanType> = ({
   onBlur,
   onEnter,
   spanProps,
@@ -74,5 +74,3 @@ const SuperEditableSpan: FC<SuperEditableSpanType> = ({
     </span>
   );
 };
-
-export default SuperEditableSpan;
