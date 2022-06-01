@@ -2,6 +2,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
+import { loginReducer } from '../pages/Login/loginReducer';
+import { profileReducer } from '../pages/Profile';
 import { registrationReducer } from '../pages/Registration/registrationReducer';
 
 import {
@@ -9,8 +11,6 @@ import {
   ProfileRootActionType,
   RegistrationRootActionType,
 } from 'pages';
-import {loginReducer} from '../pages/Login/loginReducer';
-import {profileReducer} from '../pages/Profile';
 
 const rootReducer = combineReducers({
   login: loginReducer,
