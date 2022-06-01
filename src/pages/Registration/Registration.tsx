@@ -94,6 +94,7 @@ export const Registration: React.FC = () => {
             name="email"
             onChange={formik.handleChange}
             value={formik.values.email}
+            onBlur={formik.handleBlur}
           />
           {formik.touched.email && formik.errors.email ? (
             <div>{formik.errors.email}</div>
@@ -109,6 +110,7 @@ export const Registration: React.FC = () => {
               name="password"
               onChange={formik.handleChange}
               value={formik.values.password}
+              onBlur={formik.handleBlur}
             />
             <div
               role="none"
@@ -131,6 +133,7 @@ export const Registration: React.FC = () => {
               name="confirmPassword"
               onChange={formik.handleChange}
               value={formik.values.confirmPassword}
+              onBlur={formik.handleBlur}
             />
             <div
               role="none"
