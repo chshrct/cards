@@ -1,7 +1,6 @@
 .superInputWrapper {
   width: 100%;
   position: relative;
-  margin-bottom: 44px;
 }
 
 .superInput {
@@ -79,4 +78,3 @@ input:-webkit-autofill:active {
 input[data-autocompleted] {
   background-color: transparent !important;
 }
-

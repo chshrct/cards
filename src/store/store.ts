@@ -3,7 +3,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { loginReducer } from '../pages/Login/loginReducer';
-import { profileReducer } from '../pages/Profile';
+import { profileReducer } from '../pages/Profile/profileReducer';
 import { registrationReducer } from '../pages/Registration/registrationReducer';
 
 import {

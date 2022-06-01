@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { RoutePaths } from '../../../constants/routePaths';
-
 import s from './UserCard.module.css';
+
+import { AppRoutePaths } from 'routes';
 
 export const UserCard: FC = () => {
   return (
@@ -15,7 +15,7 @@ export const UserCard: FC = () => {
       />
       <h2>User&apos;s name</h2>
       <h3>Role</h3>
-      <Link className={s.outlined} to={RoutePaths.editProfile}>
+      <Link className={s.outlined} to={AppRoutePaths.EDIT_PROFILE}>
         Edit profile
       </Link>
     </div>

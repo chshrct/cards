@@ -12,23 +12,21 @@ type UserDataType = {
   email: string;
   name: string;
   avatar?: string;
-  publicCardPacksCount: number; // количество колод
+  publicCardPacksCount: number;
   created: Date;
   updated: Date;
   isAdmin: boolean;
-  verified: boolean; // подтвердил ли почту
+  verified: boolean;
   rememberMe: boolean;
   error?: string;
 };
 
 type SetAuthUserData = ReturnType<typeof setAuthUserData>;
 type SetUserData = ReturnType<typeof setUserData>;
-type SetEmail = ReturnType<typeof setEmail>;
 
-export type LoginRootActionType = SetUserData | SetEmail | SetAuthUserData;
+export type LoginRootActionType = SetUserData | SetAuthUserData;
 
 const initialState = {
-  email: '',
   rememberMe: false,
   isAuth: false,
   user: null as UserDataType | null,
@@ -41,8 +39,6 @@ export const loginReducer = (
   action: LoginRootActionType,
 ): LoginStateType => {
   switch (action.type) {
-    case LoginActionsTypes.setEmail:
-      return { ...state, email: action.email };
     case LoginActionsTypes.setAuthUserData:
     case LoginActionsTypes.setUserData:
       return { ...state, ...action.payload };
@@ -52,11 +48,6 @@ export const loginReducer = (
 };
 
 // action
-export const setEmail = (email: string) =>
-  ({
-    type: LoginActionsTypes.setEmail,
-    email,
-  } as const);
 export const setUserData = (user: UserDataType) =>
   ({
     type: LoginActionsTypes.setUserData,
@@ -68,19 +59,12 @@ export const setAuthUserData = (email: string, rememberMe: boolean, isAuth: bool
     payload: { email, rememberMe, isAuth },
   } as const);
 
-const data = {
-  email: 'nya-admin@nya.nya',
-  password: '1qazxcvBG',
-  rememberMe: false,
-};
-
 // thunk
-export const setEmailTestThunk = (): ThunkApp => dispatch => {
-  authAPI.login(data).then(res => {
-    dispatch(setEmail(res.data.email));
-  });
-};
-export const login = (email: string, password: string, rememberMe: boolean): ThunkApp => {
+export const loginUser = (
+  email: string,
+  password: string,
+  rememberMe: boolean,
+): ThunkApp => {
   return dispatch => {
     authAPI
       .login({ email, password, rememberMe })

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { EMPTY_STRING, ERROR_INPUT_MESSAGE } from '../../constants';
-
 import { UseInputReturnType } from './types';
+
+import { EMPTY_STRING, ERROR_INPUT_MESSAGE } from 'constant';
 
 export const useInput = (initialValue: string = EMPTY_STRING): UseInputReturnType => {
   const [value, setValue] = useState<string>(initialValue);

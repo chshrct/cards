@@ -4,14 +4,14 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { NavLink } from 'react-router-dom';
 
 import { MAX_PASSWORD_LENGTH } from '../../../constant';
-import { RoutePaths } from '../../../constants/routePaths';
 import viewOp from '../../Registration/view.png';
 import viewCl from '../../Registration/viewClose.png';
-import { login } from '../loginReducer';
+import { loginUser } from '../loginReducer';
 
 import s from './LoginForm.module.css';
 
 import { SuperButton } from 'components';
+import { AppRoutePaths } from 'routes';
 import { useAppDispatch } from 'store';
 
 export const LoginForm: React.FC = () => {
@@ -53,7 +53,7 @@ export const LoginForm: React.FC = () => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          dispatch(login(values.email, values.password, values.rememberMe));
+          dispatch(loginUser(values.email, values.password, values.rememberMe));
           setSubmitting(false);
         }}
       >
@@ -86,13 +86,13 @@ export const LoginForm: React.FC = () => {
               <span> remember me </span>
             </div>
             <div className={s.forgotPassword}>
-              <NavLink to={RoutePaths.passwordRecovery}>Forgot Password</NavLink>
+              <NavLink to={AppRoutePaths.PASSWORD_RECOVERY}>Forgot Password</NavLink>
             </div>
             <SuperButton type="submit" className={s.loginButton}>
               Login
             </SuperButton>
             <span>Don`&apos;`t have an account?</span>
-            <NavLink to={RoutePaths.registration}>Sign Up</NavLink>
+            <NavLink to={AppRoutePaths.REGISTRATION}>Sign Up</NavLink>
           </Form>
         )}
       </Formik>

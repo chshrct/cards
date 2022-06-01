@@ -11,12 +11,10 @@ import {
   SuperRange,
   SuperSelect,
 } from 'components';
-import { setEmailTestThunk } from 'pages';
-import { AppRootStateType, useAppDispatch } from 'store';
+import { AppRootStateType } from 'store';
 
 export const TestBench: FC = () => {
   const count = useSelector<AppRootStateType>(state => state.profile.count);
-  const dispatch = useAppDispatch();
 
   return (
     <div>
@@ -54,7 +52,7 @@ export const TestBench: FC = () => {
         <div>
           <h3>count</h3>
           <div>{`${count}`}</div>
-          <button type="button" onClick={() => dispatch(setEmailTestThunk())}>
+          <button type="button" onClick={() => {}}>
             inc
           </button>
         </div>

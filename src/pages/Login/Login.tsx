@@ -2,16 +2,15 @@ import { FC } from 'react';
 
 import { Navigate } from 'react-router-dom';
 
-import { RoutePaths } from '../../constants/routePaths';
-
 import s from './Login.module.css';
 import { LoginForm } from './LoginForm/LoginForm';
 
+import { AppRoutePaths } from 'routes';
 import { useAppSelector } from 'store';
 
 export const Login: FC = () => {
   const isAuth = useAppSelector(state => state.login.isAuth);
-  if (isAuth) return <Navigate to={RoutePaths.profile} />;
+  if (isAuth) return <Navigate to={AppRoutePaths.PROFILE} />;
 
   return (
     <div className={s.loginWrapper}>
