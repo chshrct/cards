@@ -8,7 +8,6 @@ import eye from './eye.png';
 import {NavLink} from 'react-router-dom';
 import {RoutePaths} from '../../../constants/routePaths';
 
-
 export const LoginForm = () => {
 
     const dispatch = useAppDispatch();
