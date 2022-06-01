@@ -11,10 +11,6 @@ export { PasswordCreate } from './PasswordCreate';
 export { PasswordRecovery } from './PasswordRecovery';
 export { Profile, incCounterProfile, profileReducer } from './Profile';
 export type { ProfileRootActionType } from './Profile';
-export {
-  Registration,
-  incCounterRegistration,
-  registrationReducer,
-} from './Registration';
+export { Registration, setError, setRegister } from './Registration';
 export type { RegistrationRootActionType } from './Registration';
 export { TestBench } from './TestBench';

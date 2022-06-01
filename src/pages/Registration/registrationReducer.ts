@@ -1,49 +1,47 @@
-import {ThunkApp} from '../../store/store';
-import {authAPI, RegisterData} from '../../api/api';
-import {AxiosError} from 'axios';
+import { authAPI, RegisterData } from 'api';
+import { ThunkApp } from 'store';
 
 enum RegistrationActionsTypes {
-    setError = 'REGISTER/SET=ERROR',
+  setError = 'REGISTRATION/SET_ERROR',
 }
 
-type RegistrationStateType = typeof initialState
+type RegistrationStateType = typeof initialState;
 
-type IncCounter = ReturnType<typeof setError>;
+type SetErrorType = ReturnType<typeof setError>;
 
-export type RegistrationRootActionType = IncCounter;
+export type RegistrationRootActionType = SetErrorType;
 
 const initialState = {
-    error: '',
+  error: '',
 };
 
-const registrationReducer = (
-    state: RegistrationStateType = initialState,
-    {type, payload}: RegistrationRootActionType
-) => {
-    switch (type) {
-        case RegistrationActionsTypes.setError:
-            return {...state, ...payload}
-        default:
-            return state;
-    }
+export const registrationReducer = (
+  state: RegistrationStateType = initialState,
+  { type, payload }: RegistrationRootActionType,
+): RegistrationStateType => {
+  switch (type) {
+    case RegistrationActionsTypes.setError:
+      return { ...state, ...payload };
+    default:
+      return state;
+  }
 };
 
-//action
-export const setError = ( error: string ) =>
-    ({type: RegistrationActionsTypes.setError, payload: {error},} as const);
+// action
+export const setError = (error: string) =>
+  ({ type: RegistrationActionsTypes.setError, payload: { error } } as const);
 
-export default registrationReducer;
-
-
-//thunk
-export const setRegister = (data: RegisterData): ThunkApp => (dispatch) => {
-    authAPI.register(data)
-        .then((res) => {
-            dispatch(setError(res.statusText))
-        })
-        .then(res => dispatch(setError('')))
-        .catch((e) => {
-            dispatch(setError(e.response.data.error))
-        })
-};
-
+// thunk
+export const setRegister =
+  (data: RegisterData): ThunkApp =>
+  dispatch => {
+    authAPI
+      .register(data)
+      .then(res => {
+        dispatch(setError(res.statusText));
+      })
+      .then(() => {
+        dispatch(setError(''));
+      })
+      .catch(e => dispatch(setError(e.response.data.error)));
+  };

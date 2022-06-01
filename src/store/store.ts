@@ -2,12 +2,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
+import { registrationReducer } from '../pages/Registration/registrationReducer';
+
 import {
   loginReducer,
   LoginRootActionType,
   profileReducer,
   ProfileRootActionType,
-  registrationReducer,
   RegistrationRootActionType,
 } from 'pages';
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   registration: registrationReducer,
   profile: profileReducer,
 });
+
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

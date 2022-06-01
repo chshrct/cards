@@ -17,7 +17,7 @@ export const authAPI = {
   logout() {
     return instance.delete<BackResponseType>('/auth/me');
   },
-  register(data: Omit<LoginData, 'rememberMe'>) {
+  register(data: RegisterData) {
     return instance.post<RegisterResponseType>('/auth/register', data);
   },
   authMe() {
@@ -44,6 +44,8 @@ type LoginData = {
   password: string;
   rememberMe: boolean;
 };
+
+export type RegisterData = Omit<LoginData, 'rememberMe'>;
 
 type ProfileData = {
   name: string;

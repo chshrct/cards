@@ -1,3 +1,3 @@
 export { Registration } from './Registration';
-export { incCounterRegistration, registrationReducer } from './registrationReducer';
+export { setError, setRegister } from './registrationReducer';
 export type { RegistrationRootActionType } from './registrationReducer';
