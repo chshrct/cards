@@ -1,4 +1,4 @@
-import React, { FC, KeyboardEvent, useState } from 'react';
+import { FC, KeyboardEvent, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 

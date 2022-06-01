@@ -1,0 +1,58 @@
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.errorMessage {
+    color: red;
+    margin: 5px;
+    font-size: 14px;
+    align-self: start;
+}
+
+.showPassword {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.showPassword img {
+    width: 22px;
+    height: 15px;
+    margin: 0;
+}
+
+.input {
+    width: 200px;
+    border: none;
+    outline: none;
+    margin: 0;
+}
+
+.hr {
+    width: 230px;
+    border: none;
+    background-color: #ececf1;
+    height: 1.58px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    align-self: end;
+}
+
+.checkbox {
+    margin: 4px 7px 0 0;
+}
+
+.forgotPassword {
+    display: flex;
+    align-self: end;
+}
+
+.loginButton {
+    margin: 10px;
+}
+
