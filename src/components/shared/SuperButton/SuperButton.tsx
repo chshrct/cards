@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 
 import s from './SuperButton.module.css';
 
@@ -16,7 +16,7 @@ export const SuperButton: FC<SuperButtonPropsType> = ({
   className,
   ...restProps
 }) => {
-  const finalClassName = `${red ? `${s.button} ${s.red}` : s.button} ${className}`;
+  const finalClassName = `${s.button} ${red ? `${s.red}` : ''} ${className}`;
 
   // eslint-disable-next-line react/jsx-props-no-spreading
   return <button type="button" className={finalClassName} {...restProps} />;

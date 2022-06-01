@@ -1,8 +1,10 @@
 import { FC } from 'react';
 
-import s from './UserCard.module.css';
+import { Link } from 'react-router-dom';
 
-import { SuperButton } from 'components';
+import { RoutePaths } from '../../../constants/routePaths';
+
+import s from './UserCard.module.css';
 
 export const UserCard: FC = () => {
   return (
@@ -13,7 +15,9 @@ export const UserCard: FC = () => {
       />
       <h2>User&apos;s name</h2>
       <h3>Role</h3>
-      <SuperButton className={s.outlinedBtn}>Edit profile</SuperButton>
+      <Link className={s.outlined} to={RoutePaths.editProfile}>
+        Edit profile
+      </Link>
     </div>
   );
 };
