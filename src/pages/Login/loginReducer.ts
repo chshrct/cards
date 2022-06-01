@@ -1,5 +1,8 @@
-import {authAPI} from '../../api/api';
-import {ThunkApp} from '../../store/store';
+/*import {authAPI} from '../../api/api';
+import {ThunkApp} from '../../store/store';*/
+
+import { authAPI } from "api";
+import { ThunkApp } from "store";
 
 enum LoginActionsTypes {
     setAuthUserData = 'LOGIN/SET_AUTH_USER_DATA',
@@ -36,7 +39,7 @@ const initialState = {
 
 export type LoginStateType = typeof initialState
 
-const loginReducer = (
+export const loginReducer = (
     state: LoginStateType = initialState,
     action: LoginRootActionType
 ) => {
@@ -57,10 +60,10 @@ export const setEmail = (email: string) =>
         type: LoginActionsTypes.setEmail,
         email,
     } as const);
-export const setUserData = (payload: { user: UserDataType }) =>
+export const setUserData = (user: UserDataType) =>
     ({
         type: LoginActionsTypes.setUserData,
-        payload,
+        payload: {user},
     } as const);
 export const setAuthUserData = (email: string, rememberMe: boolean, isAuth: boolean) => ({
     type: LoginActionsTypes.setAuthUserData,
@@ -95,5 +98,3 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
             });
     };
 };
-
-export default loginReducer;

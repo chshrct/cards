@@ -5,12 +5,12 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { registrationReducer } from '../pages/Registration/registrationReducer';
 
 import {
-  loginReducer,
   LoginRootActionType,
-  profileReducer,
   ProfileRootActionType,
   RegistrationRootActionType,
 } from 'pages';
+import {loginReducer} from '../pages/Login/loginReducer';
+import {profileReducer} from '../pages/Profile';
 
 const rootReducer = combineReducers({
   login: loginReducer,
