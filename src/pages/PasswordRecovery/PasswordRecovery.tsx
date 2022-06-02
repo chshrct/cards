@@ -46,6 +46,7 @@ export const PasswordRecovery: FC = () => {
         <>
           <h3>Forgot your password?</h3>
           <SuperInputText
+            type="text"
             value={email}
             onChangeText={onEmailChange}
             error={error}

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import s from './PasswordCreate.module.css';
 
 import { authAPI } from 'api';
-import { SuperButton, SuperInputPassword } from 'components';
+import { SuperButton, SuperInputText } from 'components';
 import { MAX_PASSWORD_LENGTH } from 'constant';
 import { validatePassword } from 'helpers';
 import { useSuperInput } from 'hooks';
@@ -45,9 +45,10 @@ export const PasswordCreate: FC = () => {
     <div className={s.pCrWrapper}>
       <h2>it-incubator</h2>
       <h3>Create new password</h3>
-      <SuperInputPassword
+      <SuperInputText
+        id="password"
+        label="Password"
         type="password"
-        placeholder="Password"
         value={password}
         onChangeText={onPasswordChange}
         error={error}

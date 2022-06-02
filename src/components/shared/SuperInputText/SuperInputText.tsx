@@ -4,9 +4,13 @@ import React, {
   DetailedHTMLProps,
   InputHTMLAttributes,
   KeyboardEvent,
+  useState,
 } from 'react';
 
 import s from './SuperInputText.module.css';
+
+import { ReactComponent as EyeSlashIcon } from 'assets/icons/eye-slash.svg';
+import { ReactComponent as EyeIcon } from 'assets/icons/eye.svg';
 
 type DefaultInputPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -37,6 +41,11 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
   disabled,
   ...restProps
 }) => {
+  const [inputType, setInputType] = useState<string>('password');
+  const passwordVisibleToggler = (): void => {
+    setInputType(inputType === 'text' ? 'password' : 'text');
+  };
+
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>): void => {
     onChange?.(e);
 
@@ -52,15 +61,36 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
   const inputClassName = `${s.superInput}
      ${disabled ? `${s.superInput} ${s.disabledInput}` : s.superInput} `;
 
-  const finalSpanClassName: string = `${s.error} ${spanClassName || ''}`;
+  const finalSpanClassName: string = `${s.spanStyle} ${s.error} ${spanClassName || ''}`;
   const finalInputClassName: string = `${
     error ? `${inputClassName} ${s.errorInput}` : inputClassName
   } ${className}`;
 
+  let eye = null;
+  if (type === 'password')
+    eye =
+      inputType === 'password' ? (
+        <EyeIcon
+          onClick={passwordVisibleToggler}
+          className={s.eyeIcon}
+          height={25}
+          width={25}
+          fill={error && 'red'}
+        />
+      ) : (
+        <EyeSlashIcon
+          onClick={passwordVisibleToggler}
+          className={s.eyeIcon}
+          height={25}
+          width={25}
+          fill={error && 'red'}
+        />
+      );
+
   return (
     <div className={s.superInputWrapper}>
       <input
-        type="text"
+        type={type === 'password' ? inputType : 'text'}
         onChange={onChangeCallback}
         onKeyPress={onKeyPressCallback}
         className={finalInputClassName}
@@ -70,8 +100,13 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...restProps}
       />
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && (
+        <label className={error && s.redLabel} htmlFor={id}>
+          {label}
+        </label>
+      )}
       <span className={finalSpanClassName}>{error}</span>
+      {eye}
     </div>
   );
 };

@@ -58,7 +58,7 @@
   line-height: 1.5;
 }
 .disabledInput + label {
-  transform: translateY(-66px);  
+  transform: translateY(-66px);
   font-size: 13px;
   line-height: 1.54;
   font-weight: 400;
@@ -86,4 +86,21 @@ input:-webkit-autofill:active {
 }
 input[data-autocompleted] {
   background-color: transparent !important;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.spanStyle {
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+}
+
+.redLabel {
+  color: #f1453d !important;
+  opacity: 1 !important;
 }

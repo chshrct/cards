@@ -3,7 +3,6 @@ export {
   SuperButton,
   SuperCheckbox,
   SuperEditableSpan,
-  SuperInputPassword,
   SuperInputText,
   SuperRadio,
   SuperRange,
