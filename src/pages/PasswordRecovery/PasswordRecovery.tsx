@@ -55,7 +55,13 @@ export const PasswordRecovery: FC = () => {
             disabled={isSending}
           />
           <p>Enter your email address and we will send you further instructions</p>
-          <SuperButton disabled={isEmailControlsDisabled} onClick={onSendEmailClick}>
+          <SuperButton
+            size="large"
+            shape="round"
+            color="secondary"
+            disabled={isEmailControlsDisabled}
+            onClick={onSendEmailClick}
+          >
             Send Instructions
           </SuperButton>
           <p>Did you remember your password?</p>

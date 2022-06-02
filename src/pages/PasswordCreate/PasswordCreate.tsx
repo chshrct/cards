@@ -56,7 +56,13 @@ export const PasswordCreate: FC = () => {
         onKeyDown={onEnterKeyDown}
       />
       <p>Create new password and we will send you further instructions to email</p>
-      <SuperButton onClick={onCreateButtonClick} disabled={isPasswordControlsDisabled}>
+      <SuperButton
+        onClick={onCreateButtonClick}
+        disabled={isPasswordControlsDisabled}
+        size="large"
+        color="primary"
+        shape="round"
+      >
         Create new password
       </SuperButton>
     </div>

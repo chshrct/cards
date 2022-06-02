@@ -1,36 +1,54 @@
 .button {
-  border-radius: 30px;
-  width: 127px;
-  height: 36px;
   border: none;
+  outline: none;
+  box-shadow: 0 0 4px #999;
+  cursor: pointer;
+  background-color: hsl(237, 63%, 35%);
+  background-position: center;
+  background-image: radial-gradient(circle, transparent 1%, hsl(237, 63%, 35%) 1%);
+  background-size: 12000%;
+  transition: background 0.6s, transform 0.2s ease;
+  height: 36px;
 
-  font-family: Roboto, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 16px;
-  line-height: 1.18;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  line-height: 19px;
   letter-spacing: 0.01em;
 }
 
-.button:focus {
-  box-shadow: 2px 3px 2px grey;
-  color: #ffe26a;
-  font-weight: bold;
-}
-
 .button:active {
-  transform: scale(0.97);
-}
-.button:disabled {
-  background-color: slategrey;
-
-  opacity: 0.5;
+  background-color: hsla(237, 63%, 35%, 0.32);
+  transition: background 0s;
+  background-size: 100%;
+  transform: scale(0.99);
 }
 
-.red {
-  background: red;
+.sizeSmall {
+  width: 127px;
 }
-.red:focus,
-.red:hover {
-  background: darkred;
+.sizeMedium {
+  width: 187px;
+}
+.sizeLarge {
+  width: 266px;
+}
+.colorPrimary {
+  background-color: hsl(237, 63%, 35%);
+  color: hsl(0, 0%, 100%);
+}
+.colorSecondary {
+  background-color: hsl(238, 43%, 89%);
+  background-image: radial-gradient(circle, transparent 1%, hsl(238, 43%, 89%) 1%);
+  color: hsl(237, 63%, 35%);
+}
+.button.colorSecondary:active {
+  background-color: hsa(238, 43%, 89%, 0.32);
+  transform: scale(0.99);
+}
+.shapeRound {
+  border-radius: 30px;
+}
+.shapeSquare {
+  border-radius: none;
 }
