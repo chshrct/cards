@@ -1,4 +1,5 @@
 import { authAPI } from 'api';
+import { UserDataResponseType } from 'api/authApi';
 import { ThunkApp } from 'store';
 
 enum LoginActionsTypes {
@@ -6,20 +7,6 @@ enum LoginActionsTypes {
   setUserData = 'LOGIN/SET_USER_DATA',
   setEmail = 'LOGIN/SET_EMAIL',
 }
-
-type UserDataType = {
-  _id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-  publicCardPacksCount: number;
-  created: Date;
-  updated: Date;
-  isAdmin: boolean;
-  verified: boolean;
-  rememberMe: boolean;
-  error?: string;
-};
 
 type SetAuthUserData = ReturnType<typeof setAuthUserData>;
 type SetUserData = ReturnType<typeof setUserData>;
@@ -29,7 +16,7 @@ export type LoginRootActionType = SetUserData | SetAuthUserData;
 const initialState = {
   rememberMe: false,
   isAuth: false,
-  user: null as UserDataType | null,
+  user: null as UserDataResponseType | null,
 };
 
 export type LoginStateType = typeof initialState;
@@ -48,7 +35,7 @@ export const loginReducer = (
 };
 
 // action
-export const setUserData = (user: UserDataType) =>
+export const setUserData = (user: UserDataResponseType) =>
   ({
     type: LoginActionsTypes.setUserData,
     payload: { user },

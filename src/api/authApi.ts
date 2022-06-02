@@ -12,7 +12,7 @@ link</a>
 
 export const authAPI = {
   login(data: LoginData) {
-    return instance.post<ProfileResponseType>('/auth/login', data);
+    return instance.post<UserDataResponseType>('/auth/login', data);
   },
   logout() {
     return instance.delete<BackResponseType>('/auth/me');
@@ -21,7 +21,7 @@ export const authAPI = {
     return instance.post<RegisterResponseType>('/auth/register', data);
   },
   authMe() {
-    return instance.post<ProfileResponseType>('/auth/me', {});
+    return instance.post<UserDataResponseType>('/auth/me', {});
   },
   editProfile(data: ProfileData) {
     return instance.put<EditResponseType>('/auth/me', data);
@@ -47,7 +47,7 @@ type LoginData = {
 
 export type RegisterData = Omit<LoginData, 'rememberMe'>;
 
-type ProfileData = {
+export type ProfileData = {
   name: string;
   avatar: string;
 };
@@ -61,7 +61,7 @@ type BackResponseType = {
   error: string;
 };
 
-type ProfileResponseType = {
+export type UserDataResponseType = {
   _id: string;
   email: string;
   name: string;
