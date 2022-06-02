@@ -1,34 +1,52 @@
+/* eslint-disable no-console */
 import { authAPI } from 'api';
 import { UserDataResponseType } from 'api/authApi';
-import { ThunkApp } from 'store';
+import { ThunkApp, TypedDispatch } from 'store';
 
-enum LoginActionsTypes {
-  setAuthUserData = 'LOGIN/SET_AUTH_USER_DATA',
-  setUserData = 'LOGIN/SET_USER_DATA',
-  setEmail = 'LOGIN/SET_EMAIL',
+enum LOGIN_ACTIONS {
+  SET_AUTH = 'LOGIN/SET_AUTH_USER_DATA',
+  SET_USER_DATA = 'LOGIN/SET_USER_DATA',
+  EDIT_PROFILE = 'PROFILE/EDIT_USER',
 }
 
 type SetAuthUserData = ReturnType<typeof setAuthUserData>;
 type SetUserData = ReturnType<typeof setUserData>;
+type EditProfileType = ReturnType<typeof editProfile>;
 
-export type LoginRootActionType = SetUserData | SetAuthUserData;
+export type LoginRootActionType = SetUserData | SetAuthUserData | EditProfileType;
 
 const initialState = {
   rememberMe: false,
   isAuth: false,
-  user: null as UserDataResponseType | null,
+  user: {
+    _id: '',
+    email: '',
+    name: '',
+    avatar: '',
+    publicCardPacksCount: 0,
+
+    created: {},
+    updated: {},
+    isAdmin: false,
+    verified: false,
+    rememberMe: false,
+
+    error: '',
+  } as UserDataResponseType,
 };
 
 export type LoginStateType = typeof initialState;
 
 export const loginReducer = (
   state: LoginStateType = initialState,
-  action: LoginRootActionType,
+  { type, payload }: LoginRootActionType,
 ): LoginStateType => {
-  switch (action.type) {
-    case LoginActionsTypes.setAuthUserData:
-    case LoginActionsTypes.setUserData:
-      return { ...state, ...action.payload };
+  switch (type) {
+    case LOGIN_ACTIONS.SET_AUTH:
+    case LOGIN_ACTIONS.SET_USER_DATA:
+      return { ...state, ...payload };
+    case LOGIN_ACTIONS.EDIT_PROFILE:
+      return { ...state, user: { ...payload } };
     default:
       return state;
   }
@@ -37,15 +55,20 @@ export const loginReducer = (
 // action
 export const setUserData = (user: UserDataResponseType) =>
   ({
-    type: LoginActionsTypes.setUserData,
+    type: LOGIN_ACTIONS.SET_USER_DATA,
     payload: { user },
   } as const);
 export const setAuthUserData = (email: string, rememberMe: boolean, isAuth: boolean) =>
   ({
-    type: LoginActionsTypes.setAuthUserData,
+    type: LOGIN_ACTIONS.SET_AUTH,
     payload: { email, rememberMe, isAuth },
   } as const);
 
+export const editProfile = (data: UserDataResponseType) =>
+  ({
+    type: LOGIN_ACTIONS.EDIT_PROFILE,
+    payload: data,
+  } as const);
 // thunk
 export const loginUser = (
   email: string,
@@ -68,3 +91,14 @@ export const loginUser = (
       });
   };
 };
+
+export const editUserData =
+  (data: UserDataResponseType): any =>
+  async (dispatch: TypedDispatch) => {
+    try {
+      const res = await authAPI.editProfile(data);
+      dispatch(setUserData(res.data.updatedUser));
+    } catch (e) {
+      console.log(e);
+    }
+  };

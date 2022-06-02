@@ -1,14 +1,12 @@
-enum ProfileActionsTypes {
-  incCounter = 'TEST/INCREASE_COUNTER',
+enum PROFILE_ACTIONS {
+  INC_COUNTER = 'TEST/INCREASE_COUNTER',
 }
 
 type ProfileStateType = {
   count: number;
 };
 
-type IncCounter = ReturnType<typeof incCounterProfile>;
-
-export type ProfileRootActionType = IncCounter;
+export type ProfileRootActionType = ReturnType<typeof incCounterProfile>;
 
 const initialState = {
   count: 0,
@@ -19,7 +17,7 @@ export const profileReducer = (
   { type, payload }: ProfileRootActionType,
 ): ProfileStateType => {
   switch (type) {
-    case ProfileActionsTypes.incCounter:
+    case PROFILE_ACTIONS.INC_COUNTER:
       return { ...state, count: state.count + payload.count };
 
     default:
@@ -30,6 +28,6 @@ export const profileReducer = (
 // action
 export const incCounterProfile = (payload: { count: number }) =>
   ({
-    type: ProfileActionsTypes.incCounter,
+    type: PROFILE_ACTIONS.INC_COUNTER,
     payload,
   } as const);
