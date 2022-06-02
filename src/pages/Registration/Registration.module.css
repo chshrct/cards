@@ -45,11 +45,11 @@
 /*    margin: 0;*/
 /*}*/
 
-.formBlock div {
-    height: 25px;
-    font-size: 12px;
-    color: red;
-}
+/*.formBlock div {*/
+/*    height: 25px;*/
+/*    font-size: 12px;*/
+/*    color: red;*/
+/*}*/
 
 .passBlock {
     display: flex;

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useFormik } from 'formik';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import s from './Registration.module.css';
-import viewOp from './view.png';
-import viewCl from './viewClose.png';
+// import viewOp from './view.png';
+// import viewCl from './viewClose.png';
 
 import { SuperButton, SuperInputText } from 'components';
 import { MAX_PASSWORD_LENGTH } from 'constant';
@@ -20,15 +20,15 @@ type FormValues = {
 };
 
 export const Registration: React.FC = () => {
-  const viewOpen = {
-    backgroundImage: `url(${viewOp})`,
-  };
+  // const viewOpen = {
+  //   backgroundImage: `url(${viewOp})`,
+  // };
+  //
+  // const viewClose = {
+  //   backgroundImage: `url(${viewCl})`,
+  // };
 
-  const viewClose = {
-    backgroundImage: `url(${viewCl})`,
-  };
-
-  const [view, setView] = useState(false);
+  // const [view, setView] = useState(false);
 
   const dispatch = useAppDispatch();
   const error = useAppSelector(state => state.registration.error);
@@ -76,7 +76,7 @@ export const Registration: React.FC = () => {
     },
   });
 
-  const changeView = (): void => setView(!view);
+  // const changeView = (): void => setView(!view);
   const navigateToLogin = (): void => navigate(AppRoutePaths.LOGIN);
 
   if (error === 'Created') return <Navigate to={AppRoutePaths.LOGIN} />;
@@ -89,35 +89,38 @@ export const Registration: React.FC = () => {
         <form onSubmit={formik.handleSubmit} className={s.formBlock}>
           <SuperInputText
             // className={s.input}
+            id="email"
             label="email"
             type="text"
             name="email"
             onChange={formik.handleChange}
             value={formik.values.email}
             onBlur={formik.handleBlur}
+            error={formik.errors.email}
           />
-          {formik.touched.email && formik.errors.email ? (
-            <div>{formik.errors.email}</div>
-          ) : (
-            <div />
-          )}
+          {/* {formik.touched.email && formik.errors.email ? ( */}
+          {/*   <div>{formik.errors.email}</div> */}
+          {/* ) : ( */}
+          {/*   <div /> */}
+          {/* )} */}
 
           <div className={s.passBlock}>
             <SuperInputText
               // className={s.input}
+              id="password"
               label="password"
-              type={view ? 'text' : 'password'}
+              type="password"
               name="password"
               onChange={formik.handleChange}
               value={formik.values.password}
               onBlur={formik.handleBlur}
             />
-            <div
-              role="none"
-              className={s.icon}
-              style={view ? viewOpen : viewClose}
-              onClick={changeView}
-            />
+            {/* <div */}
+            {/*   role="none" */}
+            {/*   className={s.icon} */}
+            {/*   style={view ? viewOpen : viewClose} */}
+            {/*   onClick={changeView} */}
+            {/* /> */}
           </div>
           {formik.touched.password && formik.errors.password ? (
             <div>{formik.errors.password}</div>
@@ -128,19 +131,20 @@ export const Registration: React.FC = () => {
           <div className={s.passBlock}>
             <SuperInputText
               // className={s.input}
+              id="confirm password"
               label="confirm password"
-              type={view ? 'text' : 'password'}
+              type="password"
               name="confirmPassword"
               onChange={formik.handleChange}
               value={formik.values.confirmPassword}
               onBlur={formik.handleBlur}
             />
-            <div
-              role="none"
-              className={s.icon}
-              style={view ? viewOpen : viewClose}
-              onClick={changeView}
-            />
+            {/* <div */}
+            {/*   role="none" */}
+            {/*   className={s.icon} */}
+            {/*   style={view ? viewOpen : viewClose} */}
+            {/*   onClick={changeView} */}
+            {/* /> */}
           </div>
           {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
             <div>{formik.errors.confirmPassword}</div>
