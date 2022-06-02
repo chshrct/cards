@@ -46,10 +46,11 @@ export const PasswordRecovery: FC = () => {
         <>
           <h3>Forgot your password?</h3>
           <SuperInputText
-            placeholder="Email"
+            type="text"
             value={email}
             onChangeText={onEmailChange}
             error={error}
+            label="Email"
             onKeyDown={onEmailKeyDown}
             disabled={isSending}
           />

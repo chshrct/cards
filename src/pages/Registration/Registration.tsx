@@ -7,7 +7,7 @@ import s from './Registration.module.css';
 import viewOp from './view.png';
 import viewCl from './viewClose.png';
 
-import { SuperButton } from 'components';
+import { SuperButton, SuperInputText } from 'components';
 import { MAX_PASSWORD_LENGTH } from 'constant';
 import { setError, setRegister } from 'pages';
 import { AppRoutePaths } from 'routes';
@@ -87,9 +87,9 @@ export const Registration: React.FC = () => {
         <h2>It-incubator</h2>
         <h3>Sign up</h3>
         <form onSubmit={formik.handleSubmit} className={s.formBlock}>
-          <input
-            className={s.input}
-            placeholder="email"
+          <SuperInputText
+            // className={s.input}
+            label="email"
             type="text"
             name="email"
             onChange={formik.handleChange}
@@ -103,9 +103,9 @@ export const Registration: React.FC = () => {
           )}
 
           <div className={s.passBlock}>
-            <input
-              className={s.input}
-              placeholder="password"
+            <SuperInputText
+              // className={s.input}
+              label="password"
               type={view ? 'text' : 'password'}
               name="password"
               onChange={formik.handleChange}
@@ -126,9 +126,9 @@ export const Registration: React.FC = () => {
           )}
 
           <div className={s.passBlock}>
-            <input
-              className={s.input}
-              placeholder="confirm password"
+            <SuperInputText
+              // className={s.input}
+              label="confirm password"
               type={view ? 'text' : 'password'}
               name="confirmPassword"
               onChange={formik.handleChange}
