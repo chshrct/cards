@@ -34,6 +34,7 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
   spanClassName,
   label,
   id,
+  disabled,
   ...restProps
 }) => {
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -48,10 +49,12 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
       onEnter();
     }
   };
+  const inputClassName = `${s.superInput}
+     ${disabled ? `${s.superInput} ${s.disabledInput}` : s.superInput} `;
 
   const finalSpanClassName: string = `${s.error} ${spanClassName || ''}`;
   const finalInputClassName: string = `${
-    error ? `${s.superInput} ${s.errorInput}` : s.superInput
+    error ? `${inputClassName} ${s.errorInput}` : inputClassName
   } ${className}`;
 
   return (
@@ -63,6 +66,7 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
         className={finalInputClassName}
         id={id}
         required
+        disabled={disabled}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...restProps}
       />
