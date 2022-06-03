@@ -6,6 +6,7 @@ import { loginReducer } from '../pages/Login/loginReducer';
 import { profileReducer } from '../pages/Profile/profileReducer';
 import { registrationReducer } from '../pages/Registration/registrationReducer';
 
+import { appReducer } from 'App';
 import {
   LoginRootActionType,
   ProfileRootActionType,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   login: loginReducer,
   registration: registrationReducer,
   profile: profileReducer,
+  app: appReducer,
 });
 
 // @ts-ignore
