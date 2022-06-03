@@ -2,7 +2,7 @@ import { EMPTY_STRING, MAX_PASSWORD_LENGTH } from 'constant';
 
 export const validateEmail = (email: string): string => {
   if (email === EMPTY_STRING) {
-    return '';
+    return 'Required';
   }
   const emailRegExp =
     // eslint-disable-next-line no-useless-escape
@@ -12,7 +12,7 @@ export const validateEmail = (email: string): string => {
 
 export const validatePassword = (password: string): string => {
   if (password === EMPTY_STRING) {
-    return '';
+    return 'Required';
   }
   if (password.length <= MAX_PASSWORD_LENGTH) {
     return 'Password must be at least 8 characters long';

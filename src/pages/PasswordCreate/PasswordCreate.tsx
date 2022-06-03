@@ -12,13 +12,14 @@ import { useSuperInput } from 'hooks';
 import { AppRoutePaths } from 'routes';
 
 export const PasswordCreate: FC = () => {
-  const [password, onPasswordChange, error, setError] = useSuperInput(validatePassword);
+  const [password, onPasswordChange, error, setError, isTouched, onBlur] =
+    useSuperInput(validatePassword);
   const [isSending, setIsSending] = useState<boolean>(false);
   const { token } = useParams();
   const navigate = useNavigate();
 
   const isPasswordControlsDisabled =
-    !!error || isSending || password.length <= MAX_PASSWORD_LENGTH;
+    !!error || isSending || password.length <= MAX_PASSWORD_LENGTH || !isTouched;
 
   const onCreateButtonClick = (): void => {
     setIsSending(true);
@@ -54,6 +55,7 @@ export const PasswordCreate: FC = () => {
         error={error}
         disabled={isSending}
         onKeyDown={onEnterKeyDown}
+        onBlur={onBlur}
       />
       <p>Create new password and we will send you further instructions to email</p>
       <SuperButton

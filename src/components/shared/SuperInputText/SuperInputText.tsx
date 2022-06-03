@@ -41,6 +41,8 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
   disabled,
   ...restProps
 }) => {
+  console.log(error);
+
   const [inputType, setInputType] = useState<string>('password');
   const passwordVisibleToggler = (): void => {
     setInputType(inputType === 'text' ? 'password' : 'text');

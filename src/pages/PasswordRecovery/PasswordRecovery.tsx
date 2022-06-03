@@ -7,7 +7,6 @@ import s from './PasswordRecovery.module.css';
 import { authAPI } from 'api';
 import { ReactComponent as EmailIcon } from 'assets/icons/email.svg';
 import { SuperButton, SuperInputText } from 'components';
-import { EMPTY_STRING } from 'constant';
 import { validateEmail } from 'helpers';
 import { useSuperInput } from 'hooks';
 import { AppRoutePaths } from 'routes';
@@ -15,9 +14,10 @@ import { AppRoutePaths } from 'routes';
 export const PasswordRecovery: FC = () => {
   const [isSending, setIsSending] = useState<boolean>(false);
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
-  const [email, onEmailChange, error, setError] = useSuperInput(validateEmail);
+  const [email, onEmailChange, error, setError, isTouched, onBlur] =
+    useSuperInput(validateEmail);
 
-  const isEmailControlsDisabled = !!error || isSending || email === EMPTY_STRING;
+  const isEmailControlsDisabled = !!error || isSending || !isTouched;
 
   const onSendEmailClick = (): void => {
     setIsSending(true);
@@ -54,12 +54,13 @@ export const PasswordRecovery: FC = () => {
             label="Email"
             onKeyDown={onEmailKeyDown}
             disabled={isSending}
+            onBlur={onBlur}
           />
           <p>Enter your email address and we will send you further instructions</p>
           <SuperButton
             size="large"
             shape="round"
-            color="secondary"
+            color="primary"
             disabled={isEmailControlsDisabled}
             onClick={onSendEmailClick}
           >
