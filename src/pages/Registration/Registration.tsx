@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useFormik } from 'formik';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
-import s from './Registration.module.css';
-import viewOp from './view.png';
-import viewCl from './viewClose.png';
+import { MAX_PASSWORD_LENGTH } from '../../constant';
 
-import { SuperButton } from 'components';
-import { MAX_PASSWORD_LENGTH } from 'constant';
+import s from './Registration.module.css';
+
+import { SuperButton, SuperInputText } from 'components';
 import { setError, setRegister } from 'pages';
 import { AppRoutePaths } from 'routes';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -20,16 +19,6 @@ type FormValues = {
 };
 
 export const Registration: React.FC = () => {
-  const viewOpen = {
-    backgroundImage: `url(${viewOp})`,
-  };
-
-  const viewClose = {
-    backgroundImage: `url(${viewCl})`,
-  };
-
-  const [view, setView] = useState(false);
-
   const dispatch = useAppDispatch();
   const error = useAppSelector(state => state.registration.error);
 
@@ -76,7 +65,6 @@ export const Registration: React.FC = () => {
     },
   });
 
-  const changeView = (): void => setView(!view);
   const navigateToLogin = (): void => navigate(AppRoutePaths.LOGIN);
 
   if (error === 'Created') return <Navigate to={AppRoutePaths.LOGIN} />;
@@ -87,63 +75,41 @@ export const Registration: React.FC = () => {
         <h2>It-incubator</h2>
         <h3>Sign up</h3>
         <form onSubmit={formik.handleSubmit} className={s.formBlock}>
-          <input
-            className={s.input}
-            placeholder="email"
+          <SuperInputText
+            id="email"
+            label="email"
             type="text"
             name="email"
             onChange={formik.handleChange}
-            value={formik.values.email}
+            error={formik.errors.email}
+            // value={formik.values.email}
+            // onBlur={formik.handleBlur}
+            // touched={formik.touched.email}
           />
-          {formik.touched.email && formik.errors.email ? (
-            <div>{formik.errors.email}</div>
-          ) : (
-            <div />
-          )}
 
-          <div className={s.passBlock}>
-            <input
-              className={s.input}
-              placeholder="password"
-              type={view ? 'text' : 'password'}
-              name="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
-            <div
-              role="none"
-              className={s.icon}
-              style={view ? viewOpen : viewClose}
-              onClick={changeView}
-            />
-          </div>
-          {formik.touched.password && formik.errors.password ? (
-            <div>{formik.errors.password}</div>
-          ) : (
-            <div />
-          )}
+          <SuperInputText
+            id="password"
+            label="password"
+            type="password"
+            name="password"
+            onChange={formik.handleChange}
+            error={formik.errors.password}
+            // value={formik.values.password}
+            // onBlur={formik.handleBlur}
+            // touched={formik.touched.password}
+          />
 
-          <div className={s.passBlock}>
-            <input
-              className={s.input}
-              placeholder="confirm password"
-              type={view ? 'text' : 'password'}
-              name="confirmPassword"
-              onChange={formik.handleChange}
-              value={formik.values.confirmPassword}
-            />
-            <div
-              role="none"
-              className={s.icon}
-              style={view ? viewOpen : viewClose}
-              onClick={changeView}
-            />
-          </div>
-          {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-            <div>{formik.errors.confirmPassword}</div>
-          ) : (
-            <div />
-          )}
+          <SuperInputText
+            id="confirm password"
+            label="confirm password"
+            type="password"
+            name="confirmPassword"
+            onChange={formik.handleChange}
+            error={formik.errors.confirmPassword}
+            // value={formik.values.confirmPassword}
+            // onBlur={formik.handleBlur}
+            // touched={formik.touched.confirmPassword}
+          />
 
           <div className={s.buttonBlock}>
             <SuperButton className={s.buttonLog} onClick={navigateToLogin}>
