@@ -39,7 +39,7 @@ export const initializeApp = (): ThunkApp => async (dispatch: TypedDispatch) => 
     const res = await authAPI.authMe();
     console.log(res.data);
     dispatch(setInitializedApp(true));
-    dispatch(setAuthUserData(res.data.user.email, res.data.user.rememberMe, true));
+    dispatch(setAuthUserData(res.data.email, res.data.rememberMe, true));
   } catch (e) {
     console.log(e);
   }
