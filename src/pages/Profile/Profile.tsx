@@ -1,11 +1,17 @@
 import { FC } from 'react';
 
+import { Navigate } from 'react-router-dom';
+
 import s from './Profile.module.css';
 import { UserCard } from './UserCard';
 
 import { SuperRange } from 'components';
+import { AppRoutePaths } from 'routes';
+import { useAppSelector } from 'store';
 
 export const Profile: FC = () => {
+  const isAuth = useAppSelector(state => state.login.isAuth);
+  if (!isAuth) return <Navigate to={AppRoutePaths.LOGIN} />;
   return (
     <div className={s.profileContainer}>
       <div className={s.sideBar}>

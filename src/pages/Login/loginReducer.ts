@@ -116,3 +116,9 @@ export const editUserData =
       console.log(e);
     }
   };
+
+export const logoutUser = (): ThunkApp => dispatch => {
+  authAPI.logout().then(() => {
+    dispatch(setAuthUserData('', false, false));
+  });
+};

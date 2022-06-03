@@ -22,7 +22,7 @@ export const AppRouter: FC = () => {
       path: AppRoutePaths.INDEX,
       element: <Layout />,
       children: [
-        { index: true, element: <h2>home page</h2> },
+        { index: true, element: <Login /> },
         {
           path: AppRoutePaths.RANDOM,
           element: <Navigate to={AppRoutePaths.NOT_FOUND} />,

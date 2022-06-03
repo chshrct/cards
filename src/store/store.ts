@@ -6,6 +6,7 @@ import { loginReducer } from '../pages/Login/loginReducer';
 import { profileReducer } from '../pages/Profile/profileReducer';
 import { registrationReducer } from '../pages/Registration/registrationReducer';
 
+import { appReducer, RootAppActionsType } from 'App/appReducer';
 import {
   LoginRootActionType,
   ProfileRootActionType,
@@ -13,6 +14,7 @@ import {
 } from 'pages';
 
 const rootReducer = combineReducers({
+  app: appReducer,
   login: loginReducer,
   registration: registrationReducer,
   profile: profileReducer,
@@ -25,7 +27,8 @@ export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(t
 export type AppRootActionType =
   | RegistrationRootActionType
   | ProfileRootActionType
-  | LoginRootActionType;
+  | LoginRootActionType
+  | RootAppActionsType;
 export type ThunkApp = ThunkAction<void, AppRootStateType, unknown, AppRootActionType>;
 export type TypedDispatch = ThunkDispatch<AppRootStateType, unknown, AppRootActionType>;
 
