@@ -6,13 +6,17 @@
 
 .input {
     width: 300px;
-    margin: 10px 0 10px 0;
+    margin-bottom: 10px;
+}
+
+.input:first-child{
+    margin-bottom: 50px;
 }
 
 .remember {
     display: flex;
     align-items: center;
-    align-self: end;
+    align-self: start;
     margin: 10px 0 5px 0;
 }
 
@@ -23,8 +27,17 @@
 .forgotPassword {
     display: flex;
     align-self: end;
-    margin: 0 0 10px 0;
+    margin: 0 0 90px 0;
+   
 }
+
+.forgotPassword a {
+    color: #2D2E46;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
+} 
 
 .loginButton {
     margin: 15px;
@@ -32,11 +45,31 @@
 
 .error {
     color: red;
-    margin: 5px;
+    margin: 4px;
 }
 
 .signUp {
     margin: 10px;
 }
 
+.signUp a {
+    text-decoration: none;
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
 
+    color: #21268F;
+}
+
+.tip {
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.71;
+    text-align: center;
+
+    color: #2D2E46;
+    opacity: 0.5;
+}

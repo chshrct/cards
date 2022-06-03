@@ -34,6 +34,7 @@ export const LoginForm: React.FC = () => {
     !!formik.errors.password ||
     formik.values.email === EMPTY_STRING ||
     formik.values.password === EMPTY_STRING;
+
   return (
     <form onSubmit={formik.handleSubmit} className={s.formWrapper}>
       <div className={s.input}>
@@ -44,6 +45,7 @@ export const LoginForm: React.FC = () => {
           error={formik.errors.email}
           label="Email"
           id="Email"
+          autoFocus
         />
       </div>
       <div className={s.input}>
@@ -54,6 +56,7 @@ export const LoginForm: React.FC = () => {
           name="password"
           label="Password"
           error={formik.errors.password}
+          id="Password"
         />
       </div>
       <div className={s.remember}>
@@ -64,7 +67,7 @@ export const LoginForm: React.FC = () => {
           type="checkbox"
           name="rememberMe"
         />
-        <span> remember me </span>
+        <span> Remember me </span>
       </div>
       <div className={s.forgotPassword}>
         <NavLink to={AppRoutePaths.PASSWORD_RECOVERY}>Forgot Password</NavLink>
@@ -75,7 +78,7 @@ export const LoginForm: React.FC = () => {
         </SuperButton>
       </div>
       <span className={s.error}>{error}</span>
-      <span>Don&apos;t have an account?</span>
+      <span className={s.tip}>Don&apos;t have an account?</span>
       <div className={s.signUp}>
         <NavLink to={AppRoutePaths.REGISTRATION}>Sign Up</NavLink>
       </div>
