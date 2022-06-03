@@ -107,7 +107,7 @@ export const loginUser = (
 };
 
 export const editUserData =
-  (data: UserDataResponseType): any =>
+  (data: UserDataResponseType): ThunkApp =>
   async (dispatch: TypedDispatch) => {
     try {
       const res = await authAPI.editProfile(data);
