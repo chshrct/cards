@@ -7,17 +7,24 @@ enum LOGIN_ACTIONS {
   SET_AUTH = 'LOGIN/SET_AUTH_USER_DATA',
   SET_USER_DATA = 'LOGIN/SET_USER_DATA',
   EDIT_PROFILE = 'PROFILE/EDIT_USER',
+  UNSUCCESSFUL_LOGIN = 'LOGIN/UNSUCCESSFUL_LOGIN',
 }
 
 type SetAuthUserData = ReturnType<typeof setAuthUserData>;
 type SetUserData = ReturnType<typeof setUserData>;
 type EditProfileType = ReturnType<typeof editProfile>;
+type UnsuccessfulLoginType = ReturnType<typeof unsuccessfulLogin>;
 
-export type LoginRootActionType = SetUserData | SetAuthUserData | EditProfileType;
+export type LoginRootActionType =
+  | SetUserData
+  | SetAuthUserData
+  | EditProfileType
+  | UnsuccessfulLoginType;
 
 const initialState = {
   rememberMe: false,
   isAuth: false,
+  error: '',
   user: {
     _id: '',
     email: '',
@@ -44,6 +51,7 @@ export const loginReducer = (
   switch (type) {
     case LOGIN_ACTIONS.SET_AUTH:
     case LOGIN_ACTIONS.SET_USER_DATA:
+    case LOGIN_ACTIONS.UNSUCCESSFUL_LOGIN:
       return { ...state, ...payload };
     case LOGIN_ACTIONS.EDIT_PROFILE:
       return { ...state, user: { ...payload } };
@@ -69,6 +77,11 @@ export const editProfile = (data: UserDataResponseType) =>
     type: LOGIN_ACTIONS.EDIT_PROFILE,
     payload: data,
   } as const);
+export const unsuccessfulLogin = (error: string) =>
+  ({
+    type: LOGIN_ACTIONS.UNSUCCESSFUL_LOGIN,
+    payload: { error },
+  } as const);
 // thunk
 export const loginUser = (
   email: string,
@@ -87,7 +100,8 @@ export const loginUser = (
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
-        console.log('Error: ', { ...error });
+        console.log('Error: ', { ...e });
+        dispatch(unsuccessfulLogin(error));
       });
   };
 };

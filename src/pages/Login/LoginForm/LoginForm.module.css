@@ -1,59 +1,42 @@
-/*.formWrapper {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*}*/
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-/*.errorMessage {*/
-/*    color: red;*/
-/*    margin: 5px;*/
-/*    font-size: 14px;*/
-/*    align-self: start;*/
-/*}*/
+.input {
+    width: 300px;
+    margin: 10px 0 10px 0;
+}
 
-/*.showPassword {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    align-items: center;*/
-/*}*/
+.remember {
+    display: flex;
+    align-items: center;
+    align-self: end;
+    margin: 10px 0 5px 0;
+}
 
-/*.showPassword img {*/
-/*    width: 22px;*/
-/*    height: 15px;*/
-/*    margin: 0;*/
-/*}*/
+.checkbox {
+    margin: 4px 7px 0 0;
+}
 
-/*.input {*/
-/*    width: 200px;*/
-/*    border: none;*/
-/*    outline: none;*/
-/*    margin: 0;*/
-/*}*/
+.forgotPassword {
+    display: flex;
+    align-self: end;
+    margin: 0 0 10px 0;
+}
 
-/*.hr {*/
-/*    width: 230px;*/
-/*    border: none;*/
-/*    background-color: #ececf1;*/
-/*    height: 1.58px;*/
-/*}*/
+.loginButton {
+    margin: 15px;
+}
 
-/*.remember {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    align-self: end;*/
-/*}*/
+.error {
+    color: red;
+    margin: 5px;
+}
 
-/*.checkbox {*/
-/*    margin: 4px 7px 0 0;*/
-/*}*/
-
-/*.forgotPassword {*/
-/*    display: flex;*/
-/*    align-self: end;*/
-/*}*/
-
-/*.loginButton {*/
-/*    margin: 10px;*/
-/*}*/
+.signUp {
+    margin: 10px;
+}
 
 
