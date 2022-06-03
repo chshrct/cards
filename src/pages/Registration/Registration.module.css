@@ -1,5 +1,4 @@
 .register {
-    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +9,6 @@
     height: 540px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 
     margin: 24px auto 96px;
@@ -22,65 +20,37 @@
 .container h2, h3{
     font-family: "Roboto", sans-serif;
     font-weight: 600;
-    font-size: 22px;
-}
-.container h2 {
-    margin-top: 32px;
     font-size: 26px;
+    margin: 0px;
+}
+
+.container h3 {
+    margin: 40px;
+    font-size: 22px;
+    align-content: start;
 }
 
 .container span {
+    margin-top: 20px;
     height: 20px;
-    color: red;
+
+    color: #f1453d;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
 }
 
 .formBlock {
-    width: 280px;
+    width: 347px;
     display: flex;
     flex-direction: column;
-}
-
-/*.formBlock input {*/
-/*    width: 100%;*/
-/*    margin: 0;*/
-/*}*/
-
-/*.formBlock div {*/
-/*    height: 25px;*/
-/*    font-size: 12px;*/
-/*    color: red;*/
-/*}*/
-
-.passBlock {
-    display: flex;
-    position: relative;
-    margin-top: 5px;
-}
-
-.input {
-    border: 0;
-    border-bottom: 2px solid gray;
-    outline: 0;
-    font-size: 1rem;
-    padding: 0 5px;
-    background-color: rgba(255, 255, 255, 0);
-}
-
-.icon {
-    height: 20px;
-    width: 20px;
-    margin-left: -30px;
-    cursor: pointer;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
+    gap:45px;
 }
 
 .buttonBlock {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .buttonBlock .buttonLog, .buttonReg {
@@ -94,7 +64,8 @@
     background-color: #D7D8EF;
     color: #21268F;
     padding: 5px 10px;
-
+    height: 36px;
+    width: 124px;
 }
 
 .buttonBlock .buttonLog:hover{
@@ -107,7 +78,10 @@
 .buttonBlock .buttonReg {
     background-color: #21268F;
     color: #ECECF9;
-    padding: 5px 35px;
+    /*padding: 5px 35px;*/
+    height: 36px;
+    width: 187px;
+
 }
 
 .buttonBlock .buttonReg:hover {
@@ -116,4 +90,3 @@
     23px 0 20px -23px rgba(0, 0, 0, .8),
     0 0 40px rgba(255, 255, 255, 0.45) inset;
 }
-
