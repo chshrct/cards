@@ -51,8 +51,8 @@ export const LoginForm: React.FC = () => {
           onChange={formik.handleChange}
           value={formik.values.password}
           type="password"
-          placeholder="password"
           name="password"
+          label="Password"
           error={formik.errors.password}
         />
       </div>
@@ -70,7 +70,7 @@ export const LoginForm: React.FC = () => {
         <NavLink to={AppRoutePaths.PASSWORD_RECOVERY}>Forgot Password</NavLink>
       </div>
       <div className={s.loginButton}>
-        <SuperButton type="submit" disabled={buttonDisabled}>
+        <SuperButton type="submit" disabled={buttonDisabled} size="large">
           Login
         </SuperButton>
       </div>
