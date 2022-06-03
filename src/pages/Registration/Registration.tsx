@@ -81,10 +81,9 @@ export const Registration: React.FC = () => {
             type="text"
             name="email"
             onChange={formik.handleChange}
-            error={formik.errors.email}
-            // value={formik.values.email}
-            // onBlur={formik.handleBlur}
-            // touched={formik.touched.email}
+            error={formik.touched.email ? formik.errors.email : ''}
+            value={formik.values.email}
+            onBlur={formik.handleBlur}
           />
 
           <SuperInputText
@@ -93,10 +92,9 @@ export const Registration: React.FC = () => {
             type="password"
             name="password"
             onChange={formik.handleChange}
-            error={formik.errors.password}
-            // value={formik.values.password}
-            // onBlur={formik.handleBlur}
-            // touched={formik.touched.password}
+            error={formik.touched.password ? formik.errors.password : ''}
+            value={formik.values.password}
+            onBlur={formik.handleBlur}
           />
 
           <SuperInputText
@@ -105,10 +103,9 @@ export const Registration: React.FC = () => {
             type="password"
             name="confirmPassword"
             onChange={formik.handleChange}
-            error={formik.errors.confirmPassword}
-            // value={formik.values.confirmPassword}
-            // onBlur={formik.handleBlur}
-            // touched={formik.touched.confirmPassword}
+            error={formik.touched.confirmPassword ? formik.errors.confirmPassword : ''}
+            value={formik.values.confirmPassword}
+            onBlur={formik.handleBlur}
           />
 
           <div className={s.buttonBlock}>
