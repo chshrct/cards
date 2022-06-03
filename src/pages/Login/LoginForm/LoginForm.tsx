@@ -13,16 +13,22 @@ import { SuperButton, SuperCheckbox, SuperInputText } from 'components';
 import { AppRoutePaths } from 'routes';
 import { useAppDispatch, useAppSelector } from 'store';
 
+type FormikValuesType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+};
+
 export const LoginForm: React.FC = () => {
   const error = useAppSelector(state => state.login.error);
   const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues: { email: '', password: '', rememberMe: false },
-    onSubmit: (values: any) => {
+    onSubmit: (values: FormikValuesType) => {
       dispatch(loginUser(values.email, values.password, values.rememberMe));
     },
-    validate: (values: any) => {
-      const errors = {} as any;
+    validate: (values: FormikValuesType) => {
+      const errors = {} as FormikValuesType;
       if (validateEmail(values.email)) errors.email = validateEmail(values.email);
       if (validatePassword(values.password))
         errors.password = validatePassword(values.password);
@@ -41,9 +47,10 @@ export const LoginForm: React.FC = () => {
           onChange={formik.handleChange}
           value={formik.values.email}
           name="email"
-          error={formik.errors.email}
+          error={formik.touched.email ? formik.errors.email : ''}
           label="Email"
           id="Email"
+          onBlur={formik.handleBlur}
         />
       </div>
       <div className={s.input}>
@@ -53,7 +60,9 @@ export const LoginForm: React.FC = () => {
           type="password"
           name="password"
           label="Password"
-          error={formik.errors.password}
+          id="Password"
+          error={formik.touched.password ? formik.errors.password : ''}
+          onBlur={formik.handleBlur}
         />
       </div>
       <div className={s.remember}>
@@ -64,7 +73,7 @@ export const LoginForm: React.FC = () => {
           type="checkbox"
           name="rememberMe"
         />
-        <span> remember me </span>
+        <span>remember me</span>
       </div>
       <div className={s.forgotPassword}>
         <NavLink to={AppRoutePaths.PASSWORD_RECOVERY}>Forgot Password</NavLink>

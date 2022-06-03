@@ -94,7 +94,6 @@ export const loginUser = (
       .then(res => {
         dispatch(setAuthUserData(email, rememberMe, true));
         dispatch(setUserData(res.data));
-        console.log(JSON.stringify(res.data));
       })
       .catch(e => {
         const error = e.response
