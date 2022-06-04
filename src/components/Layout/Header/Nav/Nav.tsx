@@ -16,19 +16,19 @@ export const Nav: FC = () => {
         className={({ isActive }) =>
           isActive ? `${s.Link} ${s.activeLink}` : `${s.Link}`
         }
-        to={AppRoutePaths.PROFILE}
+        to={AppRoutePaths.PACKS_LIST}
       >
         <CardsIcon />
         <span>Packs list</span>
       </NavLink>
       <NavLink
-        to={AppRoutePaths.PACKS_LIST}
+        to={AppRoutePaths.PROFILE}
         className={({ isActive }) =>
           isActive ? `${s.Link} ${s.activeLink}` : `${s.Link}`
         }
       >
         <PersonIcon />
-        <span>Packs list</span>
+        <span>Profile</span>
       </NavLink>
     </nav>
   );
