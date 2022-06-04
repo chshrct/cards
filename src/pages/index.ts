@@ -7,4 +7,3 @@ export { incCounterProfile, Profile, EditProfile, profileReducer } from './Profi
 export type { ProfileRootActionType } from './Profile';
 export { Registration, setError, setRegister, registrationReducer } from './Registration';
 export type { RegistrationRootActionType } from './Registration';
-export { TestBench } from './TestBench';

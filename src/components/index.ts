@@ -1,4 +1,4 @@
-export { Layout, Nav } from './Layout';
+export { Layout } from './Layout';
 export {
   SuperButton,
   SuperCheckbox,

@@ -13,29 +13,33 @@ import {
   Profile,
   EditProfile,
   Registration,
-  TestBench,
 } from 'pages';
+import { PacksList } from 'pages/PacksList/PacksList';
 
 export const AppRouter: FC = () => {
   const appRoutes = useRoutes([
+    { index: true, element: <Login /> },
+    { path: AppRoutePaths.LOGIN, element: <Login /> },
     {
-      path: AppRoutePaths.INDEX,
+      path: AppRoutePaths.RANDOM,
+      element: <Navigate to={AppRoutePaths.NOT_FOUND} />,
+    },
+    { path: AppRoutePaths.NOT_FOUND, element: <NotFound /> },
+    { path: AppRoutePaths.PASSWORD_CREATE, element: <PasswordCreate /> },
+    { path: AppRoutePaths.PASSWORD_RECOVERY, element: <PasswordRecovery /> },
+    { path: AppRoutePaths.REGISTRATION, element: <Registration /> },
+    {
+      path: AppRoutePaths.PROFILE,
       element: <Layout />,
       children: [
-        { index: true, element: <Login /> },
-        {
-          path: AppRoutePaths.RANDOM,
-          element: <Navigate to={AppRoutePaths.NOT_FOUND} />,
-        },
-        { path: AppRoutePaths.NOT_FOUND, element: <NotFound /> },
-        { path: AppRoutePaths.LOGIN, element: <Login /> },
-        { path: AppRoutePaths.PASSWORD_CREATE, element: <PasswordCreate /> },
-        { path: AppRoutePaths.PASSWORD_RECOVERY, element: <PasswordRecovery /> },
-        { path: AppRoutePaths.PROFILE, element: <Profile /> },
+        { index: true, element: <Profile /> },
         { path: AppRoutePaths.EDIT_PROFILE, element: <EditProfile /> },
-        { path: AppRoutePaths.REGISTRATION, element: <Registration /> },
-        { path: AppRoutePaths.TEST_BENCH, element: <TestBench /> },
       ],
+    },
+    {
+      path: AppRoutePaths.PACKS_LIST,
+      element: <Layout />,
+      children: [{ index: true, element: <PacksList /> }],
     },
   ]);
   return appRoutes;

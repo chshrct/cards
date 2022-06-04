@@ -70,7 +70,9 @@ export const LoginForm: React.FC = () => {
         <span> Remember me </span>
       </div>
       <div className={s.forgotPassword}>
-        <NavLink to={AppRoutePaths.PASSWORD_RECOVERY}>Forgot Password</NavLink>
+        <NavLink to={AppRoutePaths.PASSWORD_RECOVERY} className={s.forgotPasswordLink}>
+          Forgot Password
+        </NavLink>
       </div>
       <div className={s.loginButton}>
         <SuperButton type="submit" disabled={buttonDisabled} size="large">
