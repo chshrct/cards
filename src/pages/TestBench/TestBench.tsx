@@ -2,6 +2,9 @@ import { FC } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { Paginator } from '../../components/shared/Paginator/Paginator';
+import { SuperInputSearch } from '../../components/shared/SuperInputSearch/SuperInputSearch';
+
 import {
   SuperButton,
   SuperCheckbox,
@@ -56,6 +59,22 @@ export const TestBench: FC = () => {
             inc
           </button>
         </div>
+      </div>
+      <div>
+        <SuperInputSearch />
+      </div>
+      <div>
+        <Paginator
+          currentPage={1}
+          onPageChange={
+            () => {} /* (currentPage: number | string) => {
+            dispatch(currentPage, pageSize));
+          } */
+          }
+          totalCount={10}
+          siblingCount={2}
+          pageSize={4}
+        />
       </div>
     </div>
   );
