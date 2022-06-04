@@ -43,30 +43,32 @@ export const PasswordCreate: FC = () => {
   };
 
   return (
-    <div className={s.pCrWrapper}>
-      <h2>it-incubator</h2>
-      <h3>Create new password</h3>
-      <SuperInputText
-        id="password"
-        label="Password"
-        type="password"
-        value={password}
-        onChangeText={onPasswordChange}
-        error={error}
-        disabled={isSending}
-        onKeyDown={onEnterKeyDown}
-        onBlur={onBlur}
-      />
-      <p>Create new password and we will send you further instructions to email</p>
-      <SuperButton
-        onClick={onCreateButtonClick}
-        disabled={isPasswordControlsDisabled}
-        size="large"
-        color="primary"
-        shape="round"
-      >
-        Create new password
-      </SuperButton>
+    <div className={s.pCrContainer}>
+      <div className={s.pCrWrapper}>
+        <h2>it-incubator</h2>
+        <h3>Create new password</h3>
+        <SuperInputText
+          id="password"
+          label="Password"
+          type="password"
+          value={password}
+          onChangeText={onPasswordChange}
+          error={error}
+          disabled={isSending}
+          onKeyDown={onEnterKeyDown}
+          onBlur={onBlur}
+        />
+        <p>Create new password and we will send you further instructions to email</p>
+        <SuperButton
+          onClick={onCreateButtonClick}
+          disabled={isPasswordControlsDisabled}
+          size="large"
+          color="primary"
+          shape="round"
+        >
+          Create new password
+        </SuperButton>
+      </div>
     </div>
   );
 };

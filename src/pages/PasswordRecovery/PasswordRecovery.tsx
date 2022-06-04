@@ -41,43 +41,45 @@ export const PasswordRecovery: FC = () => {
   };
 
   return (
-    <div className={s.pRecWrapper}>
-      <h2>it-incubator</h2>
-      {!isEmailSent ? (
-        <>
-          <h3>Forgot your password?</h3>
-          <SuperInputText
-            type="text"
-            value={email}
-            onChangeText={onEmailChange}
-            error={error}
-            label="Email"
-            onKeyDown={onEmailKeyDown}
-            disabled={isSending}
-            onBlur={onBlur}
-          />
-          <p>Enter your email address and we will send you further instructions</p>
-          <SuperButton
-            size="large"
-            shape="round"
-            color="primary"
-            disabled={isEmailControlsDisabled}
-            onClick={onSendEmailClick}
-          >
-            Send Instructions
-          </SuperButton>
-          <p>Did you remember your password?</p>
-          <Link to={AppRoutePaths.LOGIN} className={s.link}>
-            Try logging in
-          </Link>
-        </>
-      ) : (
-        <>
-          <EmailIcon />
-          <h3>Check Email</h3>
-          <p>We’ve sent an Email with instructions to {email}</p>
-        </>
-      )}
+    <div className={s.pRecContainer}>
+      <div className={s.pRecWrapper}>
+        <h2>it-incubator</h2>
+        {!isEmailSent ? (
+          <>
+            <h3>Forgot your password?</h3>
+            <SuperInputText
+              type="text"
+              value={email}
+              onChangeText={onEmailChange}
+              error={error}
+              label="Email"
+              onKeyDown={onEmailKeyDown}
+              disabled={isSending}
+              onBlur={onBlur}
+            />
+            <p>Enter your email address and we will send you further instructions</p>
+            <SuperButton
+              size="large"
+              shape="round"
+              color="primary"
+              disabled={isEmailControlsDisabled}
+              onClick={onSendEmailClick}
+            >
+              Send Instructions
+            </SuperButton>
+            <p>Did you remember your password?</p>
+            <Link to={AppRoutePaths.LOGIN} className={s.link}>
+              Try logging in
+            </Link>
+          </>
+        ) : (
+          <>
+            <EmailIcon />
+            <h3>Check Email</h3>
+            <p>We’ve sent an Email with instructions to {email}</p>
+          </>
+        )}
+      </div>
     </div>
   );
 };
