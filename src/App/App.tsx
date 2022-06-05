@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 
-import { ReactComponent as Loader } from '../assets/icons/loader.svg';
+import { ReactComponent as Loader } from '../assets/loaders/loader.svg';
 
 import s from './App.module.css';
 import { initializeApp } from './appReducer';

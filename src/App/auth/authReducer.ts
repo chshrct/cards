@@ -1,32 +1,37 @@
-/* eslint-disable no-console */
+import { ThunkAction } from 'redux-thunk';
+
 import { authAPI } from 'api';
 import { RegisterData, UserDataResponseType } from 'api/authApi';
 import { setError, setIsLoading } from 'App';
 import { EMPTY_STRING } from 'constant';
-import { ThunkApp, TypedDispatch } from 'store';
+import { AppRootActionType, AppRootStateType, ThunkApp, TypedDispatch } from 'store';
 
 enum AUTH_ACTIONS {
   SET_AUTH = 'AUTH/SET_AUTH_USER_DATA',
   SET_USER_DATA = 'AUTH/SET_USER_DATA',
   EDIT_PROFILE = 'PROFILE/EDIT_USER',
   UNSUCCESSFUL_LOGIN = 'AUTH/UNSUCCESSFUL_LOGIN',
+  SET_IS_EMAIL_SENT = 'AUTH/SET-IS-EMAIL-SENT',
 }
 
 type SetAuthUserData = ReturnType<typeof setAuthUserData>;
 type SetUserData = ReturnType<typeof setUserData>;
 type EditProfileType = ReturnType<typeof editProfile>;
 type UnsuccessfulLoginType = ReturnType<typeof unsuccessfulLogin>;
+type SetIsEmailSentType = ReturnType<typeof setIsEmailSent>;
 
 export type AuthRootActionType =
   | SetUserData
   | SetAuthUserData
   | EditProfileType
-  | UnsuccessfulLoginType;
+  | UnsuccessfulLoginType
+  | SetIsEmailSentType;
 
 const initialState = {
   rememberMe: false,
   isAuth: false,
   error: EMPTY_STRING,
+  isEmailSent: false,
   user: {
     _id: EMPTY_STRING,
     email: EMPTY_STRING,
@@ -57,6 +62,8 @@ export const authReducer = (
       return { ...state, ...payload };
     case AUTH_ACTIONS.EDIT_PROFILE:
       return { ...state, user: { ...payload } };
+    case AUTH_ACTIONS.SET_IS_EMAIL_SENT:
+      return { ...state, ...payload };
     default:
       return state;
   }
@@ -85,6 +92,12 @@ export const unsuccessfulLogin = (error: string) =>
     payload: { error },
   } as const);
 
+export const setIsEmailSent = (isEmailSent: boolean) =>
+  ({
+    type: AUTH_ACTIONS.SET_IS_EMAIL_SENT,
+    payload: { isEmailSent },
+  } as const);
+
 // thunk
 export const loginUser = (
   email: string,
@@ -98,7 +111,6 @@ export const loginUser = (
       .then(res => {
         dispatch(setAuthUserData(email, rememberMe, true));
         dispatch(setUserData(res.data));
-        console.log(JSON.stringify(res.data));
       })
       .catch(e => {
         dispatch(setError(e.response.data.error));
@@ -152,5 +164,44 @@ export const setRegister =
       .catch(e => dispatch(setError(e.response.data.error)))
       .finally(() => {
         dispatch(setIsLoading(false));
+      });
+  };
+
+export const sendEmail =
+  (email: string): ThunkApp =>
+  dispatch => {
+    dispatch(setIsLoading(true));
+    authAPI
+      .passRecover(email)
+      .then(() => {
+        dispatch(setIsEmailSent(true));
+      })
+      .catch(e => {
+        dispatch(setError(e.response.data.error));
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+
+export const sendPassword =
+  (
+    password: string,
+    token: string,
+  ): ThunkAction<Promise<boolean | void>, AppRootStateType, unknown, AppRootActionType> =>
+  dispatch => {
+    dispatch(setIsLoading(true));
+    return authAPI
+      .setNewPassword({ password, resetPasswordToken: token! })
+      .then(() => {
+        return true;
+      })
+      .catch(e => {
+        dispatch(setError(e.response.data.error));
+      })
+      .finally((redirectToLogin: boolean | void) => {
+        dispatch(setIsLoading(false));
+        if (redirectToLogin) return true;
+        return false;
       });
   };

@@ -1,39 +1,33 @@
-import { FC, KeyboardEvent, useState } from 'react';
+import { FC, KeyboardEvent } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
 import s from './PasswordCreate.module.css';
 
-import { authAPI } from 'api';
+import { sendPassword } from 'App/auth/authReducer';
 import { SuperButton, SuperInputText } from 'components';
 import { MAX_PASSWORD_LENGTH } from 'constant';
 import { validatePassword } from 'helpers';
 import { useSuperInput } from 'hooks';
 import { AppRoutePaths } from 'routes';
+import { useAppDispatch, useAppSelector } from 'store';
 
 export const PasswordCreate: FC = () => {
-  const [password, onPasswordChange, error, setError, isTouched, onBlur] =
-    useSuperInput(validatePassword);
-  const [isSending, setIsSending] = useState<boolean>(false);
-  const { token } = useParams();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { token } = useParams();
+
+  const [password, onPasswordChange, error, isTouched, onBlur] =
+    useSuperInput(validatePassword);
+  const isLoading = useAppSelector(state => state.app.isLoading);
 
   const isPasswordControlsDisabled =
-    !!error || isSending || password.length <= MAX_PASSWORD_LENGTH || !isTouched;
+    !!error || isLoading || password.length <= MAX_PASSWORD_LENGTH || !isTouched;
 
   const onCreateButtonClick = (): void => {
-    setIsSending(true);
-    authAPI
-      .setNewPassword({ password, resetPasswordToken: token! })
-      .then(() => {
-        navigate(AppRoutePaths.LOGIN);
-      })
-      .catch(e => {
-        setError(e.response.data.error);
-      })
-      .finally(() => {
-        setIsSending(false);
-      });
+    dispatch(sendPassword(password, token!)).then((redirectToLogin: boolean | void) => {
+      if (redirectToLogin) navigate(AppRoutePaths.LOGIN);
+    });
   };
 
   const onEnterKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
@@ -54,7 +48,7 @@ export const PasswordCreate: FC = () => {
           value={password}
           onChangeText={onPasswordChange}
           error={error}
-          disabled={isSending}
+          disabled={isLoading}
           onKeyDown={onEnterKeyDown}
           onBlur={onBlur}
         />

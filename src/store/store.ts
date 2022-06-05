@@ -22,8 +22,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 export type AppRootActionType =
-  | AuthRootActionType
   | RootAppActionsType
+  | AuthRootActionType
   | PacksListRootActionType;
 export type ThunkApp = ThunkAction<void, AppRootStateType, unknown, AppRootActionType>;
 export type TypedDispatch = ThunkDispatch<AppRootStateType, unknown, AppRootActionType>;
