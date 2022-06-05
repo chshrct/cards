@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { authAPI } from 'api';
 import { UserDataResponseType } from 'api/authApi';
+import { setIsLoading } from 'App';
 import { ThunkApp, TypedDispatch } from 'store';
 
 enum LOGIN_ACTIONS {
@@ -89,6 +90,7 @@ export const loginUser = (
   rememberMe: boolean,
 ): ThunkApp => {
   return dispatch => {
+    dispatch(setIsLoading(true));
     authAPI
       .login({ email, password, rememberMe })
       .then(res => {
@@ -102,6 +104,9 @@ export const loginUser = (
           : `${e.message}, more details in the console`;
         console.log('Error: ', { ...e });
         dispatch(unsuccessfulLogin(error));
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
       });
   };
 };
@@ -109,16 +114,24 @@ export const loginUser = (
 export const editUserData =
   (data: UserDataResponseType): ThunkApp =>
   async (dispatch: TypedDispatch) => {
+    dispatch(setIsLoading(true));
     try {
       const res = await authAPI.editProfile(data);
       dispatch(setUserData(res.data.updatedUser));
     } catch (e) {
       console.log(e);
     }
+    dispatch(setIsLoading(false));
   };
 
 export const logoutUser = (): ThunkApp => dispatch => {
-  authAPI.logout().then(() => {
-    dispatch(setAuthUserData('', false, false));
-  });
+  dispatch(setIsLoading(true));
+  authAPI
+    .logout()
+    .then(() => {
+      dispatch(setAuthUserData('', false, false));
+    })
+    .finally(() => {
+      dispatch(setIsLoading(false));
+    });
 };

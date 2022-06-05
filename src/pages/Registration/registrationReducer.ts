@@ -1,4 +1,5 @@
 import { authAPI, RegisterData } from 'api';
+import { setIsLoading } from 'App';
 import { ThunkApp } from 'store';
 
 enum RegistrationActionsTypes {
@@ -35,6 +36,7 @@ export const setError = (error: string) =>
 export const setRegister =
   (data: RegisterData): ThunkApp =>
   dispatch => {
+    dispatch(setIsLoading(true));
     authAPI
       .register(data)
       .then(res => {
@@ -43,5 +45,8 @@ export const setRegister =
       .then(() => {
         dispatch(setError(''));
       })
-      .catch(e => dispatch(setError(e.response.data.error)));
+      .catch(e => dispatch(setError(e.response.data.error)))
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
   };
