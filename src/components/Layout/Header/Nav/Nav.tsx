@@ -2,11 +2,10 @@ import { FC } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import { ReactComponent as CardsIcon } from '../../../../assets/icons/cards.svg';
-import { ReactComponent as PersonIcon } from '../../../../assets/icons/person.svg';
-
 import s from './Nav.module.css';
 
+import { ReactComponent as CardsIcon } from 'assets/icons/cards.svg';
+import { ReactComponent as PersonIcon } from 'assets/icons/person.svg';
 import { AppRoutePaths } from 'routes';
 
 export const Nav: FC = () => {
