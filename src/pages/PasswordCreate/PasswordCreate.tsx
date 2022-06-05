@@ -59,6 +59,7 @@ export const PasswordCreate: FC = () => {
           size="large"
           color="primary"
           shape="round"
+          isLoading={isLoading}
         >
           Create new password
         </SuperButton>
