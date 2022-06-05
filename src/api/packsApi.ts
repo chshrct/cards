@@ -18,14 +18,24 @@ const cardsPack = {
 
 export const packsApi = {
   fetchPacks() {
-    return instance.get<PacksResponseType>('/cards/pack', { params }).then(res => {
-      return res.data;
-    });
+    return instance
+      .get<PacksResponseType>('/cards/pack', { params })
+      .then(res => res.data);
   },
   addPack() {
-    return instance.post<AddPackResponseType>('/cards/pack', { cardsPack }).then(res => {
-      return res.data;
-    });
+    return instance
+      .post<PackResponseType>('/cards/pack', { cardsPack })
+      .then(res => res.data);
+  },
+  deletePacks(id: string) {
+    return instance
+      .delete<PackResponseType>('/cards/pack', { params: { id } })
+      .then(res => res.data);
+  },
+  updatePack(_id: string, name: string) {
+    return instance
+      .put<PackResponseType>('/cards/pack', { cardsPack: { _id, name } })
+      .then(res => res.data);
   },
 };
 
@@ -44,8 +54,8 @@ type CardPackType = {
   cardsCount: number;
   type: string;
   rating: number;
-  created: Date;
-  updated: Date;
+  created: string;
+  updated: string;
   more_id: string;
   __v: number;
 };
@@ -61,7 +71,7 @@ export type PacksResponseType = {
   tokenDeathTime: number;
 };
 
-type AddPackResponseType = {
+type PackResponseType = {
   newCardsPack: CardPackType;
   token: string;
   tokenDeathTime: number;
