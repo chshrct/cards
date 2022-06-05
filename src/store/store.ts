@@ -3,6 +3,10 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { loginReducer } from '../pages/Login/loginReducer';
+import {
+  packsListReducer,
+  PacksListRootActionType,
+} from '../pages/PacksList/PacksListReducer';
 import { profileReducer } from '../pages/Profile/profileReducer';
 import { registrationReducer } from '../pages/Registration/registrationReducer';
 
@@ -18,6 +22,7 @@ const rootReducer = combineReducers({
   login: loginReducer,
   registration: registrationReducer,
   profile: profileReducer,
+  packs: packsListReducer,
 });
 
 // @ts-ignore
@@ -28,7 +33,8 @@ export type AppRootActionType =
   | RegistrationRootActionType
   | ProfileRootActionType
   | LoginRootActionType
-  | RootAppActionsType;
+  | RootAppActionsType
+  | PacksListRootActionType;
 export type ThunkApp = ThunkAction<void, AppRootStateType, unknown, AppRootActionType>;
 export type TypedDispatch = ThunkDispatch<AppRootStateType, unknown, AppRootActionType>;
 
