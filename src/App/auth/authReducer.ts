@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
 import { authAPI } from 'api';
-import { UserDataResponseType } from 'api/authApi';
+import { RegisterData, UserDataResponseType } from 'api/authApi';
 import { setError, setIsLoading } from 'App';
+import { EMPTY_STRING } from 'constant';
 import { ThunkApp, TypedDispatch } from 'store';
 
-enum LOGIN_ACTIONS {
-  SET_AUTH = 'LOGIN/SET_AUTH_USER_DATA',
-  SET_USER_DATA = 'LOGIN/SET_USER_DATA',
+enum AUTH_ACTIONS {
+  SET_AUTH = 'AUTH/SET_AUTH_USER_DATA',
+  SET_USER_DATA = 'AUTH/SET_USER_DATA',
   EDIT_PROFILE = 'PROFILE/EDIT_USER',
-  UNSUCCESSFUL_LOGIN = 'LOGIN/UNSUCCESSFUL_LOGIN',
+  UNSUCCESSFUL_LOGIN = 'AUTH/UNSUCCESSFUL_LOGIN',
 }
 
 type SetAuthUserData = ReturnType<typeof setAuthUserData>;
@@ -16,7 +17,7 @@ type SetUserData = ReturnType<typeof setUserData>;
 type EditProfileType = ReturnType<typeof editProfile>;
 type UnsuccessfulLoginType = ReturnType<typeof unsuccessfulLogin>;
 
-export type LoginRootActionType =
+export type AuthRootActionType =
   | SetUserData
   | SetAuthUserData
   | EditProfileType
@@ -25,12 +26,12 @@ export type LoginRootActionType =
 const initialState = {
   rememberMe: false,
   isAuth: false,
-  error: '',
+  error: EMPTY_STRING,
   user: {
-    _id: '',
-    email: '',
-    name: '',
-    avatar: '',
+    _id: EMPTY_STRING,
+    email: EMPTY_STRING,
+    name: EMPTY_STRING,
+    avatar: EMPTY_STRING,
     publicCardPacksCount: 0,
 
     created: {},
@@ -39,22 +40,22 @@ const initialState = {
     verified: false,
     rememberMe: false,
 
-    error: '',
+    error: EMPTY_STRING,
   } as UserDataResponseType,
 };
 
-export type LoginStateType = typeof initialState;
+export type AuthStateType = typeof initialState;
 
-export const loginReducer = (
-  state: LoginStateType = initialState,
-  { type, payload }: LoginRootActionType,
-): LoginStateType => {
+export const authReducer = (
+  state: AuthStateType = initialState,
+  { type, payload }: AuthRootActionType,
+): AuthStateType => {
   switch (type) {
-    case LOGIN_ACTIONS.SET_AUTH:
-    case LOGIN_ACTIONS.SET_USER_DATA:
-    case LOGIN_ACTIONS.UNSUCCESSFUL_LOGIN:
+    case AUTH_ACTIONS.SET_AUTH:
+    case AUTH_ACTIONS.SET_USER_DATA:
+    case AUTH_ACTIONS.UNSUCCESSFUL_LOGIN:
       return { ...state, ...payload };
-    case LOGIN_ACTIONS.EDIT_PROFILE:
+    case AUTH_ACTIONS.EDIT_PROFILE:
       return { ...state, user: { ...payload } };
     default:
       return state;
@@ -64,25 +65,26 @@ export const loginReducer = (
 // action
 export const setUserData = (user: UserDataResponseType) =>
   ({
-    type: LOGIN_ACTIONS.SET_USER_DATA,
+    type: AUTH_ACTIONS.SET_USER_DATA,
     payload: { user },
   } as const);
 export const setAuthUserData = (email: string, rememberMe: boolean, isAuth: boolean) =>
   ({
-    type: LOGIN_ACTIONS.SET_AUTH,
+    type: AUTH_ACTIONS.SET_AUTH,
     payload: { email, rememberMe, isAuth },
   } as const);
 
 export const editProfile = (data: UserDataResponseType) =>
   ({
-    type: LOGIN_ACTIONS.EDIT_PROFILE,
+    type: AUTH_ACTIONS.EDIT_PROFILE,
     payload: data,
   } as const);
 export const unsuccessfulLogin = (error: string) =>
   ({
-    type: LOGIN_ACTIONS.UNSUCCESSFUL_LOGIN,
+    type: AUTH_ACTIONS.UNSUCCESSFUL_LOGIN,
     payload: { error },
   } as const);
+
 // thunk
 export const loginUser = (
   email: string,
@@ -125,7 +127,7 @@ export const logoutUser = (): ThunkApp => dispatch => {
   authAPI
     .logout()
     .then(() => {
-      dispatch(setAuthUserData('', false, false));
+      dispatch(setAuthUserData(EMPTY_STRING, false, false));
     })
     .catch(e => {
       dispatch(setError(e.response.data.error));
@@ -134,3 +136,21 @@ export const logoutUser = (): ThunkApp => dispatch => {
       dispatch(setIsLoading(false));
     });
 };
+
+export const setRegister =
+  (data: RegisterData): ThunkApp =>
+  dispatch => {
+    dispatch(setIsLoading(true));
+    authAPI
+      .register(data)
+      .then(res => {
+        dispatch(setError(res.statusText));
+      })
+      .then(() => {
+        dispatch(setError(EMPTY_STRING));
+      })
+      .catch(e => dispatch(setError(e.response.data.error)))
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };

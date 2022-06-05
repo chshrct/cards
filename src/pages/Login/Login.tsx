@@ -9,7 +9,7 @@ import { AppRoutePaths } from 'routes';
 import { useAppSelector } from 'store';
 
 export const Login: FC = () => {
-  const isAuth = useAppSelector(state => state.login.isAuth);
+  const isAuth = useAppSelector(state => state.auth.isAuth);
   if (isAuth) return <Navigate to={AppRoutePaths.PROFILE} />;
 
   return (

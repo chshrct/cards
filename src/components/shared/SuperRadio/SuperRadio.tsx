@@ -8,6 +8,8 @@ import React, {
 
 import s from './SuperRadio.module.css';
 
+import { EMPTY_STRING } from 'constant';
+
 type DefaultRadioPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -34,7 +36,7 @@ export const SuperRadio: FC<SuperRadioPropsType> = ({
     onChangeOption?.(e.currentTarget.value);
   };
 
-  const radioClassName = `${s.radio} ${className || ''}`;
+  const radioClassName = `${s.radio} ${className || EMPTY_STRING}`;
 
   const mappedOptions: any[] = options
     ? options.map(o => {

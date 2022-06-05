@@ -8,7 +8,7 @@ import { AppRoutePaths } from 'routes';
 import { useAppSelector } from 'store';
 
 export const UserCard: FC = () => {
-  const user = useAppSelector(state => state.login.user);
+  const user = useAppSelector(state => state.auth.user);
 
   return (
     <div className={s.userContainer}>

@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import s from './ErrorMessage.module.css';
 
 import { setError } from 'App';
+import { EMPTY_STRING } from 'constant';
 import { useAppDispatch, useAppSelector } from 'store';
 
 const ERROR_VISIBLE_TIMER = 5000;
@@ -25,7 +26,7 @@ export const ErrorMessage: FC = () => {
   useEffect(() => {
     if (!isErrorVisible) {
       const timeoutId = setTimeout(() => {
-        dispatch(setError(''));
+        dispatch(setError(EMPTY_STRING));
       }, CLEAR_ERROR_TIMER);
       return () => {
         clearTimeout(timeoutId);

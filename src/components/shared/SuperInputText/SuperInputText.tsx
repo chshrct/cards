@@ -11,6 +11,7 @@ import s from './SuperInputText.module.css';
 
 import { ReactComponent as EyeSlashIcon } from 'assets/icons/eye-slash.svg';
 import { ReactComponent as EyeIcon } from 'assets/icons/eye.svg';
+import { EMPTY_STRING } from 'constant';
 
 type DefaultInputPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -61,7 +62,9 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
   const inputClassName = `${s.superInput}
      ${disabled ? `${s.superInput} ${s.disabledInput}` : s.superInput} `;
 
-  const finalSpanClassName: string = `${s.spanStyle} ${s.error} ${spanClassName || ''}`;
+  const finalSpanClassName: string = `${s.spanStyle} ${s.error} ${
+    spanClassName || EMPTY_STRING
+  }`;
   const finalInputClassName: string = `${
     error ? `${inputClassName} ${s.errorInput}` : inputClassName
   } ${className}`;

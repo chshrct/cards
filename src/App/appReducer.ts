@@ -1,5 +1,6 @@
 import { authAPI } from 'api';
-import { setAuthUserData } from 'pages/Login/loginReducer';
+import { setAuthUserData } from 'App/auth/authReducer';
+import { EMPTY_STRING } from 'constant';
 import { ThunkApp } from 'store';
 
 enum AppActionsTypes {
@@ -17,7 +18,7 @@ type InitialStateType = {
 const initialState = {
   isInitialized: false,
   isLoading: false,
-  error: '',
+  error: EMPTY_STRING,
 };
 
 export const appReducer = (

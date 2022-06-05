@@ -1,6 +1,7 @@
 import { packsApi, PacksResponseType } from '../../api/packsApi';
 
 import { setIsLoading } from 'App';
+import { EMPTY_STRING } from 'constant';
 import { ThunkApp } from 'store';
 
 enum PacksListActionsTypes {
@@ -15,7 +16,7 @@ export type PacksListRootActionType = FetchPacksType | SetErrorType;
 
 const initialState = {
   packs: {} as PacksResponseType,
-  error: '',
+  error: EMPTY_STRING,
 };
 
 type PacksListStateType = typeof initialState;
