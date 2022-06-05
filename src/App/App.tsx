@@ -5,12 +5,13 @@ import { ReactComponent as Loader } from '../assets/icons/loader.svg';
 import s from './App.module.css';
 import { initializeApp } from './appReducer';
 
-import { ProgressInfinite } from 'components/shared/ProgressInfinite/ProgressInfinite';
+import { ErrorMessage, ProgressInfinite } from 'components';
 import { AppRouter } from 'routes';
 import { useAppDispatch, useAppSelector } from 'store';
 
 const App: FC = () => {
   const isLoading = useAppSelector(state => state.app.isLoading);
+  const error = useAppSelector(state => state.app.error);
   const dispatch = useAppDispatch();
   const isInitialized = useAppSelector(state => state.app.isInitialized);
   useEffect(() => {
@@ -27,6 +28,7 @@ const App: FC = () => {
     <>
       {isLoading && <ProgressInfinite />}
       <AppRouter />
+      {error && <ErrorMessage />}
     </>
   );
 };

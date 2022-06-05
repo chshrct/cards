@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { authAPI } from 'api';
 import { UserDataResponseType } from 'api/authApi';
-import { setIsLoading } from 'App';
+import { setError, setIsLoading } from 'App';
 import { ThunkApp, TypedDispatch } from 'store';
 
 enum LOGIN_ACTIONS {
@@ -99,11 +99,7 @@ export const loginUser = (
         console.log(JSON.stringify(res.data));
       })
       .catch(e => {
-        const error = e.response
-          ? e.response.data.error
-          : `${e.message}, more details in the console`;
-        console.log('Error: ', { ...e });
-        dispatch(unsuccessfulLogin(error));
+        dispatch(setError(e.response.data.error));
       })
       .finally(() => {
         dispatch(setIsLoading(false));
@@ -118,8 +114,8 @@ export const editUserData =
     try {
       const res = await authAPI.editProfile(data);
       dispatch(setUserData(res.data.updatedUser));
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      dispatch(setError(e.response.data.error));
     }
     dispatch(setIsLoading(false));
   };
@@ -130,6 +126,9 @@ export const logoutUser = (): ThunkApp => dispatch => {
     .logout()
     .then(() => {
       dispatch(setAuthUserData('', false, false));
+    })
+    .catch(e => {
+      dispatch(setError(e.response.data.error));
     })
     .finally(() => {
       dispatch(setIsLoading(false));
