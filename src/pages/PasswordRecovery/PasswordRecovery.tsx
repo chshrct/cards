@@ -54,6 +54,7 @@ export const PasswordRecovery: FC = () => {
               color="primary"
               disabled={isEmailControlsDisabled}
               onClick={onSendEmailClick}
+              isLoading={isLoading}
             >
               Send Instructions
             </SuperButton>

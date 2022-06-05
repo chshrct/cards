@@ -1,5 +1,7 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 
+import { ReactComponent as ButtonLoader } from '../../../assets/loaders/button-loader.svg';
+
 import s from './SuperButton.module.css';
 
 type DefaultButtonPropsType = DetailedHTMLProps<
@@ -11,6 +13,7 @@ type SuperButtonPropsType = DefaultButtonPropsType & {
   size?: 'small' | 'medium' | 'large';
   color?: 'primary' | 'secondary';
   shape?: 'round' | 'square';
+  isLoading?: boolean;
 };
 
 export const SuperButton: FC<SuperButtonPropsType> = ({
@@ -18,6 +21,9 @@ export const SuperButton: FC<SuperButtonPropsType> = ({
   size,
   color,
   shape,
+  isLoading,
+  disabled,
+  children,
   ...restProps
 }) => {
   let sizeClassName = s.sizeSmall;
@@ -28,6 +34,19 @@ export const SuperButton: FC<SuperButtonPropsType> = ({
   let shapeClassName = s.shapeRound;
   if (shape === 'square') shapeClassName = s.shapeSquare;
   const finalClassName = `${s.button} ${sizeClassName} ${colorClassName} ${shapeClassName} ${className}`;
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <button type="button" className={finalClassName} {...restProps} />;
+  return (
+    <button
+      type="button"
+      className={finalClassName}
+      disabled={isLoading ? true : disabled}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...restProps}
+    >
+      {isLoading ? (
+        <ButtonLoader height={50} width={50} className={s.buttonLoader} />
+      ) : (
+        children
+      )}
+    </button>
+  );
 };
