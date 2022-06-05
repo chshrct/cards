@@ -1,22 +1,21 @@
 import { packsApi, PacksResponseType } from '../../api/packsApi';
 
-import { setIsLoading } from 'App';
-import { EMPTY_STRING } from 'constant';
+import { setError, setIsLoading } from 'App';
 import { ThunkApp } from 'store';
 
 enum PacksListActionsTypes {
   fetchPacks = 'PACKS-LIST/SET_ERROR',
-  setError = 'PACKS-LIST/SET_ERROR',
+  setIsAddNewPack = 'PACKS-LIST/SET_IS_ADD_NEW_PACK',
 }
 
 type FetchPacksType = ReturnType<typeof fetchPacksAC>;
-type SetErrorType = ReturnType<typeof setError>;
+type SetIsAddNewPackType = ReturnType<typeof setIsAddNewPack>;
 
-export type PacksListRootActionType = FetchPacksType | SetErrorType;
+export type PacksListRootActionType = FetchPacksType | SetIsAddNewPackType;
 
 const initialState = {
   packs: {} as PacksResponseType,
-  error: EMPTY_STRING,
+  isAddNewPack: false,
 };
 
 type PacksListStateType = typeof initialState;
@@ -27,7 +26,7 @@ export const packsListReducer = (
 ): PacksListStateType => {
   switch (type) {
     case PacksListActionsTypes.fetchPacks:
-    case PacksListActionsTypes.setError:
+    case PacksListActionsTypes.setIsAddNewPack:
       return { ...state, ...payload };
     default:
       return state;
@@ -37,12 +36,13 @@ export const packsListReducer = (
 // action
 export const fetchPacksAC = (packs: PacksResponseType) =>
   ({ type: PacksListActionsTypes.fetchPacks, payload: { packs } } as const);
-export const setError = (error: string) =>
-  ({ type: PacksListActionsTypes.setError, payload: { error } } as const);
+export const setIsAddNewPack = (isAddNewPack: boolean) =>
+  ({ type: PacksListActionsTypes.setIsAddNewPack, payload: { isAddNewPack } } as const);
 
 // thunk
 export const fetchPacks = (): ThunkApp => dispatch => {
   dispatch(setIsLoading(true));
+  dispatch(setIsAddNewPack(true));
   packsApi
     .fetchPacks()
     .then(data => {
@@ -56,11 +56,13 @@ export const fetchPacks = (): ThunkApp => dispatch => {
     })
     .finally(() => {
       dispatch(setIsLoading(false));
+      dispatch(setIsAddNewPack(false));
     });
 };
 
 export const addNewPack = (): ThunkApp => dispatch => {
   dispatch(setIsLoading(true));
+  dispatch(setIsAddNewPack(true));
   packsApi
     .addPack()
     .then(() => {
@@ -74,6 +76,7 @@ export const addNewPack = (): ThunkApp => dispatch => {
     })
     .finally(() => {
       dispatch(setIsLoading(false));
+      dispatch(setIsAddNewPack(false));
     });
 };
 
@@ -81,6 +84,7 @@ export const deletePacks =
   (id: string): ThunkApp =>
   dispatch => {
     dispatch(setIsLoading(true));
+    dispatch(setIsAddNewPack(true));
     packsApi
       .deletePacks(id)
       .then(() => {
@@ -94,6 +98,7 @@ export const deletePacks =
       })
       .finally(() => {
         dispatch(setIsLoading(false));
+        dispatch(setIsAddNewPack(false));
       });
   };
 
@@ -101,6 +106,7 @@ export const updatePacks =
   (_id: string, name: string): ThunkApp =>
   dispatch => {
     dispatch(setIsLoading(true));
+    dispatch(setIsAddNewPack(true));
     packsApi
       .updatePack(_id, name)
       .then(() => {
@@ -114,5 +120,6 @@ export const updatePacks =
       })
       .finally(() => {
         dispatch(setIsLoading(false));
+        dispatch(setIsAddNewPack(false));
       });
   };
