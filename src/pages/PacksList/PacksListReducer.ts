@@ -41,7 +41,6 @@ export const setError = (error: string) =>
   ({ type: PacksListActionsTypes.setError, payload: { error } } as const);
 
 // thunk
-
 export const fetchPacks = (): ThunkApp => dispatch => {
   dispatch(setIsLoading(true));
   packsApi
@@ -77,3 +76,43 @@ export const addNewPack = (): ThunkApp => dispatch => {
       dispatch(setIsLoading(false));
     });
 };
+
+export const deletePacks =
+  (id: string): ThunkApp =>
+  dispatch => {
+    dispatch(setIsLoading(true));
+    packsApi
+      .deletePacks(id)
+      .then(() => {
+        packsApi.fetchPacks();
+      })
+      .catch(e => {
+        const error = e.response
+          ? e.response.data.error
+          : `${e.message}, more details in the console`;
+        dispatch(setError(error));
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+
+export const updatePacks =
+  (_id: string, name: string): ThunkApp =>
+  dispatch => {
+    dispatch(setIsLoading(true));
+    packsApi
+      .updatePack(_id, name)
+      .then(() => {
+        packsApi.fetchPacks();
+      })
+      .catch(e => {
+        const error = e.response
+          ? e.response.data.error
+          : `${e.message}, more details in the console`;
+        dispatch(setError(error));
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
