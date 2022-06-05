@@ -5,16 +5,19 @@ import { ThunkApp } from 'store';
 enum AppActionsTypes {
   SET_IS_INITIALIZED = 'APP/SET-IS-INITIALIZED',
   SET_IS_LOADING = 'APP/SET-IS-LOADING',
+  SET_ERROR = 'APP/SET-ERROR',
 }
 
 type InitialStateType = {
   isInitialized: boolean;
   isLoading: boolean;
+  error: string;
 };
 
 const initialState = {
   isInitialized: false,
   isLoading: false,
+  error: '',
 };
 
 export const appReducer = (
@@ -25,6 +28,8 @@ export const appReducer = (
     case AppActionsTypes.SET_IS_INITIALIZED:
       return { ...state, ...payload };
     case AppActionsTypes.SET_IS_LOADING:
+      return { ...state, ...payload };
+    case AppActionsTypes.SET_ERROR:
       return { ...state, ...payload };
 
     default:
@@ -45,6 +50,12 @@ export const setIsLoading = (isLoading: boolean) =>
     payload: { isLoading },
   } as const);
 
+export const setError = (error: string) =>
+  ({
+    type: AppActionsTypes.SET_ERROR,
+    payload: { error },
+  } as const);
+
 // thunks
 export const initializeApp = (): ThunkApp => dispatch => {
   dispatch(setIsLoading(true));
@@ -62,4 +73,8 @@ export const initializeApp = (): ThunkApp => dispatch => {
 // types
 type SetisInitializedType = ReturnType<typeof setisInitialized>;
 type SetsetIsLoadingType = ReturnType<typeof setIsLoading>;
-export type RootAppActionsType = SetisInitializedType | SetsetIsLoadingType;
+type SetErrorType = ReturnType<typeof setError>;
+export type RootAppActionsType =
+  | SetisInitializedType
+  | SetsetIsLoadingType
+  | SetErrorType;

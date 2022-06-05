@@ -7,4 +7,6 @@ export {
   SuperRadio,
   SuperRange,
   SuperSelect,
+  ProgressInfinite,
+  ErrorMessage,
 } from './shared';
