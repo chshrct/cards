@@ -1,6 +1,6 @@
 .userContainer{
     width: 243px;
-    height: 216px;
+    min-height: 216px;
 
     background-color: #D9D9F1;
     border-radius: 8px 0 8px 8px;
@@ -9,8 +9,7 @@
     gap: 4px;
     justify-content: center;
     align-items: center;
-    padding-top: 24px;
-    padding-bottom: 12px;
+    padding: 24px 10px 12px;
 }
 
 .userContainer img {
@@ -30,6 +29,9 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 1.5;
+    text-align: center;
+
+    word-break: break-all;
 }
 
 .userContainer h3 {
@@ -43,6 +45,7 @@
     padding: 0;
     color: #2D2E46;
     opacity: 0.5;
+    word-break: break-all;
 }
 .outlined {
     border: 1px solid rgba(99, 93, 128, 0.5);
