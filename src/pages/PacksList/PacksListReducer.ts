@@ -8,18 +8,21 @@ enum PacksListActionsTypes {
   setIsAddNewPack = 'PACKS-LIST/SET_IS_ADD_NEW_PACK',
   setCurrentPage = 'PACKS-LIST/SET_CURRENT_PAGE',
   setTotalPacksCount = 'PACKS-LIST/SET_TOTAL_PACKS_COUNT',
+  changeInputTitle = 'PACKS-LIST/CHANGE_INPUT_TITLE',
 }
 
 type FetchPacksType = ReturnType<typeof fetchPacksAC>;
 type SetIsAddNewPackType = ReturnType<typeof setIsAddNewPack>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
 type SetTotalPacksCountType = ReturnType<typeof setTotalPacksCount>;
+type ChangeInputTitleType = ReturnType<typeof changeInputTitle>;
 
 export type PacksListRootActionType =
   | FetchPacksType
   | SetIsAddNewPackType
   | SetCurrentPageType
-  | SetTotalPacksCountType;
+  | SetTotalPacksCountType
+  | ChangeInputTitleType;
 
 const initialState = {
   packs: {} as PacksResponseType,
@@ -31,6 +34,7 @@ const initialState = {
     pageCount: 5,
     siblingCount: 1,
   },
+  inputTitle: '',
 };
 
 type PacksListStateType = typeof initialState;
@@ -42,6 +46,7 @@ export const packsListReducer = (
   switch (type) {
     case PacksListActionsTypes.fetchPacks:
     case PacksListActionsTypes.setIsAddNewPack:
+    case PacksListActionsTypes.changeInputTitle:
       return { ...state, ...payload };
     case PacksListActionsTypes.setCurrentPage:
     case PacksListActionsTypes.setTotalPacksCount:
@@ -60,16 +65,18 @@ export const setCurrentPage = (page: number | string) =>
   ({ type: PacksListActionsTypes.setCurrentPage, payload: { page } } as const);
 export const setTotalPacksCount = (totalCount: number) =>
   ({ type: PacksListActionsTypes.setTotalPacksCount, payload: { totalCount } } as const);
+export const changeInputTitle = (inputTitle: string) =>
+  ({ type: PacksListActionsTypes.changeInputTitle, payload: { inputTitle } } as const);
 
 // thunk
 export const fetchPacks =
-  (page: number | string, pageCount: number): ThunkApp =>
+  (page: number | string, pageCount: number, inputTitle?: string): ThunkApp =>
   dispatch => {
     dispatch(setIsLoading(true));
     dispatch(setIsAddNewPack(true));
     dispatch(setCurrentPage(page));
     packsApi
-      .fetchPacks(page, pageCount)
+      .fetchPacks(page, pageCount, inputTitle)
       .then(data => {
         dispatch(fetchPacksAC(data));
         dispatch(setTotalPacksCount(data.cardPacksTotalCount));
@@ -86,37 +93,35 @@ export const fetchPacks =
       });
   };
 
-export const addNewPack =
-  (page: number | string, pageCount: number): ThunkApp =>
-  dispatch => {
-    dispatch(setIsLoading(true));
-    dispatch(setIsAddNewPack(true));
-    packsApi
-      .addPack()
-      .then(() => {
-        packsApi.fetchPacks(page, pageCount);
-      })
-      .catch(e => {
-        const error = e.response
-          ? e.response.data.error
-          : `${e.message}, more details in the console`;
-        dispatch(setError(error));
-      })
-      .finally(() => {
-        dispatch(setIsLoading(false));
-        dispatch(setIsAddNewPack(false));
-      });
-  };
+export const addNewPack = (): ThunkApp => dispatch => {
+  dispatch(setIsLoading(true));
+  dispatch(setIsAddNewPack(true));
+  packsApi
+    .addPack()
+    .then(() => {
+      packsApi.fetchPacks();
+    })
+    .catch(e => {
+      const error = e.response
+        ? e.response.data.error
+        : `${e.message}, more details in the console`;
+      dispatch(setError(error));
+    })
+    .finally(() => {
+      dispatch(setIsLoading(false));
+      dispatch(setIsAddNewPack(false));
+    });
+};
 
 export const deletePacks =
-  (id: string, page: number | string, pageCount: number): ThunkApp =>
+  (id: string): ThunkApp =>
   dispatch => {
     dispatch(setIsLoading(true));
     dispatch(setIsAddNewPack(true));
     packsApi
       .deletePacks(id)
       .then(() => {
-        packsApi.fetchPacks(page, pageCount);
+        packsApi.fetchPacks();
       })
       .catch(e => {
         const error = e.response
@@ -131,14 +136,14 @@ export const deletePacks =
   };
 
 export const updatePacks =
-  (_id: string, name: string, page: number | string, pageCount: number): ThunkApp =>
+  (_id: string, name: string): ThunkApp =>
   dispatch => {
     dispatch(setIsLoading(true));
     dispatch(setIsAddNewPack(true));
     packsApi
       .updatePack(_id, name)
       .then(() => {
-        packsApi.fetchPacks(page, pageCount);
+        packsApi.fetchPacks();
       })
       .catch(e => {
         const error = e.response

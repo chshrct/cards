@@ -17,14 +17,11 @@ const SLICE_END_INDEX = 10;
 
 export const Row: React.FC<RowType> = ({ pack, className }) => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
-  const paginator = useAppSelector(state => state.packs.paginator);
-  const { page, pageCount } = paginator;
   const dispatch = useAppDispatch();
 
-  const deletePackHandle = (): void =>
-    dispatch(deletePacks('629ce515e851350004005e3e', page, pageCount));
+  const deletePackHandle = (): void => dispatch(deletePacks('629ce515e851350004005e3e'));
   const editPackHandle = (): void =>
-    dispatch(updatePacks('629ce515e851350004005e3e', 'NEW PACK NAME', page, pageCount));
+    dispatch(updatePacks('629ce515e851350004005e3e', 'NEW PACK NAME'));
 
   return (
     <div className={`${s.body} ${className}`}>

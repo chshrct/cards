@@ -1,22 +1,29 @@
-import React, { FC, useEffect } from 'react';
+import React, { ChangeEvent, FC, useEffect } from 'react';
 
 import { SuperButton, SuperRange } from '../../components';
 import { Paginator } from '../../components/shared/Paginator/Paginator';
+import { SuperInputSearch } from '../../components/shared/SuperInputSearch/SuperInputSearch';
 import { useAppDispatch, useAppSelector } from '../../store';
 
 import s from './PacksList.module.css';
-import { addNewPack, fetchPacks } from './PacksListReducer';
+import { addNewPack, changeInputTitle, fetchPacks } from './PacksListReducer';
 import { Table } from './Table/Table';
 
 export const PacksList: FC = () => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
+  const inputTitle = useAppSelector(state => state.packs.inputTitle);
   const paginator = useAppSelector(state => state.packs.paginator);
   const { page, pageCount, totalCount, siblingCount } = paginator;
   const dispatch = useAppDispatch();
 
-  const addNewPackHandle = (): void => dispatch(addNewPack(page, pageCount));
+  const changeTitle = (e: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(changeInputTitle(e.currentTarget.value));
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    dispatch(fetchPacks(1, pageCount, inputTitle));
+  };
+  const addNewPackHandle = (): void => dispatch(addNewPack());
   const onPageChanged = (pageNumber: number | string): void => {
-    dispatch(fetchPacks(pageNumber, pageCount));
+    dispatch(fetchPacks(pageNumber, pageCount, inputTitle));
   };
   useEffect(() => {
     dispatch(fetchPacks(page, pageCount));
@@ -31,7 +38,7 @@ export const PacksList: FC = () => {
       <div className={s.main}>
         <h3>Packs list</h3>
         <div className={s.searchBlock}>
-          <span>search</span>
+          <SuperInputSearch onChange={changeTitle} value={inputTitle} />
           <SuperButton onClick={addNewPackHandle} disabled={isAddNewPack}>
             Add new pack
           </SuperButton>

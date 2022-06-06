@@ -1,29 +1,30 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 
 import search from '../../../assets/icons/search.png';
 import { SuperInputText } from '../SuperInputText';
 
 import s from './SuperInputSearch.module.css';
 
-export const SuperInputSearch: FC = () => {
-  /* const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeInputTitle(e.currentTarget.value));
-  };
-  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.charCode === 13) {
-      dispatch(requestUser(userPage.title));
-    }
-  }; */
+type SuperInputSearchType = {
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+};
 
+export const SuperInputSearch: FC<SuperInputSearchType> = ({
+  onChange,
+  value,
+  ...restProps
+}) => {
   return (
     <div className={s.searchBlock}>
       <img src={search} alt="search:" />
       <SuperInputText
         type="text"
         placeholder="Search..."
-        /* onChange={changeTitle}
-          value={userPage.title}
-          onKeyPress={onKeyPressHandler} */
+        onChange={onChange}
+        value={value}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...restProps}
       />
     </div>
   );
