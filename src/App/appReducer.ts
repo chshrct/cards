@@ -7,18 +7,21 @@ enum AppActionsTypes {
   SET_IS_INITIALIZED = 'APP/SET-IS-INITIALIZED',
   SET_IS_LOADING = 'APP/SET-IS-LOADING',
   SET_ERROR = 'APP/SET-ERROR',
+  SET_USER_ID = 'APP/SET-USER_ID',
 }
 
 type InitialStateType = {
   isInitialized: boolean;
   isLoading: boolean;
   error: string;
+  userId: string;
 };
 
 const initialState = {
   isInitialized: false,
   isLoading: false,
   error: EMPTY_STRING,
+  userId: EMPTY_STRING,
 };
 
 export const appReducer = (
@@ -31,6 +34,7 @@ export const appReducer = (
     case AppActionsTypes.SET_IS_LOADING:
       return { ...state, ...payload };
     case AppActionsTypes.SET_ERROR:
+    case AppActionsTypes.SET_USER_ID:
       return { ...state, ...payload };
 
     default:
@@ -57,6 +61,12 @@ export const setError = (error: string) =>
     payload: { error },
   } as const);
 
+export const setUserId = (userId: string) =>
+  ({
+    type: AppActionsTypes.SET_USER_ID,
+    payload: { userId },
+  } as const);
+
 // thunks
 export const initializeApp = (): ThunkApp => dispatch => {
   dispatch(setIsLoading(true));
@@ -64,6 +74,8 @@ export const initializeApp = (): ThunkApp => dispatch => {
     .authMe()
     .then(res => {
       dispatch(setAuthUserData(res.data.email, res.data.rememberMe, true));
+      // eslint-disable-next-line no-underscore-dangle
+      dispatch(setUserId(res.data._id));
     })
     .finally(() => {
       dispatch(setisInitialized(true));
@@ -75,7 +87,9 @@ export const initializeApp = (): ThunkApp => dispatch => {
 type SetisInitializedType = ReturnType<typeof setisInitialized>;
 type SetsetIsLoadingType = ReturnType<typeof setIsLoading>;
 type SetErrorType = ReturnType<typeof setError>;
+type SetUserIdType = ReturnType<typeof setUserId>;
 export type RootAppActionsType =
   | SetisInitializedType
   | SetsetIsLoadingType
-  | SetErrorType;
+  | SetErrorType
+  | SetUserIdType;

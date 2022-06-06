@@ -17,6 +17,8 @@ const SLICE_END_INDEX = 10;
 
 export const Row: React.FC<RowType> = ({ pack, className }) => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
+  // eslint-disable-next-line no-underscore-dangle
+  const userId = useAppSelector(state => state.app.userId);
   const dispatch = useAppDispatch();
 
   // eslint-disable-next-line no-underscore-dangle
@@ -34,12 +36,17 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
       </div>
       <div className={s.userName}>{pack.user_name}</div>
       <div className={s.buttonsBlock}>
-        <SuperButton onClick={deletePackHandle} disabled={isAddNewPack}>
-          Delete
-        </SuperButton>
-        <SuperButton onClick={editPackHandle} disabled={isAddNewPack}>
-          Edit
-        </SuperButton>
+        {/* eslint-disable-next-line no-underscore-dangle */}
+        {pack.user_id === userId ? (
+          <div>
+            <SuperButton onClick={deletePackHandle} disabled={isAddNewPack}>
+              Delete
+            </SuperButton>
+            <SuperButton onClick={editPackHandle} disabled={isAddNewPack}>
+              Edit
+            </SuperButton>
+          </div>
+        ) : null}
       </div>
     </div>
   );

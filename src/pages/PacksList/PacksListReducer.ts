@@ -110,7 +110,6 @@ export const addNewPack = (): ThunkApp => (dispatch, getState) => {
     })
     .finally(() => {
       dispatch(setIsLoading(false));
-      dispatch(setIsAddNewPack(false));
     });
 };
 
@@ -133,7 +132,6 @@ export const deletePacks =
       })
       .finally(() => {
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewPack(false));
       });
   };
 
@@ -156,6 +154,5 @@ export const updatePacks =
       })
       .finally(() => {
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewPack(false));
       });
   };
