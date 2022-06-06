@@ -25,7 +25,7 @@ export const Table: React.FC = () => {
       {packs.map((p, i) => {
         return (
           <Row
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,no-underscore-dangle
+            // eslint-disable-next-line no-underscore-dangle
             key={p._id}
             pack={p}
             className={

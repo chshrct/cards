@@ -19,9 +19,11 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
   const dispatch = useAppDispatch();
 
-  const deletePackHandle = (): void => dispatch(deletePacks('629ce515e851350004005e3e'));
+  // eslint-disable-next-line no-underscore-dangle
+  const deletePackHandle = (): void => dispatch(deletePacks(pack._id));
   const editPackHandle = (): void =>
-    dispatch(updatePacks('629ce515e851350004005e3e', 'NEW PACK NAME'));
+    // eslint-disable-next-line no-underscore-dangle
+    dispatch(updatePacks(pack._id, 'NEW PACK NAME'));
 
   return (
     <div className={`${s.body} ${className}`}>
