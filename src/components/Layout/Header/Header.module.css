@@ -1,0 +1,16 @@
+.headerWrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  left: 0px;
+  top: 0px;
+  background: #ebe0e9;
+}
+.buttonWrapper {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+}

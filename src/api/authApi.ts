@@ -5,7 +5,7 @@ const letter = {
 
   message: `<div style="background-color: lime; padding: 15px">
 password recovery link: 
-<a href='http://localhost:3000/#/password-create/$token$'>
+<a href='https://chshrct.github.io/cards/#/password-create/$token$'>
 link</a>
 </div>`,
 };

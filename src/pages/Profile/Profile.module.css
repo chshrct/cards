@@ -1,37 +1,37 @@
 .profileContainer {
-    margin: 24px 136px 71px 136px;
-    min-height: calc(100vh - 60px - 71px - 24px);
+  margin: 24px 136px 71px 136px;
+  min-height: calc(100vh - 60px - 71px - 24px);
+  min-width: calc(100vw - 136px - 136px);
 
-    display: flex;
-    background: #FEFEFF;
-    border-radius: 8px;
+  display: flex;
+  background: #fefeff;
+  border-radius: 8px;
 }
 
 .sideBar {
-    background: #ECECF9;
-    border-radius: 8px;
+  background: #ececf9;
+  border-radius: 8px;
 }
 
 .settingsBlock {
-    padding: 17px 24px;
+  padding: 17px 24px;
 }
 
 .title {
-    font-family: Poppins, sans-serif;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 1.5;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.5;
 
-    color: #2D2E46;
+  color: #2d2e46;
 }
 .subtitle {
-    font-family: Roboto, sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 1.2;
+  font-family: Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.2;
 
-    color: #2D2E46;
-    margin: 0;
-    padding-bottom: 20px;
-
+  color: #2d2e46;
+  margin: 0;
+  padding-bottom: 20px;
 }

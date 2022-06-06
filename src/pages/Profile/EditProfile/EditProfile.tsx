@@ -4,17 +4,17 @@ import { useNavigate } from 'react-router-dom';
 
 import s from './EditProfile.module.css';
 
+import { editUserData } from 'App/auth/authReducer';
 import { Avatar } from 'assets/icons/Avatar';
 import { SuperButton, SuperInputText } from 'components';
 import { BACK } from 'constant';
 import { useInput } from 'hooks';
-import { editUserData } from 'pages/Login/loginReducer';
 import { useAppDispatch, useAppSelector } from 'store';
 
 export const EditProfile: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector(state => state.login.user);
+  const user = useAppSelector(state => state.auth.user);
 
   const {
     value: nickName,

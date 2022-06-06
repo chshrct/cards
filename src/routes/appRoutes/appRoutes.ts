@@ -3,10 +3,10 @@ export enum AppRoutePaths {
   PASSWORD_CREATE = '/password-create/:token',
   PASSWORD_RECOVERY = '/password-recovery',
   PROFILE = '/profile',
-  EDIT_PROFILE = '/edit-profile',
+  EDIT_PROFILE = 'edit-profile',
   REGISTRATION = '/registration',
-  TEST_BENCH = '/test-bench',
   RANDOM = '*',
   NOT_FOUND = '/404-not-found',
   INDEX = '/',
+  PACKS_LIST = '/packs-list',
 }

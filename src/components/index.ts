@@ -1,4 +1,4 @@
-export { Layout, Nav } from './Layout';
+export { Layout } from './Layout';
 export {
   SuperButton,
   SuperCheckbox,
@@ -7,4 +7,6 @@ export {
   SuperRadio,
   SuperRange,
   SuperSelect,
+  ProgressInfinite,
+  ErrorMessage,
 } from './shared';
