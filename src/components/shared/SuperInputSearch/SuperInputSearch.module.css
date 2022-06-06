@@ -6,9 +6,8 @@
     background-color: #f3f3fa;
     border-radius: 6px;
     padding: 8px 14px 8px 14px;
-    border: 1px solid #808080;
-    margin: 20px;
-
+    border: 1px solid #999999;
+    margin-right: 10px;
 }
 
 .searchBlock img {
@@ -20,9 +19,9 @@
 
 .searchBlock input {
     margin-left: 20px;
-    width: 500px;
+    width: 750px;
     border: none;
-    outline:none;
+    outline: none;
 }
 
 .search {

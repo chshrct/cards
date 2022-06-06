@@ -39,7 +39,7 @@ export const PacksList: FC = () => {
         <h3>Packs list</h3>
         <div className={s.searchBlock}>
           <SuperInputSearch onChange={changeTitle} value={inputTitle} />
-          <SuperButton onClick={addNewPackHandle} disabled={isAddNewPack}>
+          <SuperButton onClick={addNewPackHandle} disabled={isAddNewPack} size="large">
             Add new pack
           </SuperButton>
         </div>
