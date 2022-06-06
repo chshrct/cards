@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 
 import { SuperButton, SuperRange } from '../../components';
+import { Paginator } from '../../components/shared/Paginator/Paginator';
 import { useAppDispatch, useAppSelector } from '../../store';
 
 import s from './PacksList.module.css';
@@ -9,12 +10,16 @@ import { Table } from './Table/Table';
 
 export const PacksList: FC = () => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
+  const paginator = useAppSelector(state => state.packs.paginator);
+  const { page, pageCount, totalCount, siblingCount } = paginator;
   const dispatch = useAppDispatch();
 
-  const addNewPackHandle = (): void => dispatch(addNewPack());
-
+  const addNewPackHandle = (): void => dispatch(addNewPack(page, pageCount));
+  const onPageChanged = (pageNumber: number | string): void => {
+    dispatch(fetchPacks(pageNumber, pageCount));
+  };
   useEffect(() => {
-    dispatch(fetchPacks());
+    dispatch(fetchPacks(page, pageCount));
   }, []);
   return (
     <div className={s.packsListContainer}>
@@ -34,7 +39,16 @@ export const PacksList: FC = () => {
         <div className={s.tableBlock}>
           <Table />
         </div>
-        <div className={s.paginationBlock}>pagination</div>
+        <div className={s.paginationBlock}>
+          <Paginator
+            // @ts-ignore
+            currentPage={page}
+            onPageChange={onPageChanged}
+            totalCount={totalCount}
+            pageSize={pageCount}
+            siblingCount={siblingCount}
+          />
+        </div>
       </div>
     </div>
   );

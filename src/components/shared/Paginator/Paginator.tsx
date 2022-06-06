@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 
-import arrowLeftBlue from './arrowLeftBlue.png';
-import arrowLeftGrey from './arrowLeftGrey.png';
-import arrowRightBlue from './arrowRightBlue.png';
-import arrowRightGrey from './arrowRightGrey.png';
+import arrowLeftBlue from '../../../assets/icons/arrows/arrowLeftBlue.png';
+import arrowLeftGrey from '../../../assets/icons/arrows/arrowLeftGrey.png';
+import arrowRightBlue from '../../../assets/icons/arrows/arrowRightBlue.png';
+import arrowRightGrey from '../../../assets/icons/arrows/arrowRightGrey.png';
+
 import s from './Paginator.module.css';
 import { DOTS, usePagination } from './usePagination';
 
@@ -43,12 +44,12 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
   const range = pageSize * currentPage;
   const finalListPages =
     totalCount === one
-      ? `${totalCount} of ${totalCount} item`
+      ? `${totalCount} of ${totalCount} pack`
       : `${range - (pageSize - one)}-${
           // eslint-disable-next-line no-nested-ternary
           totalCount > four ? (range > totalCount ? totalCount : range) : totalCount
         } 
-        of ${totalCount} items`;
+        of ${totalCount} packs`;
 
   return (
     <div className={s.paginationContainer}>
@@ -70,7 +71,7 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
         {paginationRange.map((pageNumber: number | string, i: number) => {
           if (pageNumber === DOTS) {
             return (
-              <span key={paginationRange[i]} className={finalDotsStyle}>
+              <span key={Math.random()} className={finalDotsStyle}>
                 {DOTS}
               </span>
             );

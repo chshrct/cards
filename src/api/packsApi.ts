@@ -1,6 +1,6 @@
 import { instance } from './apiCfg';
 
-const params = {
+/* const params = {
   packName: 'english',
   min: 3,
   max: 9,
@@ -8,7 +8,7 @@ const params = {
   page: 1,
   pageCount: 4,
   // user_id: '5eb543f6bea3ad21480f1ee7',
-};
+}; */
 
 const cardsPack = {
   name: 'no Name',
@@ -17,9 +17,9 @@ const cardsPack = {
 };
 
 export const packsApi = {
-  fetchPacks() {
+  fetchPacks(page: number | string, pageCount: number) {
     return instance
-      .get<PacksResponseType>('/cards/pack', { params })
+      .get<PacksResponseType>('/cards/pack', { params: { page, pageCount } })
       .then(res => res.data);
   },
   addPack() {

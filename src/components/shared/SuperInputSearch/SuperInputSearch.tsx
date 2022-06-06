@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
+import search from '../../../assets/icons/search.png';
 import { SuperInputText } from '../SuperInputText';
 
-import search from './search.png';
 import s from './SuperInputSearch.module.css';
 
 export const SuperInputSearch: FC = () => {
