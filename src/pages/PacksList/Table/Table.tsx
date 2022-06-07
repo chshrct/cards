@@ -11,9 +11,6 @@ const REMAINDER_EQUAL_ZERO = 0;
 
 export const Table: React.FC = () => {
   const packs = useAppSelector(state => state.packs.packs.cardPacks);
-
-  if (packs === undefined)
-    return <span>This pack is empty. Click add new card to fill this pack</span>;
   return (
     <div className={s.tableContainer}>
       <Header />
