@@ -22,10 +22,13 @@ export const packsApi = {
     pageCount?: number,
     packName?: string,
     sortPacks?: string,
+    // eslint-disable-next-line camelcase
+    user_id?: string,
   ) {
     return instance
       .get<PacksResponseType>('/cards/pack', {
-        params: { page, pageCount, packName, sortPacks },
+        // eslint-disable-next-line camelcase
+        params: { page, pageCount, packName, sortPacks, user_id },
       })
       .then(res => res.data);
   },
