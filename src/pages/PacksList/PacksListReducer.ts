@@ -9,6 +9,7 @@ enum PacksListActionsTypes {
   setCurrentPage = 'PACKS-LIST/SET_CURRENT_PAGE',
   setTotalPacksCount = 'PACKS-LIST/SET_TOTAL_PACKS_COUNT',
   changeInputTitle = 'PACKS-LIST/CHANGE_INPUT_TITLE',
+  sortPacks = 'PACKS-LIST/SORT_PACKS',
 }
 
 type FetchPacksType = ReturnType<typeof fetchPacksAC>;
@@ -16,13 +17,15 @@ type SetIsAddNewPackType = ReturnType<typeof setIsAddNewPack>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
 type SetTotalPacksCountType = ReturnType<typeof setTotalPacksCount>;
 type ChangeInputTitleType = ReturnType<typeof changeInputTitle>;
+type SortPacksACType = ReturnType<typeof sortPacksAC>;
 
 export type PacksListRootActionType =
   | FetchPacksType
   | SetIsAddNewPackType
   | SetCurrentPageType
   | SetTotalPacksCountType
-  | ChangeInputTitleType;
+  | ChangeInputTitleType
+  | SortPacksACType;
 
 const initialState = {
   packs: {} as PacksResponseType,
@@ -35,6 +38,7 @@ const initialState = {
     siblingCount: 1,
   },
   inputTitle: '',
+  sortPacks: '0updated' as string | undefined,
 };
 
 type PacksListStateType = typeof initialState;
@@ -47,6 +51,7 @@ export const packsListReducer = (
     case PacksListActionsTypes.fetchPacks:
     case PacksListActionsTypes.setIsAddNewPack:
     case PacksListActionsTypes.changeInputTitle:
+    case PacksListActionsTypes.sortPacks:
       return { ...state, ...payload };
     case PacksListActionsTypes.setCurrentPage:
     case PacksListActionsTypes.setTotalPacksCount:
@@ -67,19 +72,27 @@ export const setTotalPacksCount = (totalCount: number) =>
   ({ type: PacksListActionsTypes.setTotalPacksCount, payload: { totalCount } } as const);
 export const changeInputTitle = (inputTitle: string) =>
   ({ type: PacksListActionsTypes.changeInputTitle, payload: { inputTitle } } as const);
+export const sortPacksAC = (sortPacks: string | undefined) =>
+  ({ type: PacksListActionsTypes.sortPacks, payload: { sortPacks } } as const);
 
 // thunk
 export const fetchPacks =
-  (page: number | string, pageCount: number, inputTitle?: string): ThunkApp =>
+  (
+    page: number | string,
+    pageCount: number,
+    inputTitle?: string,
+    sortPacks?: string,
+  ): ThunkApp =>
   dispatch => {
     dispatch(setIsLoading(true));
     dispatch(setIsAddNewPack(true));
     dispatch(setCurrentPage(page));
     packsApi
-      .fetchPacks(page, pageCount, inputTitle)
+      .fetchPacks(page, pageCount, inputTitle, sortPacks)
       .then(data => {
         dispatch(fetchPacksAC(data));
         dispatch(setTotalPacksCount(data.cardPacksTotalCount));
+        dispatch(sortPacksAC(sortPacks));
       })
       .catch(e => {
         const error = e.response

@@ -1,55 +1,15 @@
 .tableContainer {
-
     display: flex;
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
 }
 
-.head {
-    height: 48px;
-    background-color: #ececf9;
-    display: flex;
-    justify-content: space-between;
-
-}
-
-
 .lightBackground {
     background-color: transparent;
 
 }
 
-
 .darkBackground {
     background: #ececf9;
-}
-
-.name, .cardsCount, .updated, .userName, .buttonsBlock {
-    padding: 10px;
-
-}
-
-.name {
-    flex: 1 0 150px;
-}
-
-.cardsCount {
-    flex: 1 0 50px;
-
-}
-
-.updated {
-    flex: 1 0 120px;
-
-}
-
-.userName {
-    flex: 1 0 240px;
-
-}
-
-.buttonsBlock {
-    flex: 1 0 300px;
-
 }

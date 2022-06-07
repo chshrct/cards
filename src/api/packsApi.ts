@@ -17,9 +17,16 @@ const cardsPack = {
 };
 
 export const packsApi = {
-  fetchPacks(page?: number | string, pageCount?: number, packName?: string) {
+  fetchPacks(
+    page?: number | string,
+    pageCount?: number,
+    packName?: string,
+    sortPacks?: string,
+  ) {
     return instance
-      .get<PacksResponseType>('/cards/pack', { params: { page, pageCount, packName } })
+      .get<PacksResponseType>('/cards/pack', {
+        params: { page, pageCount, packName, sortPacks },
+      })
       .then(res => res.data);
   },
   addPack() {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useAppSelector } from '../../../store';
 
+import { Header } from './Header/Header';
 import { Row } from './Row/Row';
 import s from './Table.module.css';
 
@@ -15,13 +16,7 @@ export const Table: React.FC = () => {
     return <span>This pack is empty. Click add new card to fill this pack</span>;
   return (
     <div className={s.tableContainer}>
-      <div className={s.head}>
-        <div className={s.name}>Pack Name</div>
-        <div className={s.cardsCount}>Cards</div>
-        <div className={s.updated}>Last Updated</div>
-        <div className={s.userName}>Created by</div>
-        <div className={s.buttonsBlock}>Actions</div>
-      </div>
+      <Header />
       {packs.map((p, i) => {
         return (
           <Row
