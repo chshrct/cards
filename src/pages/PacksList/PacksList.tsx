@@ -28,6 +28,7 @@ export const PacksList: FC = () => {
   useEffect(() => {
     dispatch(fetchPacks(page, pageCount));
   }, []);
+  const packs = useAppSelector(state => state.packs.packs.cardPacks);
   return (
     <div className={s.packsListContainer}>
       <div className={s.sideBar}>
@@ -43,19 +44,25 @@ export const PacksList: FC = () => {
             Add new pack
           </SuperButton>
         </div>
-        <div className={s.tableBlock}>
-          <Table />
-        </div>
-        <div className={s.paginationBlock}>
-          <Paginator
-            // @ts-ignore
-            currentPage={page}
-            onPageChange={onPageChanged}
-            totalCount={totalCount}
-            pageSize={pageCount}
-            siblingCount={siblingCount}
-          />
-        </div>
+        {packs === undefined || !packs.length ? (
+          <span>This pack is empty. Click add new card to fill this pack</span>
+        ) : (
+          <div>
+            <div className={s.tableBlock}>
+              <Table />
+            </div>
+            <div className={s.paginationBlock}>
+              <Paginator
+                // @ts-ignore
+                currentPage={page}
+                onPageChange={onPageChanged}
+                totalCount={totalCount}
+                pageSize={pageCount}
+                siblingCount={siblingCount}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
