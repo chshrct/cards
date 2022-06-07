@@ -1,5 +1,5 @@
 .body {
-    height: 48px;
+    min-height: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,11 +7,12 @@
 
 .name, .cardsCount, .updated, .userName, .buttonsBlock {
     padding: 10px;
-
 }
 
 .name {
     flex: 1 0 150px;
+    width: 150px;
+    word-wrap: break-word;
 }
 
 .cardsCount {
