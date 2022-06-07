@@ -1,5 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 
+import { setUserId } from '../appReducer';
+
 import { authAPI } from 'api';
 import { RegisterData, UserDataResponseType } from 'api/authApi';
 import { setError, setIsLoading } from 'App';
@@ -111,6 +113,8 @@ export const loginUser = (
       .then(res => {
         dispatch(setAuthUserData(email, rememberMe, true));
         dispatch(setUserData(res.data));
+        // eslint-disable-next-line no-underscore-dangle
+        dispatch(setUserId(res.data._id));
       })
       .catch(e => {
         dispatch(setError(e.response.data.error));

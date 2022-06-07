@@ -107,9 +107,8 @@ export const addNewPack = (): ThunkApp => (dispatch, getState) => {
         ? e.response.data.error
         : `${e.message}, more details in the console`;
       dispatch(setError(error));
-    })
-    .finally(() => {
       dispatch(setIsLoading(false));
+      dispatch(setIsAddNewPack(false));
     });
 };
 
@@ -129,9 +128,8 @@ export const deletePacks =
           ? e.response.data.error
           : `${e.message}, more details in the console`;
         dispatch(setError(error));
-      })
-      .finally(() => {
         dispatch(setIsLoading(false));
+        dispatch(setIsAddNewPack(false));
       });
   };
 
@@ -151,8 +149,7 @@ export const updatePacks =
           ? e.response.data.error
           : `${e.message}, more details in the console`;
         dispatch(setError(error));
-      })
-      .finally(() => {
         dispatch(setIsLoading(false));
+        dispatch(setIsAddNewPack(false));
       });
   };
