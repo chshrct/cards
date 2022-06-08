@@ -55,12 +55,28 @@
   background-color: hsa(238, 43%, 89%, 0.32);
   transform: scale(0.99);
 }
+.colorAlerty {
+  background-color: hsl(3, 87%, 59%);
+  background-image: radial-gradient(circle, transparent 1%, hsl(3, 87%, 59%) 1%);
+  color: hsl(240, 52%, 95%);
+}
+.button.colorAlerty:active {
+  background-color: hsa(3, 87%, 59%, 0.32);
+  transform: scale(0.99);
+}
 
 .shapeRound {
   border-radius: 30px;
 }
 .shapeSquare {
   border-radius: none;
+}
+
+.sizeSmall.shapeSquare {
+  height: 24px;
+  width: auto;
+  padding: 0 6px;
+  border-radius: 2px;
 }
 
 .button:disabled {
@@ -71,6 +87,12 @@
 }
 
 .button.colorSecondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transition: none;
+  transform: none;
+}
+.button.colorAlerty:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transition: none;

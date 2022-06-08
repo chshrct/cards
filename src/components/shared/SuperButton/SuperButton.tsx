@@ -11,7 +11,7 @@ type DefaultButtonPropsType = DetailedHTMLProps<
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
   size?: 'small' | 'medium' | 'large';
-  color?: 'primary' | 'secondary';
+  color?: 'primary' | 'secondary' | 'alerty';
   shape?: 'round' | 'square';
   isLoading?: boolean;
 };
@@ -31,6 +31,7 @@ export const SuperButton: FC<SuperButtonPropsType> = ({
   if (size === 'large') sizeClassName = s.sizeLarge;
   let colorClassName = s.colorPrimary;
   if (color === 'secondary') colorClassName = s.colorSecondary;
+  if (color === 'alerty') colorClassName = s.colorAlerty;
   let shapeClassName = s.shapeRound;
   if (shape === 'square') shapeClassName = s.shapeSquare;
   const finalClassName = `${s.button} ${sizeClassName} ${colorClassName} ${shapeClassName} ${className}`;
@@ -43,7 +44,10 @@ export const SuperButton: FC<SuperButtonPropsType> = ({
       {...restProps}
     >
       {isLoading ? (
-        <ButtonLoader height={50} width={50} className={s.buttonLoader} />
+        <>
+          <span style={{ opacity: 0 }}>{children}</span>
+          <ButtonLoader height={50} width={50} className={s.buttonLoader} />
+        </>
       ) : (
         children
       )}
