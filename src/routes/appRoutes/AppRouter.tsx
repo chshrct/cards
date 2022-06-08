@@ -15,6 +15,7 @@ import {
   Registration,
 } from 'pages';
 import { PacksList } from 'pages/PacksList/PacksList';
+import { AuthCheck } from 'routes/AuthCheck';
 
 export const AppRouter: FC = () => {
   const appRoutes = useRoutes([
@@ -30,16 +31,35 @@ export const AppRouter: FC = () => {
     { path: AppRoutePaths.REGISTRATION, element: <Registration /> },
     {
       path: AppRoutePaths.PROFILE,
-      element: <Layout />,
+      element: (
+        <AuthCheck>
+          <Layout />
+        </AuthCheck>
+      ),
       children: [
-        { index: true, element: <Profile /> },
-        { path: AppRoutePaths.EDIT_PROFILE, element: <EditProfile /> },
+        {
+          index: true,
+          element: <Profile />,
+        },
+        {
+          path: AppRoutePaths.EDIT_PROFILE,
+          element: <EditProfile />,
+        },
       ],
     },
     {
       path: AppRoutePaths.PACKS_LIST,
-      element: <Layout />,
-      children: [{ index: true, element: <PacksList /> }],
+      element: (
+        <AuthCheck>
+          <Layout />
+        </AuthCheck>
+      ),
+      children: [
+        {
+          index: true,
+          element: <PacksList />,
+        },
+      ],
     },
   ]);
   return appRoutes;
