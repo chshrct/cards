@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect } from 'react';
+import React, { ChangeEvent, FC, useEffect, useRef } from 'react';
 
 import { SuperButton, SuperRange } from '../../components';
 import { Paginator } from '../../components/shared/Paginator/Paginator';
@@ -10,6 +10,9 @@ import { addNewPack, changeInputTitle, fetchPacks } from './PacksListReducer';
 import { Table } from './Table/Table';
 import { ViewToggle } from './ViewToggel/ViewToggle';
 
+const DELAY = 500;
+const FIRST_PAGE = 1;
+
 export const PacksList: FC = () => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
   const inputTitle = useAppSelector(state => state.packs.inputTitle);
@@ -17,10 +20,28 @@ export const PacksList: FC = () => {
   const { page, pageCount, totalCount, siblingCount } = paginator;
   const dispatch = useAppDispatch();
 
+  /**
+   * * Debounce for Search Input
+   * */
+
+  const timeoutId = useRef();
+
+  useEffect(() => {
+    // @ts-ignore
+    timeoutId.current = setTimeout(() => {
+      dispatch(fetchPacks(FIRST_PAGE, pageCount, inputTitle));
+    }, DELAY);
+    return () => {
+      clearTimeout(timeoutId.current);
+      // @ts-ignore
+      timeoutId.current = null;
+    };
+  }, [inputTitle]);
+
+  //-------------------
+
   const changeTitle = (e: ChangeEvent<HTMLInputElement>): void => {
     dispatch(changeInputTitle(e.currentTarget.value));
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    dispatch(fetchPacks(1, pageCount, inputTitle));
   };
   const addNewPackHandle = (): void => dispatch(addNewPack());
   const onPageChanged = (pageNumber: number | string): void => {
