@@ -44,7 +44,7 @@ const initialState = {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     page: 1 as string | number,
     totalCount: 0,
-    pageCount: 5,
+    pageCount: 10,
     siblingCount: 1,
   },
   minCardsCount: 0,

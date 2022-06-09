@@ -69,7 +69,11 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
         </div>
         {paginationRange.map((pageNumber: number | string, i: number) => {
           if (pageNumber === DOTS) {
-            return <span className={finalDotsStyle}>{DOTS}</span>;
+            return (
+              <span key={`${Math.random()}`} className={finalDotsStyle}>
+                {DOTS}
+              </span>
+            );
           }
           return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions

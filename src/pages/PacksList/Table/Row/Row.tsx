@@ -38,7 +38,7 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
       <div className={s.userName}>{pack.user_name}</div>
       <div className={s.buttonsBlock}>
         {pack.user_id === userId ? (
-          <div>
+          <>
             <SuperButton
               color="alerty"
               shape="square"
@@ -55,7 +55,7 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
             >
               Edit
             </SuperButton>
-          </div>
+          </>
         ) : null}
       </div>
     </div>

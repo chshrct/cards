@@ -16,9 +16,7 @@ export const Profile: FC = () => {
             min={0}
             max={150}
             // @ts-ignore
-            onChange={({ min, max }) => {
-              console.log('MIN', min, 'MAX', max);
-            }}
+            onChange={() => {}}
           />
         </div>
       </div>
