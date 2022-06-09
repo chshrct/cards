@@ -8,41 +8,45 @@ import { editUserData } from 'App/auth/authReducer';
 import { Avatar } from 'assets/icons/Avatar';
 import { SuperButton, SuperInputText } from 'components';
 import { BACK } from 'constant';
-import { useInput } from 'hooks';
+import { useInput, useUploadImage } from 'hooks';
 import { useAppDispatch, useAppSelector } from 'store';
+import { AppRoutePaths } from 'routes';
 
 export const EditProfile: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector(state => state.auth.user);
+  const { name, email, avatar } = useAppSelector(state => state.auth.user);
+  const { image, onImageChange } = useUploadImage(avatar)
 
   const {
     value: nickName,
     handleInputValueChange: handleNickNameChange,
     error: errorNickName,
-  } = useInput(user?.name);
+  } = useInput(name);
+
   const {
-    value: email,
     handleInputValueChange: handleEmailChange,
     error: errorEmailName,
-  } = useInput(user?.email);
+  } = useInput(email);
 
   const handleCancelEditing = (): void => navigate(BACK);
 
   const handleSaveData = (): void => {
-    dispatch(editUserData({ ...user, name: nickName }));
-    navigate(BACK);
+    dispatch(editUserData({ name: nickName, avatar: image }));
+    navigate(AppRoutePaths.PROFILE);
   };
+
 
   return (
     <div className={s.container}>
       <h2>Personal Information</h2>
 
-      {user?.avatar ? (
-        <img src={user?.avatar} className={s.avatar} alt="" />
+
+      {image ? (
+        <img src={image} className={s.avatar} alt="" />
       ) : (
         <Avatar className={s.avatar} />
-      )}
+      )}<input type="file" accept="image/*" name="image" id="file" onChange={onImageChange} />
 
       <div className={s.inputWrapper}>
         <SuperInputText

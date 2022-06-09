@@ -23,7 +23,7 @@ export const authAPI = {
   authMe() {
     return instance.post<UserDataResponseType>('/auth/me', {});
   },
-  editProfile(data: ProfileData) {
+  editProfile(data: UserUpdateDataType) {
     return instance.put<EditResponseType>('/auth/me', data);
   },
   passRecover(email: string) {
@@ -47,10 +47,11 @@ type LoginData = {
 
 export type RegisterData = Omit<LoginData, 'rememberMe'>;
 
-export type ProfileData = {
-  name: string;
-  avatar: string;
-};
+// export type ProfileData = {
+//   name: string;
+//   avatar: string;
+// };
+
 type PasswordResetData = {
   password: string;
   resetPasswordToken: string;
@@ -65,7 +66,7 @@ export type UserDataResponseType = {
   _id: string;
   email: string;
   name: string;
-  avatar: string;
+  avatar: string | null;
   publicCardPacksCount: number;
 
   created: Date;
@@ -86,3 +87,8 @@ type EditResponseType = {
   updatedUser: any;
   error?: string;
 };
+
+export type UserUpdateDataType = {
+  name?: string;
+  avatar?: string | null;
+}

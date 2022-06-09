@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import { setUserId } from '../appReducer';
 
 import { authAPI } from 'api';
-import { RegisterData, UserDataResponseType } from 'api/authApi';
+import { RegisterData, UserDataResponseType, UserUpdateDataType } from 'api/authApi';
 import { setError, setIsLoading } from 'App';
 import { EMPTY_STRING } from 'constant';
 import { AppRootActionType, AppRootStateType, ThunkApp, TypedDispatch } from 'store';
@@ -38,7 +38,7 @@ const initialState = {
     _id: EMPTY_STRING,
     email: EMPTY_STRING,
     name: EMPTY_STRING,
-    avatar: EMPTY_STRING,
+    avatar: null,
     publicCardPacksCount: 0,
 
     created: {},
@@ -63,7 +63,7 @@ export const authReducer = (
     case AUTH_ACTIONS.UNSUCCESSFUL_LOGIN:
       return { ...state, ...payload };
     case AUTH_ACTIONS.EDIT_PROFILE:
-      return { ...state, user: { ...payload } };
+      return { ...state, user: { ...state.user, ...payload } };
     case AUTH_ACTIONS.SET_IS_EMAIL_SENT:
       return { ...state, ...payload };
     default:
@@ -73,32 +73,32 @@ export const authReducer = (
 
 // action
 export const setUserData = (user: UserDataResponseType) =>
-  ({
-    type: AUTH_ACTIONS.SET_USER_DATA,
-    payload: { user },
-  } as const);
+({
+  type: AUTH_ACTIONS.SET_USER_DATA,
+  payload: { user },
+} as const);
 export const setAuthUserData = (email: string, rememberMe: boolean, isAuth: boolean) =>
-  ({
-    type: AUTH_ACTIONS.SET_AUTH,
-    payload: { email, rememberMe, isAuth },
-  } as const);
+({
+  type: AUTH_ACTIONS.SET_AUTH,
+  payload: { email, rememberMe, isAuth },
+} as const);
 
-export const editProfile = (data: UserDataResponseType) =>
-  ({
-    type: AUTH_ACTIONS.EDIT_PROFILE,
-    payload: data,
-  } as const);
+export const editProfile = (data: UserUpdateDataType) =>
+({
+  type: AUTH_ACTIONS.EDIT_PROFILE,
+  payload: data,
+} as const);
 export const unsuccessfulLogin = (error: string) =>
-  ({
-    type: AUTH_ACTIONS.UNSUCCESSFUL_LOGIN,
-    payload: { error },
-  } as const);
+({
+  type: AUTH_ACTIONS.UNSUCCESSFUL_LOGIN,
+  payload: { error },
+} as const);
 
 export const setIsEmailSent = (isEmailSent: boolean) =>
-  ({
-    type: AUTH_ACTIONS.SET_IS_EMAIL_SENT,
-    payload: { isEmailSent },
-  } as const);
+({
+  type: AUTH_ACTIONS.SET_IS_EMAIL_SENT,
+  payload: { isEmailSent },
+} as const);
 
 // thunk
 export const loginUser = (
@@ -126,17 +126,21 @@ export const loginUser = (
 };
 
 export const editUserData =
-  (data: UserDataResponseType): ThunkApp =>
-  async (dispatch: TypedDispatch) => {
-    dispatch(setIsLoading(true));
-    try {
-      const res = await authAPI.editProfile(data);
-      dispatch(setUserData(res.data.updatedUser));
-    } catch (e: any) {
-      dispatch(setError(e.response.data.error));
-    }
-    dispatch(setIsLoading(false));
-  };
+  (data: UserUpdateDataType): ThunkApp =>
+    (dispatch: TypedDispatch) => {
+
+      dispatch(setIsLoading(true));
+      authAPI
+        .editProfile(data)
+        .then((res) => dispatch(setUserData(res.data.updatedUser)))
+
+        .catch(e =>
+          dispatch(setError(e.response.data.error)))
+
+        .finally(() => {
+          dispatch(setIsLoading(false));
+        });
+    };
 
 export const logoutUser = (): ThunkApp => dispatch => {
   dispatch(setIsLoading(true));
@@ -155,57 +159,57 @@ export const logoutUser = (): ThunkApp => dispatch => {
 
 export const setRegister =
   (data: RegisterData): ThunkApp =>
-  dispatch => {
-    dispatch(setIsLoading(true));
-    authAPI
-      .register(data)
-      .then(res => {
-        dispatch(setError(res.statusText));
-      })
-      .then(() => {
-        dispatch(setError(EMPTY_STRING));
-      })
-      .catch(e => dispatch(setError(e.response.data.error)))
-      .finally(() => {
-        dispatch(setIsLoading(false));
-      });
-  };
+    dispatch => {
+      dispatch(setIsLoading(true));
+      authAPI
+        .register(data)
+        .then(res => {
+          dispatch(setError(res.statusText));
+        })
+        .then(() => {
+          dispatch(setError(EMPTY_STRING));
+        })
+        .catch(e => dispatch(setError(e.response.data.error)))
+        .finally(() => {
+          dispatch(setIsLoading(false));
+        });
+    };
 
 export const sendEmail =
   (email: string): ThunkApp =>
-  dispatch => {
-    dispatch(setIsLoading(true));
-    authAPI
-      .passRecover(email)
-      .then(() => {
-        dispatch(setIsEmailSent(true));
-      })
-      .catch(e => {
-        dispatch(setError(e.response.data.error));
-      })
-      .finally(() => {
-        dispatch(setIsLoading(false));
-      });
-  };
+    dispatch => {
+      dispatch(setIsLoading(true));
+      authAPI
+        .passRecover(email)
+        .then(() => {
+          dispatch(setIsEmailSent(true));
+        })
+        .catch(e => {
+          dispatch(setError(e.response.data.error));
+        })
+        .finally(() => {
+          dispatch(setIsLoading(false));
+        });
+    };
 
 export const sendPassword =
   (
     password: string,
     token: string,
   ): ThunkAction<Promise<boolean | void>, AppRootStateType, unknown, AppRootActionType> =>
-  dispatch => {
-    dispatch(setIsLoading(true));
-    return authAPI
-      .setNewPassword({ password, resetPasswordToken: token! })
-      .then(() => {
-        return true;
-      })
-      .catch(e => {
-        dispatch(setError(e.response.data.error));
-      })
-      .finally((redirectToLogin: boolean | void) => {
-        dispatch(setIsLoading(false));
-        if (redirectToLogin) return true;
-        return false;
-      });
-  };
+    dispatch => {
+      dispatch(setIsLoading(true));
+      return authAPI
+        .setNewPassword({ password, resetPasswordToken: token! })
+        .then(() => {
+          return true;
+        })
+        .catch(e => {
+          dispatch(setError(e.response.data.error));
+        })
+        .finally((redirectToLogin: boolean | void) => {
+          dispatch(setIsLoading(false));
+          if (redirectToLogin) return true;
+          return false;
+        });
+    };
