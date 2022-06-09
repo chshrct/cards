@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { SuperButton } from '../../../components';
+import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
 import { DIVISOR_EQUAL_TWO, EMPTY_STRING, REMAINDER_EQUAL_ZERO } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
@@ -14,17 +15,24 @@ import { SortCardsTitle } from './SortCardsTitle/SortCardsTitle';
 
 export const CardsList: React.FC = () => {
   const cards = useAppSelector(state => state.cards.cards.cards);
+  const sortCards = useAppSelector(state => state.cards.sortCards);
+  const { page, pageCount, totalCount, siblingCount } = useAppSelector(
+    state => state.cards.paginator,
+  );
   const isAddNewCard = useAppSelector(state => state.cards.isAddNewCard);
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(fetchCards(id));
+    dispatch(fetchCards(id, sortCards, page, pageCount));
   }, []);
 
   const addNewCardHandle = (): void =>
     dispatch(addNewCard({ card: { cardsPack_id: id } }));
+  const onPageChanged = (pageNumber: number | string): void => {
+    dispatch(fetchCards(id, sortCards, pageNumber, pageCount));
+  };
   return (
     <div className={s.cardsListContainer}>
       <h4>cardsList</h4>
@@ -46,7 +54,7 @@ export const CardsList: React.FC = () => {
           <SortCardsTitle
             cardsPackId={id}
             className={s.answer}
-            sortBy="cardsCount"
+            sortBy="answer"
             title="Answer"
           />
           <SortCardsTitle
@@ -79,6 +87,15 @@ export const CardsList: React.FC = () => {
             })
           : null}
       </div>
+      <Paginator
+        // @ts-ignore
+        currentPage={page}
+        onPageChange={onPageChanged}
+        totalCount={totalCount}
+        pageSize={pageCount}
+        siblingCount={siblingCount}
+        title="card"
+      />
     </div>
   );
 };
