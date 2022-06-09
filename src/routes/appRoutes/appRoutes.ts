@@ -9,4 +9,5 @@ export enum AppRoutePaths {
   NOT_FOUND = '/404-not-found',
   INDEX = '/',
   PACKS_LIST = '/packs-list',
+  CARDS_LIST = '/packs-list/:id',
 }
