@@ -10,8 +10,7 @@ import { addNewPack, changeInputTitle, fetchPacks } from './PacksListReducer';
 import { Table } from './Table/Table';
 import { ViewToggle } from './ViewToggel/ViewToggle';
 
-const DELAY = 500;
-const FIRST_PAGE = 1;
+import { DELAY, EMPTY_STRING, PAGE_ONE } from 'constant';
 
 export const PacksList: FC = () => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
@@ -20,25 +19,27 @@ export const PacksList: FC = () => {
   const { page, pageCount, totalCount, siblingCount } = paginator;
   const dispatch = useAppDispatch();
 
-  /**
-   * * Debounce for Search Input
-   * */
+  /*
+   *  Debounce for Search Input
+   */
 
   const timeoutId = useRef();
 
   useEffect(() => {
-    // @ts-ignore
-    timeoutId.current = setTimeout(() => {
-      dispatch(fetchPacks(FIRST_PAGE, pageCount, inputTitle));
-    }, DELAY);
+    if (inputTitle === EMPTY_STRING)
+      dispatch(fetchPacks(PAGE_ONE, pageCount, inputTitle));
+
+    if (inputTitle !== EMPTY_STRING)
+      // @ts-ignore
+      timeoutId.current = setTimeout(() => {
+        dispatch(fetchPacks(PAGE_ONE, pageCount, inputTitle));
+      }, DELAY);
     return () => {
       clearTimeout(timeoutId.current);
       // @ts-ignore
       timeoutId.current = null;
     };
   }, [inputTitle]);
-
-  //-------------------
 
   const changeTitle = (e: ChangeEvent<HTMLInputElement>): void => {
     dispatch(changeInputTitle(e.currentTarget.value));
@@ -47,9 +48,7 @@ export const PacksList: FC = () => {
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchPacks(pageNumber, pageCount, inputTitle));
   };
-  useEffect(() => {
-    dispatch(fetchPacks(page, pageCount));
-  }, []);
+
   const packs = useAppSelector(state => state.packs.packs.cardPacks);
   return (
     <div className={s.packsListContainer}>
