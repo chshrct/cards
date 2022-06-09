@@ -1,6 +1,7 @@
 .paginationContainer {
     display: flex;
     align-self: flex-end;
+    margin-top: 20px;
 }
 
 .pagesContainer {

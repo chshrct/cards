@@ -32,7 +32,7 @@ export const cardsAPI = {
 type CardsDataQuery = {
   cardAnswer?: string;
   cardQuestion?: string;
-  cardsPack_id: string;
+  cardsPack_id: string | undefined;
   min?: number;
   max?: number;
   sortCards?: number;

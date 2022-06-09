@@ -57,7 +57,7 @@ export const fetchCards =
     // cardAnswer?: string,
     // cardQuestion?: string,
     // eslint-disable-next-line camelcase
-    cardsPack_id: string = '6267b60d7120840004ab3367',
+    cardsPack_id: string | undefined,
     // min?: number,
     // max?: number,
     // sortCards?: number,

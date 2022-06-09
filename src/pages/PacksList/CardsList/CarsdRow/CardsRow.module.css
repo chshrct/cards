@@ -5,33 +5,27 @@
     align-items: center;
 }
 
-.name, .cardsCount, .updated, .userName, .buttonsBlock {
+.question, .answer, .updated, .grade {
     padding: 10px;
 }
 
-.name {
-    flex: 1 0 150px;
-    width: 150px;
+.question {
+    flex: 1 0 25%;
     word-wrap: break-word;
 }
 
-.cardsCount {
-    flex: 1 0 50px;
+.answer {
+    flex: 1 0 25%;
 
 }
 
 .updated {
-    flex: 1 0 120px;
+    flex: 1 0 25%;
 
 }
 
-.userName {
-    flex: 1 0 240px;
-
-}
-
-.buttonsBlock {
-    flex: 1 0 300px;
+.grade {
+    flex: 1 0 25%;
 
 }
 

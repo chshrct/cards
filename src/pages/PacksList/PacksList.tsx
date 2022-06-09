@@ -5,7 +5,6 @@ import { Paginator } from '../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../components/shared/SuperInputSearch/SuperInputSearch';
 import { useAppDispatch, useAppSelector } from '../../store';
 
-import { fetchCards } from './CardsList/CardsListReducer';
 import s from './PacksList.module.css';
 import { addNewPack, changeInputTitle, fetchPacks } from './PacksListReducer';
 import { Table } from './Table/Table';
@@ -27,7 +26,6 @@ export const PacksList: FC = () => {
   const timeoutId = useRef();
 
   useEffect(() => {
-    dispatch(fetchCards());
     if (inputTitle === EMPTY_STRING)
       dispatch(fetchPacks(PAGE_ONE, pageCount, inputTitle));
 
@@ -71,21 +69,17 @@ export const PacksList: FC = () => {
         {packs === undefined || !packs.length ? (
           <span>This pack is empty. Click add new card to fill this pack</span>
         ) : (
-          <div>
-            <div className={s.tableBlock}>
-              <Table />
-            </div>
-            <div className={s.paginationBlock}>
-              <Paginator
-                // @ts-ignore
-                currentPage={page}
-                onPageChange={onPageChanged}
-                totalCount={totalCount}
-                pageSize={pageCount}
-                siblingCount={siblingCount}
-              />
-            </div>
-          </div>
+          <>
+            <Table />
+            <Paginator
+              // @ts-ignore
+              currentPage={page}
+              onPageChange={onPageChanged}
+              totalCount={totalCount}
+              pageSize={pageCount}
+              siblingCount={siblingCount}
+            />
+          </>
         )}
       </div>
     </div>

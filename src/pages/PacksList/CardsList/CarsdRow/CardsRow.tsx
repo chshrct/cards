@@ -26,12 +26,12 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className }) => {
 
   return (
     <div className={`${s.body} ${className}`}>
-      <div className={s.name}>{card.question}</div>
-      <div className={s.cardsCount}>{card.answer}</div>
+      <div className={s.question}>{card.question}</div>
+      <div className={s.answer}>{card.answer}</div>
       <div className={s.updated}>
         {card.updated.slice(SLICE_BEGIN_INDEX, SLICE_END_INDEX)}
       </div>
-      <div className={s.userName}>{card.grade}</div>
+      <div className={s.grade}>{card.grade}</div>
     </div>
   );
 };
