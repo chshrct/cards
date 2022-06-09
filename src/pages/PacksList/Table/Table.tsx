@@ -1,13 +1,11 @@
 import React from 'react';
 
+import { DIVISOR_EQUAL_TWO, REMAINDER_EQUAL_ZERO } from '../../../constant';
 import { useAppSelector } from '../../../store';
 
 import { Header } from './Header/Header';
 import { Row } from './Row/Row';
 import s from './Table.module.css';
-
-const DIVISOR_EQUAL_TWO = 2;
-const REMAINDER_EQUAL_ZERO = 0;
 
 export const Table: React.FC = () => {
   const packs = useAppSelector(state => state.packs.packs.cardPacks);
