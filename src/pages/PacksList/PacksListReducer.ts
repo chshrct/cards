@@ -5,7 +5,7 @@ import { setError, setIsLoading } from 'App';
 import { ThunkApp } from 'store';
 
 enum PacksListActionsTypes {
-  fetchPacks = 'PACKS-LIST/SET_ERROR',
+  fetchPacks = 'PACKS-LIST/FETCH_PACKS',
   setIsAddNewPack = 'PACKS-LIST/SET_IS_ADD_NEW_PACK',
   setCurrentPage = 'PACKS-LIST/SET_CURRENT_PAGE',
   setTotalPacksCount = 'PACKS-LIST/SET_TOTAL_PACKS_COUNT',
