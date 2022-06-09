@@ -101,6 +101,7 @@ export const PacksList: FC = () => {
               totalCount={totalCount}
               pageSize={pageCount}
               siblingCount={siblingCount}
+              title="pack"
             />
           </>
         )}
