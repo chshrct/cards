@@ -65,9 +65,9 @@ export type CardType = {
   _id: string;
 };
 
-type NewCardData = {
+export type NewCardData = {
   card: {
-    cardsPack_id: string;
+    cardsPack_id: string | undefined;
     question?: string;
     answer?: string;
     grade?: number;

@@ -10,22 +10,22 @@
 }
 
 .question {
-    flex: 1 0 25%;
+    flex: 1 0 35%;
     word-wrap: break-word;
 }
 
 .answer {
-    flex: 1 0 25%;
+    flex: 1 0 35%;
 
 }
 
 .updated {
-    flex: 1 0 25%;
+    flex: 1 0 20%;
 
 }
 
 .grade {
-    flex: 1 0 25%;
+    flex: 1 0 10%;
 
 }
 
