@@ -6,3 +6,5 @@ export const PAGE_ONE = 1;
 export const DELAY = 500;
 export const DIVISOR_EQUAL_TWO = 2;
 export const REMAINDER_EQUAL_ZERO = 0;
+export const MAX_CARDS_COUNT = 150;
+export const MIN_CARDS_COUNT = 0;
