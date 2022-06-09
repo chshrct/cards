@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import arrowLeftBlue from '../../../assets/icons/arrows/arrowLeftBlue.png';
 import arrowLeftGrey from '../../../assets/icons/arrows/arrowLeftGrey.png';
@@ -9,6 +9,7 @@ import s from './Paginator.module.css';
 import { DOTS, usePagination } from './usePagination';
 
 type PaginatorPropsType = {
+  title: string;
   currentPage: number;
   onPageChange: (currentPage: number | string) => void;
   totalCount: number;
@@ -17,7 +18,7 @@ type PaginatorPropsType = {
 };
 
 export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => {
-  const { currentPage, onPageChange, totalCount, siblingCount, pageSize } = props;
+  const { currentPage, onPageChange, totalCount, siblingCount, pageSize, title } = props;
 
   const paginationRange: any = usePagination({
     currentPage,
@@ -44,12 +45,12 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
   const range = pageSize * currentPage;
   const finalListPages =
     totalCount === one
-      ? `${totalCount} of ${totalCount} pack`
+      ? `${totalCount} of ${totalCount} ${title}`
       : `${range - (pageSize - one)}-${
           // eslint-disable-next-line no-nested-ternary
           totalCount > four ? (range > totalCount ? totalCount : range) : totalCount
         } 
-        of ${totalCount} packs`;
+        of ${totalCount} ${title}s`;
   return (
     <div className={s.paginationContainer}>
       <div className={finalListPagesStyle}>{finalListPages}</div>
@@ -69,7 +70,11 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
         </div>
         {paginationRange.map((pageNumber: number | string, i: number) => {
           if (pageNumber === DOTS) {
-            return <span className={finalDotsStyle}>{DOTS}</span>;
+            return (
+              <span key={`${Math.random()}`} className={finalDotsStyle}>
+                {DOTS}
+              </span>
+            );
           }
           return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions

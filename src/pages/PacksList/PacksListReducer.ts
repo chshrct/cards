@@ -5,13 +5,15 @@ import { setError, setIsLoading } from 'App';
 import { ThunkApp } from 'store';
 
 enum PacksListActionsTypes {
-  fetchPacks = 'PACKS-LIST/SET_ERROR',
+  fetchPacks = 'PACKS-LIST/FETCH_PACKS',
   setIsAddNewPack = 'PACKS-LIST/SET_IS_ADD_NEW_PACK',
   setCurrentPage = 'PACKS-LIST/SET_CURRENT_PAGE',
   setTotalPacksCount = 'PACKS-LIST/SET_TOTAL_PACKS_COUNT',
   changeInputTitle = 'PACKS-LIST/CHANGE_INPUT_TITLE',
   sortPacks = 'PACKS-LIST/SORT_PACKS',
   toggleId = 'PACKS-LIST/TOGGLE_ID',
+  setMinCardsCount = 'PACK-LIST/SET_MIN_CARDS_COUNT',
+  setMaxCardsCount = 'PACK-LIST/SET_MAX_CARDS_COUNT',
 }
 
 type FetchPacksType = ReturnType<typeof fetchPacksAC>;
@@ -21,6 +23,8 @@ type SetTotalPacksCountType = ReturnType<typeof setTotalPacksCount>;
 type ChangeInputTitleType = ReturnType<typeof changeInputTitle>;
 type SortPacksACType = ReturnType<typeof sortPacksAC>;
 type ToggleIdType = ReturnType<typeof toggleId>;
+type SetMinCardsCountType = ReturnType<typeof setMinCardsCount>;
+type SetMaxCardsCountType = ReturnType<typeof setMaxCardsCount>;
 
 export type PacksListRootActionType =
   | FetchPacksType
@@ -29,7 +33,9 @@ export type PacksListRootActionType =
   | SetTotalPacksCountType
   | ChangeInputTitleType
   | SortPacksACType
-  | ToggleIdType;
+  | ToggleIdType
+  | SetMinCardsCountType
+  | SetMaxCardsCountType;
 
 const initialState = {
   packs: {} as PacksResponseType,
@@ -38,9 +44,11 @@ const initialState = {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     page: 1 as string | number,
     totalCount: 0,
-    pageCount: 5,
+    pageCount: 10,
     siblingCount: 1,
   },
+  minCardsCount: 0,
+  maxCardsCount: 150,
   inputTitle: '',
   sortPacks: '0updated' as string | undefined,
   isToggleAllId: true,
@@ -62,6 +70,11 @@ export const packsListReducer = (
     case PacksListActionsTypes.setCurrentPage:
     case PacksListActionsTypes.setTotalPacksCount:
       return { ...state, paginator: { ...state.paginator, ...payload } };
+    case PacksListActionsTypes.setMinCardsCount: {
+      return { ...state, ...payload };
+    }
+    case PacksListActionsTypes.setMaxCardsCount:
+      return { ...state, ...payload };
     default:
       return state;
   }
@@ -85,6 +98,16 @@ export const toggleId = (isToggleAllId: boolean) =>
     type: PacksListActionsTypes.toggleId,
     payload: { isToggleAllId },
   } as const);
+export const setMinCardsCount = (minCardsCount: number) =>
+  ({
+    type: PacksListActionsTypes.setMinCardsCount,
+    payload: { minCardsCount },
+  } as const);
+export const setMaxCardsCount = (maxCardsCount: number) =>
+  ({
+    type: PacksListActionsTypes.setMaxCardsCount,
+    payload: { maxCardsCount },
+  } as const);
 
 // thunk
 export const fetchPacks =
@@ -97,7 +120,7 @@ export const fetchPacks =
     user_id?: string,
   ): ThunkApp =>
   (dispatch, getState) => {
-    const { isToggleAllId } = getState().packs;
+    const { isToggleAllId, minCardsCount, maxCardsCount } = getState().packs;
     const { userId } = getState().app;
     // eslint-disable-next-line camelcase,no-param-reassign
     if (!isToggleAllId) user_id = userId;
@@ -105,7 +128,15 @@ export const fetchPacks =
     dispatch(setIsAddNewPack(true));
     dispatch(setCurrentPage(page));
     packsApi
-      .fetchPacks(page, pageCount, inputTitle, sortPacks, user_id)
+      .fetchPacks(
+        page,
+        pageCount,
+        inputTitle,
+        sortPacks,
+        user_id,
+        minCardsCount,
+        maxCardsCount,
+      )
       .then(data => {
         dispatch(fetchPacksAC(data));
         dispatch(setTotalPacksCount(data.cardPacksTotalCount));

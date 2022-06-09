@@ -3,6 +3,11 @@
   background-color: #ececf9;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #2d2e46;
 }
 
 .name,
@@ -11,11 +16,17 @@
 .userName,
 .buttonsBlock {
   padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: nowrap;
 }
-
+.cardsCount,
+.updated {
+  cursor: pointer;
+}
 .name {
   flex: 1 0 150px;
-  /*position: relative;*/
 }
 
 .cardsCount {
@@ -32,10 +43,4 @@
 
 .buttonsBlock {
   flex: 1 0 300px;
-}
-
-.arrow {
-  position: absolute;
-  /*right: 0;*/
-  cursor: pointer;
 }

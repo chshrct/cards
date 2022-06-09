@@ -11,12 +11,17 @@
 .userName,
 .buttonsBlock {
   padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #2d2e46;
 }
 
 .name {
   flex: 1 0 150px;
-  width: 150px;
-  word-wrap: break-word;
 }
 
 .cardsCount {
@@ -33,4 +38,8 @@
 
 .buttonsBlock {
   flex: 1 0 300px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
 }

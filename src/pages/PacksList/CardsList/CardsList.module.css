@@ -4,6 +4,60 @@
   min-width: calc(100vw - 136px - 136px);
 
   display: flex;
+  flex-direction: column;
   background: #fefeff;
   border-radius: 8px;
+  padding: 20px;
+}
+
+.searchButtonBlock {
+  display: flex;
+  gap: 5px;
+}
+
+.tableBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-top: 20px;
+}
+
+.head {
+  height: 48px;
+  background-color: #ececf9;
+  display: flex;
+  justify-content: space-between;
+}
+
+.question,
+.answer,
+.updated,
+.grade {
+  padding: 10px;
+}
+
+.question {
+  flex: 1 0 35%;
+  word-wrap: break-word;
+}
+
+.answer {
+  flex: 1 0 35%;
+}
+
+.updated {
+  flex: 1 0 20%;
+}
+
+.grade {
+  flex: 1 0 10%;
+}
+
+.lightBackground {
+  background-color: transparent;
+}
+
+.darkBackground {
+  background: #ececf9;
 }

@@ -44,15 +44,15 @@
   flex: 1 0 auto;
 }
 
-.avatarWrapper{
+.avatarWrapper {
   position: relative;
   margin-bottom: 58px;
 }
 
 .inputFileUpload {
-  visibility:hidden;
-  width:0;
-  height:0
+  visibility: hidden;
+  width: 0;
+  height: 0;
 }
 
 .iconForUpload {
@@ -60,5 +60,3 @@
   right: 0;
   bottom: 0;
 }
-
-

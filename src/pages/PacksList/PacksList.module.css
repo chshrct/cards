@@ -29,13 +29,3 @@
   align-items: center;
   margin: 15px 0 15px 0;
 }
-
-.tableBlock {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-.paginationBlock {
-  margin-top: 20px;
-}
