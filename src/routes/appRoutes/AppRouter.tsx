@@ -14,6 +14,7 @@ import {
   EditProfile,
   Registration,
 } from 'pages';
+import { CardsList } from 'pages/PacksList/CardsList/CardsList';
 import { PacksList } from 'pages/PacksList/PacksList';
 import { AuthCheck } from 'routes/AuthCheck';
 
@@ -59,6 +60,7 @@ export const AppRouter: FC = () => {
           index: true,
           element: <PacksList />,
         },
+        { path: AppRoutePaths.CARDS_LIST, element: <CardsList /> },
       ],
     },
   ]);
