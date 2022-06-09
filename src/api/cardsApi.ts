@@ -35,7 +35,7 @@ type CardsDataQuery = {
   cardsPack_id: string | undefined;
   min?: number;
   max?: number;
-  sortCards?: number;
+  sortCards?: string;
   page?: number;
   pageCount?: number;
 };

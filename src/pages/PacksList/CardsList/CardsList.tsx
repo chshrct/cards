@@ -6,11 +6,11 @@ import { SuperButton } from '../../../components';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
 import { DIVISOR_EQUAL_TWO, EMPTY_STRING, REMAINDER_EQUAL_ZERO } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
-import { SortTitle } from '../Table/Header/SortTitle/SortTitle';
 
 import s from './CardsList.module.css';
 import { addNewCard, fetchCards } from './CardsListReducer';
 import { CardsRow } from './CarsdRow/CardsRow';
+import { SortCardsTitle } from './SortCardsTitle/SortCardsTitle';
 
 export const CardsList: React.FC = () => {
   const cards = useAppSelector(state => state.cards.cards.cards);
@@ -37,10 +37,30 @@ export const CardsList: React.FC = () => {
       </div>
       <div className={s.tableBlock}>
         <div className={s.head}>
-          <div className={s.question}>Question</div>
-          <SortTitle className={s.answer} sortBy="cardsCount" title="Answer" />
-          <SortTitle className={s.updated} sortBy="updated" title="Last Updated" />
-          <div className={s.grade}>Grade</div>
+          <SortCardsTitle
+            cardsPackId={id}
+            className={s.question}
+            sortBy="question"
+            title="Question"
+          />
+          <SortCardsTitle
+            cardsPackId={id}
+            className={s.answer}
+            sortBy="cardsCount"
+            title="Answer"
+          />
+          <SortCardsTitle
+            cardsPackId={id}
+            className={s.updated}
+            sortBy="updated"
+            title="Last Updated"
+          />
+          <SortCardsTitle
+            cardsPackId={id}
+            className={s.grade}
+            sortBy="grade"
+            title="Grade Updated"
+          />
         </div>
         {cards
           ? cards.map((p, i) => {

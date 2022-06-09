@@ -32,7 +32,7 @@ const initialState = {
   //   pageCount: 5,
   //   siblingCount: 1,
   // },
-  sortPacks: '0grade' as string | undefined,
+  sortCards: '0grade' as string | undefined,
 };
 
 type CardsListStateType = typeof initialState;
@@ -68,7 +68,7 @@ export const fetchCards =
     cardsPack_id: string | undefined,
     // min?: number,
     // max?: number,
-    // sortCards?: number,
+    sortCards?: string,
     // page?: number,
     // pageCount?: number,
   ): ThunkApp =>
@@ -82,11 +82,11 @@ export const fetchCards =
     // dispatch(setCurrentPage(page));
     cardsAPI
       // eslint-disable-next-line camelcase
-      .fetchCards({ cardsPack_id })
+      .fetchCards({ cardsPack_id, sortCards })
       .then(data => {
         dispatch(fetchCardsAC(data));
         // dispatch(setTotalPacksCount(data.cardPacksTotalCount));
-        // dispatch(sortPacksAC(sortPacks));
+        dispatch(sortCardsAC(sortCards));
       })
       .catch(e => {
         const error = e.response
