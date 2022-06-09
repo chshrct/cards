@@ -3,6 +3,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    flex: 1 0 300px;
     background-color: #f3f3fa;
     border-radius: 6px;
     padding: 8px 14px 8px 14px;
@@ -19,7 +20,7 @@
 
 .searchBlock input {
     margin-left: 20px;
-    width: 750px;
+    /*width: 750px;*/
     border: none;
     outline: none;
 }
@@ -29,50 +30,50 @@
     border: none;
 }
 
-@media screen and (max-width: 740px) {
-    .searchBlock input {
-        width: 450px;
-    }
-}
+/*@media screen and (max-width: 740px) {*/
+/*    .searchBlock input {*/
+/*        width: 450px;*/
+/*    }*/
+/*}*/
 
-@media screen and (max-width: 660px) {
-    .searchBlock input {
-        width: 400px;
-    }
-}
+/*@media screen and (max-width: 660px) {*/
+/*    .searchBlock input {*/
+/*        width: 400px;*/
+/*    }*/
+/*}*/
 
-@media screen and (max-width: 610px) {
-    .searchBlock input {
-        width: 350px;
-    }
-}
+/*@media screen and (max-width: 610px) {*/
+/*    .searchBlock input {*/
+/*        width: 350px;*/
+/*    }*/
+/*}*/
 
-@media screen and (max-width: 560px) {
-    .searchBlock input {
-        width: 300px;
-    }
-}
+/*@media screen and (max-width: 560px) {*/
+/*    .searchBlock input {*/
+/*        width: 300px;*/
+/*    }*/
+/*}*/
 
-@media screen and (max-width: 510px) {
-    .searchBlock input {
-        width: 250px;
-    }
-}
+/*@media screen and (max-width: 510px) {*/
+/*    .searchBlock input {*/
+/*        width: 250px;*/
+/*    }*/
+/*}*/
 
-@media screen and (max-width: 480px) {
-    .searchBlock input {
-        width: 200px;
-    }
-}
+/*@media screen and (max-width: 480px) {*/
+/*    .searchBlock input {*/
+/*        width: 200px;*/
+/*    }*/
+/*}*/
 
-@media screen and (max-width: 395px) {
-    .searchBlock input {
-        width: 150px;
-    }
-}
+/*@media screen and (max-width: 395px) {*/
+/*    .searchBlock input {*/
+/*        width: 150px;*/
+/*    }*/
+/*}*/
 
-@media screen and (max-width: 340px) {
-    .searchBlock input {
-        width: 130px;
-    }
-}
+/*@media screen and (max-width: 340px) {*/
+/*    .searchBlock input {*/
+/*        width: 130px;*/
+/*    }*/
+/*}*/
