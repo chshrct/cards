@@ -1,37 +1,36 @@
 .body {
-    min-height: 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  min-height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.name, .cardsCount, .updated, .userName, .buttonsBlock {
-    padding: 10px;
+.name,
+.cardsCount,
+.updated,
+.userName,
+.buttonsBlock {
+  padding: 10px;
 }
 
 .name {
-    flex: 1 0 150px;
-    width: 150px;
-    word-wrap: break-word;
+  flex: 1 0 150px;
+  width: 150px;
+  word-wrap: break-word;
 }
 
 .cardsCount {
-    flex: 1 0 50px;
-
+  flex: 1 0 50px;
 }
 
 .updated {
-    flex: 1 0 120px;
-
+  flex: 1 0 120px;
 }
 
 .userName {
-    flex: 1 0 240px;
-
+  flex: 1 0 240px;
 }
 
 .buttonsBlock {
-    flex: 1 0 300px;
-
+  flex: 1 0 300px;
 }
-

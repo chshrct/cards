@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import s from './UserCard.module.css';
 
@@ -13,7 +13,8 @@ export const UserCard: FC = () => {
   return (
     <div className={s.userContainer}>
       <img
-        src={avatar ||
+        src={
+          avatar ||
           'https://www.bookologymagazine.com/wp-content/uploads/2021/03/generic-user-image.svg'
         }
         alt=""

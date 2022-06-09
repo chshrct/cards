@@ -91,4 +91,4 @@ type EditResponseType = {
 export type UserUpdateDataType = {
   name?: string;
   avatar?: string | null;
-}
+};

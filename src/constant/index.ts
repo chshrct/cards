@@ -4,3 +4,4 @@ export const ERROR_INPUT_MESSAGE = 'Field is required!';
 export const BACK = -1;
 export const PAGE_ONE = 1;
 export const DELAY = 500;
+export const FIRST_EL = 0;

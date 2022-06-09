@@ -6,17 +6,18 @@ import s from './EditProfile.module.css';
 
 import { editUserData } from 'App/auth/authReducer';
 import { Avatar } from 'assets/icons/Avatar';
+import { UploadImage } from 'assets/icons/UploadImage';
 import { SuperButton, SuperInputText } from 'components';
 import { BACK } from 'constant';
 import { useInput, useUploadImage } from 'hooks';
-import { useAppDispatch, useAppSelector } from 'store';
 import { AppRoutePaths } from 'routes';
+import { useAppDispatch, useAppSelector } from 'store';
 
 export const EditProfile: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { name, email, avatar } = useAppSelector(state => state.auth.user);
-  const { image, onImageChange } = useUploadImage(avatar)
+  const { image, onImageChange } = useUploadImage(avatar);
 
   const {
     value: nickName,
@@ -24,10 +25,8 @@ export const EditProfile: FC = () => {
     error: errorNickName,
   } = useInput(name);
 
-  const {
-    handleInputValueChange: handleEmailChange,
-    error: errorEmailName,
-  } = useInput(email);
+  const { handleInputValueChange: handleEmailChange, error: errorEmailName } =
+    useInput(email);
 
   const handleCancelEditing = (): void => navigate(BACK);
 
@@ -36,18 +35,28 @@ export const EditProfile: FC = () => {
     navigate(AppRoutePaths.PROFILE);
   };
 
-
   return (
     <div className={s.container}>
       <h2>Personal Information</h2>
+      <div className={s.avatarWrapper}>
+        {image ? (
+          <img src={image} className={s.avatar} alt="" />
+        ) : (
+          <Avatar className={s.avatar} />
+        )}
+        <label htmlFor="fileUpload" className={s.iconForUpload}>
+          <UploadImage />
 
-
-      {image ? (
-        <img src={image} className={s.avatar} alt="" />
-      ) : (
-        <Avatar className={s.avatar} />
-      )}<input type="file" accept="image/*" name="image" id="file" onChange={onImageChange} />
-
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            id="fileUpload"
+            className={s.inputFileUpload}
+            onChange={onImageChange}
+          />
+        </label>
+      </div>
       <div className={s.inputWrapper}>
         <SuperInputText
           value={nickName}
@@ -67,10 +76,10 @@ export const EditProfile: FC = () => {
         />
       </div>
       <div className={s.buttonsWrapper}>
-        <SuperButton className={s.secondary} onClick={handleCancelEditing}>
+        <SuperButton color="secondary" onClick={handleCancelEditing}>
           Cancel
         </SuperButton>
-        <SuperButton className={s.primary} onClick={handleSaveData}>
+        <SuperButton color="primary" onClick={handleSaveData}>
           Save
         </SuperButton>
       </div>

@@ -73,32 +73,32 @@ export const authReducer = (
 
 // action
 export const setUserData = (user: UserDataResponseType) =>
-({
-  type: AUTH_ACTIONS.SET_USER_DATA,
-  payload: { user },
-} as const);
+  ({
+    type: AUTH_ACTIONS.SET_USER_DATA,
+    payload: { user },
+  } as const);
 export const setAuthUserData = (email: string, rememberMe: boolean, isAuth: boolean) =>
-({
-  type: AUTH_ACTIONS.SET_AUTH,
-  payload: { email, rememberMe, isAuth },
-} as const);
+  ({
+    type: AUTH_ACTIONS.SET_AUTH,
+    payload: { email, rememberMe, isAuth },
+  } as const);
 
 export const editProfile = (data: UserUpdateDataType) =>
-({
-  type: AUTH_ACTIONS.EDIT_PROFILE,
-  payload: data,
-} as const);
+  ({
+    type: AUTH_ACTIONS.EDIT_PROFILE,
+    payload: data,
+  } as const);
 export const unsuccessfulLogin = (error: string) =>
-({
-  type: AUTH_ACTIONS.UNSUCCESSFUL_LOGIN,
-  payload: { error },
-} as const);
+  ({
+    type: AUTH_ACTIONS.UNSUCCESSFUL_LOGIN,
+    payload: { error },
+  } as const);
 
 export const setIsEmailSent = (isEmailSent: boolean) =>
-({
-  type: AUTH_ACTIONS.SET_IS_EMAIL_SENT,
-  payload: { isEmailSent },
-} as const);
+  ({
+    type: AUTH_ACTIONS.SET_IS_EMAIL_SENT,
+    payload: { isEmailSent },
+  } as const);
 
 // thunk
 export const loginUser = (
@@ -127,20 +127,18 @@ export const loginUser = (
 
 export const editUserData =
   (data: UserUpdateDataType): ThunkApp =>
-    (dispatch: TypedDispatch) => {
+  (dispatch: TypedDispatch) => {
+    dispatch(setIsLoading(true));
+    authAPI
+      .editProfile(data)
+      .then(res => dispatch(setUserData(res.data.updatedUser)))
 
-      dispatch(setIsLoading(true));
-      authAPI
-        .editProfile(data)
-        .then((res) => dispatch(setUserData(res.data.updatedUser)))
+      .catch(e => dispatch(setError(e.response.data.error)))
 
-        .catch(e =>
-          dispatch(setError(e.response.data.error)))
-
-        .finally(() => {
-          dispatch(setIsLoading(false));
-        });
-    };
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
 
 export const logoutUser = (): ThunkApp => dispatch => {
   dispatch(setIsLoading(true));
@@ -159,57 +157,57 @@ export const logoutUser = (): ThunkApp => dispatch => {
 
 export const setRegister =
   (data: RegisterData): ThunkApp =>
-    dispatch => {
-      dispatch(setIsLoading(true));
-      authAPI
-        .register(data)
-        .then(res => {
-          dispatch(setError(res.statusText));
-        })
-        .then(() => {
-          dispatch(setError(EMPTY_STRING));
-        })
-        .catch(e => dispatch(setError(e.response.data.error)))
-        .finally(() => {
-          dispatch(setIsLoading(false));
-        });
-    };
+  dispatch => {
+    dispatch(setIsLoading(true));
+    authAPI
+      .register(data)
+      .then(res => {
+        dispatch(setError(res.statusText));
+      })
+      .then(() => {
+        dispatch(setError(EMPTY_STRING));
+      })
+      .catch(e => dispatch(setError(e.response.data.error)))
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
 
 export const sendEmail =
   (email: string): ThunkApp =>
-    dispatch => {
-      dispatch(setIsLoading(true));
-      authAPI
-        .passRecover(email)
-        .then(() => {
-          dispatch(setIsEmailSent(true));
-        })
-        .catch(e => {
-          dispatch(setError(e.response.data.error));
-        })
-        .finally(() => {
-          dispatch(setIsLoading(false));
-        });
-    };
+  dispatch => {
+    dispatch(setIsLoading(true));
+    authAPI
+      .passRecover(email)
+      .then(() => {
+        dispatch(setIsEmailSent(true));
+      })
+      .catch(e => {
+        dispatch(setError(e.response.data.error));
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
 
 export const sendPassword =
   (
     password: string,
     token: string,
   ): ThunkAction<Promise<boolean | void>, AppRootStateType, unknown, AppRootActionType> =>
-    dispatch => {
-      dispatch(setIsLoading(true));
-      return authAPI
-        .setNewPassword({ password, resetPasswordToken: token! })
-        .then(() => {
-          return true;
-        })
-        .catch(e => {
-          dispatch(setError(e.response.data.error));
-        })
-        .finally((redirectToLogin: boolean | void) => {
-          dispatch(setIsLoading(false));
-          if (redirectToLogin) return true;
-          return false;
-        });
-    };
+  dispatch => {
+    dispatch(setIsLoading(true));
+    return authAPI
+      .setNewPassword({ password, resetPasswordToken: token! })
+      .then(() => {
+        return true;
+      })
+      .catch(e => {
+        dispatch(setError(e.response.data.error));
+      })
+      .finally((redirectToLogin: boolean | void) => {
+        dispatch(setIsLoading(false));
+        if (redirectToLogin) return true;
+        return false;
+      });
+  };

@@ -1,21 +1,26 @@
 import { useState } from 'react';
 
-export const useUploadImage = (imageSRC: string | null) => {
+import { FIRST_EL } from 'constant';
+
+export const useUploadImage = (imageSRC: string | null): ReturnedValueType => {
   const [image, setImage] = useState<string | null>(imageSRC);
 
-  const onImageChange = (e: any) => {
-
-    if (e.target?.files[0]) {
+  const onImageChange = (e: any): void => {
+    if (e.target?.files[FIRST_EL]) {
       const fileReader = new FileReader();
 
-      fileReader.readAsDataURL(e.target.files[0]);
-      fileReader.onload = e => {
-        const imageSrc = e.target?.result as string;
+      fileReader.readAsDataURL(e.target.files[FIRST_EL]);
+      fileReader.onload = event => {
+        const imageSrc = event.target?.result as string;
         setImage(imageSrc);
-      }
+      };
     }
-  }
+  };
 
-  return { image, onImageChange }
-}
+  return { image, onImageChange };
+};
 
+type ReturnedValueType = {
+  image: string | null;
+  onImageChange: (e: any) => void;
+};

@@ -1,42 +1,41 @@
 .packsListContainer {
-    margin: 24px 136px 71px 136px;
-    min-height: calc(100vh - 60px - 71px - 24px);
-    min-width: calc(100vw - 136px - 136px);
+  margin: 24px 136px 71px 136px;
+  min-height: calc(100vh - 60px - 71px - 24px);
+  min-width: calc(100vw - 136px - 136px);
 
-    display: flex;
-    background: #fefeff;
-    border-radius: 8px;
+  display: flex;
+  background: #fefeff;
+  border-radius: 8px;
 }
 
 .sideBar {
-    width: 243px;
-    background: #ececf9;
-    border-radius: 8px;
-    padding: 17px 24px;
-    display: flex;
-    flex-direction: column;
+  width: 243px;
+  background: #ececf9;
+  border-radius: 8px;
+  padding: 17px 24px;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
-    height: 80%;
-    width: 80%;
-    padding: 20px 30px;
+  height: 80%;
+  width: 80%;
+  padding: 20px 30px;
 }
 
 .searchBlock {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 15px 0 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0 15px 0;
 }
 
 .tableBlock {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
 .paginationBlock {
-    margin-top: 20px;
+  margin-top: 20px;
 }

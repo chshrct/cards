@@ -1,69 +1,67 @@
-.userContainer{
-    width: 243px;
-    min-height: 216px;
+.userContainer {
+  width: 243px;
+  min-height: 216px;
 
-    background-color: #D9D9F1;
-    border-radius: 8px 0 8px 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    justify-content: center;
-    align-items: center;
-    padding: 24px 10px 12px;
+  background-color: #d9d9f1;
+  border-radius: 8px 0 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 10px 12px;
 }
 
 .userContainer img {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
 
-    background: #21268F;
+  background: #21268f;
 }
 
 .userContainer h2 {
-    margin: 0;
-    padding: 0;
-    color: #2D2E46;
+  margin: 0;
+  padding: 0;
+  color: #2d2e46;
 
-    font-family: Poppins, sans-serif;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 1.5;
-    text-align: center;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: center;
 
-    word-break: break-all;
+  word-break: break-all;
 }
 
 .userContainer h3 {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
 
-    font-family: Roboto, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.2;
-
-    margin: 0 0 4px 0;
-    padding: 0;
-    color: #2D2E46;
-    opacity: 0.5;
-    word-break: break-all;
+  margin: 0 0 4px 0;
+  padding: 0;
+  color: #2d2e46;
+  opacity: 0.5;
+  word-break: break-all;
 }
 .outlined {
-    border: 1px solid rgba(99, 93, 128, 0.5);
-    border-radius: 2px;
-    padding: 4px 8px;
-    background-color: transparent;
-    max-width: 82px;
+  border: 1px solid rgba(99, 93, 128, 0.5);
+  border-radius: 2px;
+  padding: 4px 8px;
+  background-color: transparent;
+  max-width: 82px;
 
-    color: #21268F;
-    text-decoration: none;
-    font-family: Roboto, sans-serif;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 1.17;  
-
- }
- .outlined:hover { 
-    background-color: #21268F;
-    color: #FFFFFF;
-    transition: 0.8s;
- }
+  color: #21268f;
+  text-decoration: none;
+  font-family: Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.17;
+}
+.outlined:hover {
+  background-color: #21268f;
+  color: #ffffff;
+  transition: 0.8s;
+}
