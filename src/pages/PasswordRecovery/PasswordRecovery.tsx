@@ -1,37 +1,27 @@
-import React, { FC, KeyboardEvent, useState } from 'react';
+import React, { FC, KeyboardEvent } from 'react';
 
 import { Link } from 'react-router-dom';
 
 import s from './PasswordRecovery.module.css';
 
-import { authAPI } from 'api';
+import { sendEmail } from 'App/auth/authReducer';
 import { ReactComponent as EmailIcon } from 'assets/icons/email.svg';
 import { SuperButton, SuperInputText } from 'components';
 import { validateEmail } from 'helpers';
 import { useSuperInput } from 'hooks';
 import { AppRoutePaths } from 'routes';
+import { useAppDispatch, useAppSelector } from 'store';
 
 export const PasswordRecovery: FC = () => {
-  const [isSending, setIsSending] = useState<boolean>(false);
-  const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
-  const [email, onEmailChange, error, setError, isTouched, onBlur] =
-    useSuperInput(validateEmail);
+  const isLoading = useAppSelector(state => state.app.isLoading);
+  const isEmailSent = useAppSelector(state => state.auth.isEmailSent);
+  const [email, onEmailChange, error, isTouched, onBlur] = useSuperInput(validateEmail);
 
-  const isEmailControlsDisabled = !!error || isSending || !isTouched;
+  const isEmailControlsDisabled = !!error || isLoading || !isTouched;
+  const dispatch = useAppDispatch();
 
   const onSendEmailClick = (): void => {
-    setIsSending(true);
-    authAPI
-      .passRecover(email)
-      .then(() => {
-        setIsEmailSent(true);
-      })
-      .catch(e => {
-        setError(e.response.data.error);
-      })
-      .finally(() => {
-        setIsSending(false);
-      });
+    dispatch(sendEmail(email));
   };
 
   const onEmailKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
@@ -54,7 +44,7 @@ export const PasswordRecovery: FC = () => {
               error={error}
               label="Email"
               onKeyDown={onEmailKeyDown}
-              disabled={isSending}
+              disabled={isLoading}
               onBlur={onBlur}
             />
             <p>Enter your email address and we will send you further instructions</p>
@@ -64,6 +54,7 @@ export const PasswordRecovery: FC = () => {
               color="primary"
               disabled={isEmailControlsDisabled}
               onClick={onSendEmailClick}
+              isLoading={isLoading}
             >
               Send Instructions
             </SuperButton>

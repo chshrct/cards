@@ -3,9 +3,9 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { NavLink } from 'react-router-dom';
 
+import { loginUser } from '../../../App/auth/authReducer';
 import { EMPTY_STRING } from '../../../constant';
 import { validateEmail, validatePassword } from '../../../helpers';
-import { loginUser } from '../loginReducer';
 
 import s from './LoginForm.module.css';
 
@@ -14,10 +14,10 @@ import { AppRoutePaths } from 'routes';
 import { useAppDispatch, useAppSelector } from 'store';
 
 export const LoginForm: React.FC = () => {
-  const error = useAppSelector(state => state.login.error);
+  const error = useAppSelector(state => state.auth.error);
   const dispatch = useAppDispatch();
   const formik = useFormik({
-    initialValues: { email: '', password: '', rememberMe: false },
+    initialValues: { email: EMPTY_STRING, password: EMPTY_STRING, rememberMe: false },
     onSubmit: (values: any) => {
       dispatch(loginUser(values.email, values.password, values.rememberMe));
     },

@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
-import { MAX_PASSWORD_LENGTH } from '../../constant';
+import { EMPTY_STRING, MAX_PASSWORD_LENGTH } from '../../constant';
 
 import s from './Registration.module.css';
 
+import { setError, setRegister } from 'App';
 import { SuperButton, SuperInputText } from 'components';
-import { setError, setRegister } from 'pages';
 import { AppRoutePaths } from 'routes';
 import { useAppDispatch, useAppSelector } from 'store';
 
@@ -20,20 +20,20 @@ type FormValues = {
 
 export const Registration: React.FC = () => {
   const dispatch = useAppDispatch();
-  const error = useAppSelector(state => state.registration.error);
+  const error = useAppSelector(state => state.app.error);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(setError(''));
+    dispatch(setError(EMPTY_STRING));
   }, [location]);
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
+      email: EMPTY_STRING,
+      password: EMPTY_STRING,
+      confirmPassword: EMPTY_STRING,
     },
     validate: values => {
       const errors: Partial<FormValues> = {};
@@ -81,7 +81,7 @@ export const Registration: React.FC = () => {
             type="text"
             name="email"
             onChange={formik.handleChange}
-            error={formik.touched.email ? formik.errors.email : ''}
+            error={formik.touched.email ? formik.errors.email : EMPTY_STRING}
             value={formik.values.email}
             onBlur={formik.handleBlur}
           />
@@ -92,7 +92,7 @@ export const Registration: React.FC = () => {
             type="password"
             name="password"
             onChange={formik.handleChange}
-            error={formik.touched.password ? formik.errors.password : ''}
+            error={formik.touched.password ? formik.errors.password : EMPTY_STRING}
             value={formik.values.password}
             onBlur={formik.handleBlur}
           />
@@ -103,7 +103,11 @@ export const Registration: React.FC = () => {
             type="password"
             name="confirmPassword"
             onChange={formik.handleChange}
-            error={formik.touched.confirmPassword ? formik.errors.confirmPassword : ''}
+            error={
+              formik.touched.confirmPassword
+                ? formik.errors.confirmPassword
+                : EMPTY_STRING
+            }
             value={formik.values.confirmPassword}
             onBlur={formik.handleBlur}
           />

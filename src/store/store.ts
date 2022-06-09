@@ -2,22 +2,19 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import { loginReducer } from '../pages/Login/loginReducer';
-import { profileReducer } from '../pages/Profile/profileReducer';
-import { registrationReducer } from '../pages/Registration/registrationReducer';
-
-import { appReducer, RootAppActionsType } from 'App/appReducer';
+import { authReducer } from '../App/auth/authReducer';
 import {
-  LoginRootActionType,
-  ProfileRootActionType,
-  RegistrationRootActionType,
-} from 'pages';
+  packsListReducer,
+  PacksListRootActionType,
+} from '../pages/PacksList/PacksListReducer';
+
+import { AuthRootActionType } from 'App';
+import { appReducer, RootAppActionsType } from 'App/appReducer';
 
 const rootReducer = combineReducers({
   app: appReducer,
-  login: loginReducer,
-  registration: registrationReducer,
-  profile: profileReducer,
+  auth: authReducer,
+  packs: packsListReducer,
 });
 
 // @ts-ignore
@@ -25,10 +22,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 export type AppRootActionType =
-  | RegistrationRootActionType
-  | ProfileRootActionType
-  | LoginRootActionType
-  | RootAppActionsType;
+  | RootAppActionsType
+  | AuthRootActionType
+  | PacksListRootActionType;
 export type ThunkApp = ThunkAction<void, AppRootStateType, unknown, AppRootActionType>;
 export type TypedDispatch = ThunkDispatch<AppRootStateType, unknown, AppRootActionType>;
 

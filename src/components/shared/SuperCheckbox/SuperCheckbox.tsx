@@ -8,6 +8,8 @@ import React, {
 
 import s from './SuperCheckbox.module.css';
 
+import { EMPTY_STRING } from 'constant';
+
 type DefaultInputPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -38,7 +40,7 @@ export const SuperCheckbox: FC<SuperCheckboxPropsType> = ({
     }, slowBlur);
   };
 
-  const finalInputClassName = `${s.checkbox} ${className || ''}`;
+  const finalInputClassName = `${s.checkbox} ${className || EMPTY_STRING}`;
   const id = useId();
   return (
     <label htmlFor={id}>

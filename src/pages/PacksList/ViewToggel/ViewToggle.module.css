@@ -1,0 +1,20 @@
+.toggleContainer {
+    display: flex;
+    position: relative;
+}
+
+.button {
+    height: 36px;
+    width: 196px;
+    border: none;
+}
+
+.lightFill {
+    background: #FFFFFF;
+    color: #2D2E46;
+}
+
+.darkFill {
+    background: #9A91C8;
+    color: #FFFFFF;
+}

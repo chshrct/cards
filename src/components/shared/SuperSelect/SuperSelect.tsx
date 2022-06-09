@@ -8,6 +8,8 @@ import React, {
 
 import s from './SuperSelect.module.css';
 
+import { EMPTY_STRING } from 'constant';
+
 type DefaultSelectPropsType = DetailedHTMLProps<
   SelectHTMLAttributes<HTMLSelectElement>,
   HTMLSelectElement
@@ -25,7 +27,7 @@ export const SuperSelect: FC<SuperSelectPropsType> = ({
   className,
   ...restProps
 }) => {
-  const selectClassName = `${s.select} ${className || ''}`;
+  const selectClassName = `${s.select} ${className || EMPTY_STRING}`;
 
   const mappedOptions: any[] = options
     ? options.map(o => {

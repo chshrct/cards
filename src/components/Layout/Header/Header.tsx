@@ -3,12 +3,12 @@ import React, { FC } from 'react';
 import s from './Header.module.css';
 import { Nav } from './Nav';
 
+import { logoutUser } from 'App/auth/authReducer';
 import { SuperButton } from 'components/shared';
-import { logoutUser } from 'pages/Login/loginReducer';
 import { useAppDispatch, useAppSelector } from 'store';
 
 export const Header: FC = () => {
-  const isAuth = useAppSelector(state => state.login.isAuth);
+  const isAuth = useAppSelector(state => state.auth.isAuth);
   const dispatch = useAppDispatch();
   const onButtonClick = (): void => {
     dispatch(logoutUser());
