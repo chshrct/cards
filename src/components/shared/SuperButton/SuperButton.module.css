@@ -36,25 +36,45 @@
 .sizeSmall {
   width: 127px;
 }
+
 .sizeMedium {
   width: 187px;
 }
+
 .sizeLarge {
   width: 266px;
 }
+
 .colorPrimary {
-  background-color: hsl(237, 63%, 35%);
-  color: hsl(0, 0%, 100%);
+  color: #ececf9;
+  background: #21268f;
+  box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35),
+    inset 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
+
+.colorPrimary:hover,
+.colorPrimary:focus {
+  filter: brightness(1.25);
+  color: #ececf9;
+}
+
 .colorSecondary {
-  background-color: hsl(238, 43%, 89%);
-  background-image: radial-gradient(circle, transparent 1%, hsl(238, 43%, 89%) 1%);
-  color: hsl(237, 63%, 35%);
+  background-color: #d7d8ef;
+  background-image: radial-gradient(circle, transparent 1%, #d7d8ef 1%);
+  color: #212791;
 }
-.button.colorSecondary:active {
+
+.colorSecondary:active {
   background-color: hsa(238, 43%, 89%, 0.32);
   transform: scale(0.99);
 }
+
+.colorSecondary:hover,
+.colorSecondary:focus {
+  filter: brightness(0.95);
+  color: #21268f;
+}
+
 .colorAlerty {
   background-color: hsl(3, 87%, 59%);
   background-image: radial-gradient(circle, transparent 1%, hsl(3, 87%, 59%) 1%);

@@ -1,22 +1,22 @@
 .loginWrapper {
-    padding: 25px 33px 30px 33px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 413px;
-    min-height: 600px;
-    background: #f9f9fe;
-    border-radius: 8px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  padding: 25px 33px 30px 33px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 413px;
+  min-height: 600px;
+  background: #f9f9fe;
+  border-radius: 8px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.loginWrapper h2{
-    margin: 0 0 32px 0;
+.loginWrapper h2 {
+  margin: 0 0 32px 0;
 }
 
-.loginWrapper h3{
-    margin-bottom: 40px;
+.loginWrapper h3 {
+  margin-bottom: 40px;
 }

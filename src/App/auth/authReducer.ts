@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import { setUserId } from '../appReducer';
 
 import { authAPI } from 'api';
-import { RegisterData, UserDataResponseType } from 'api/authApi';
+import { RegisterData, UserDataResponseType, UserUpdateDataType } from 'api/authApi';
 import { setError, setIsLoading } from 'App';
 import { EMPTY_STRING } from 'constant';
 import { AppRootActionType, AppRootStateType, ThunkApp, TypedDispatch } from 'store';
@@ -38,7 +38,7 @@ const initialState = {
     _id: EMPTY_STRING,
     email: EMPTY_STRING,
     name: EMPTY_STRING,
-    avatar: EMPTY_STRING,
+    avatar: null,
     publicCardPacksCount: 0,
 
     created: {},
@@ -63,7 +63,7 @@ export const authReducer = (
     case AUTH_ACTIONS.UNSUCCESSFUL_LOGIN:
       return { ...state, ...payload };
     case AUTH_ACTIONS.EDIT_PROFILE:
-      return { ...state, user: { ...payload } };
+      return { ...state, user: { ...state.user, ...payload } };
     case AUTH_ACTIONS.SET_IS_EMAIL_SENT:
       return { ...state, ...payload };
     default:
@@ -83,7 +83,7 @@ export const setAuthUserData = (email: string, rememberMe: boolean, isAuth: bool
     payload: { email, rememberMe, isAuth },
   } as const);
 
-export const editProfile = (data: UserDataResponseType) =>
+export const editProfile = (data: UserUpdateDataType) =>
   ({
     type: AUTH_ACTIONS.EDIT_PROFILE,
     payload: data,
@@ -126,16 +126,18 @@ export const loginUser = (
 };
 
 export const editUserData =
-  (data: UserDataResponseType): ThunkApp =>
-  async (dispatch: TypedDispatch) => {
+  (data: UserUpdateDataType): ThunkApp =>
+  (dispatch: TypedDispatch) => {
     dispatch(setIsLoading(true));
-    try {
-      const res = await authAPI.editProfile(data);
-      dispatch(setUserData(res.data.updatedUser));
-    } catch (e: any) {
-      dispatch(setError(e.response.data.error));
-    }
-    dispatch(setIsLoading(false));
+    authAPI
+      .editProfile(data)
+      .then(res => dispatch(setUserData(res.data.updatedUser)))
+
+      .catch(e => dispatch(setError(e.response.data.error)))
+
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
   };
 
 export const logoutUser = (): ThunkApp => dispatch => {

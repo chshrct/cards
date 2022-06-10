@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import arrowLeftBlue from '../../../assets/icons/arrows/arrowLeftBlue.png';
 import arrowLeftGrey from '../../../assets/icons/arrows/arrowLeftGrey.png';

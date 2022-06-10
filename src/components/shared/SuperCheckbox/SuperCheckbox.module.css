@@ -1,20 +1,20 @@
 .checkbox {
-    appearance: none;
-    cursor: pointer;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 2px solid #21268f;
-    border-radius: 3px;
-    transition: all ease-out 2s;
-    margin: 0 5px 0 5px;        
+  appearance: none;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  border: 2px solid #21268f;
+  border-radius: 3px;
+  transition: all ease-out 2s;
+  margin: 0 5px 0 5px;
 }
 .checkbox:checked {
-     background-image: url('./checkmark.png'); 
-     background-color: transparent;
-     background-size: cover; 
+  background-image: url('./checkmark.png');
+  background-color: transparent;
+  background-size: cover;
 }
 .checkbox:focus {
-    box-shadow: 1px 1px rgb(27, 21, 54);
-    transition: all ease-out 2s;
+  box-shadow: 1px 1px rgb(27, 21, 54);
+  transition: all ease-out 2s;
 }
