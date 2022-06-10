@@ -48,11 +48,11 @@ export const CardsList: React.FC = () => {
 
   useEffect(() => {
     if (isSearchEmpty) {
-      dispatch(fetchCards(id, sortCards, page, pageCount, cardQuestion, cardAnswer));
+      dispatch(fetchCards(id, page, sortCards, pageCount, cardQuestion, cardAnswer));
     } else {
       timeoutId.current = setTimeout(() => {
         timeoutId.current = undefined;
-        dispatch(fetchCards(id, sortCards, page, pageCount, cardQuestion, cardAnswer));
+        dispatch(fetchCards(id, page, sortCards, pageCount, cardQuestion, cardAnswer));
       }, DELAY);
     }
     return () => {
@@ -63,7 +63,7 @@ export const CardsList: React.FC = () => {
   const addNewCardHandle = (): void =>
     dispatch(addNewCard({ card: { cardsPack_id: id } }));
   const onPageChanged = (pageNumber: number | string): void => {
-    dispatch(fetchCards(id, sortCards, pageNumber, pageCount));
+    dispatch(fetchCards(id, pageNumber, sortCards, pageCount));
   };
 
   const onCardQuestionChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -136,7 +136,6 @@ export const CardsList: React.FC = () => {
           : null}
       </div>
       <Paginator
-        // @ts-ignore
         currentPage={page}
         onPageChange={onPageChanged}
         totalCount={totalCount}

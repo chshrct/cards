@@ -42,7 +42,7 @@ const initialState = {
   isAddNewPack: false,
   paginator: {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    page: 1 as string | number,
+    page: 1 as number | string,
     totalCount: 0,
     pageCount: 10,
     siblingCount: 1,

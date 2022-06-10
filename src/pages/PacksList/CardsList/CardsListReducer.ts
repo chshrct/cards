@@ -38,7 +38,7 @@ const initialState = {
   isAddNewCard: false,
   paginator: {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    page: 1 as number | string | undefined,
+    page: 1 as number | string,
     totalCount: 0,
     pageCount: 10,
     siblingCount: 1,
@@ -78,7 +78,7 @@ export const sortCardsAC = (sortCards: string | undefined) =>
   ({ type: CardsListActionsTypes.sortCards, payload: { sortCards } } as const);
 export const setIsAddNewCard = (isAddNewCard: boolean) =>
   ({ type: CardsListActionsTypes.setIsAddNewCard, payload: { isAddNewCard } } as const);
-export const setCurrentPage = (page?: number | string) =>
+export const setCurrentPage = (page: number | string) =>
   ({ type: CardsListActionsTypes.setCurrentPage, payload: { page } } as const);
 export const setTotalCardsCount = (totalCount: number) =>
   ({ type: CardsListActionsTypes.setTotalCardsCount, payload: { totalCount } } as const);
@@ -98,10 +98,10 @@ export const fetchCards =
   (
     // eslint-disable-next-line camelcase
     cardsPack_id: string | undefined,
+    page: number | string,
     // min?: number,
     // max?: number,
     sortCards?: string | undefined,
-    page?: number | string,
     pageCount?: number,
     cardQuestion?: string,
     cardAnswer?: string,
@@ -146,7 +146,7 @@ export const addNewCard =
     cardsAPI
       .addCard(payload)
       .then(data => {
-        dispatch(fetchCards(data.newCard.cardsPack_id, sortCards, page, pageCount));
+        dispatch(fetchCards(data.newCard.cardsPack_id, page, sortCards, pageCount));
       })
       .catch(e => {
         const error = e.response

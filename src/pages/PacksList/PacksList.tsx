@@ -95,7 +95,6 @@ export const PacksList: FC = () => {
           <>
             <Table />
             <Paginator
-              // @ts-ignore
               currentPage={page}
               onPageChange={onPageChanged}
               totalCount={totalCount}

@@ -36,7 +36,7 @@ type CardsDataQuery = {
   min?: number;
   max?: number;
   sortCards?: string;
-  page?: number | string;
+  page: number | string;
   pageCount?: number;
 };
 

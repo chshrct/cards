@@ -10,7 +10,7 @@ import { DOTS, usePagination } from './usePagination';
 
 type PaginatorPropsType = {
   title: string;
-  currentPage: number;
+  currentPage: number | string;
   onPageChange: (currentPage: number | string) => void;
   totalCount: number;
   siblingCount: number;
@@ -30,10 +30,10 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
   const one = 1;
   const four = 4;
   const onNext = (): void => {
-    onPageChange(currentPage + one);
+    onPageChange(Number(currentPage) + one);
   };
   const onPrevious = (): void => {
-    onPageChange(currentPage - one);
+    onPageChange(Number(currentPage) - one);
   };
 
   const lastPage = paginationRange[paginationRange.length - one];
@@ -42,7 +42,7 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
   };
   const finalListPagesStyle = `${s.paginationItem}  ${s.listPages}`;
   const finalDotsStyle = `${s.paginationItem}  ${s.dots}`;
-  const range = pageSize * currentPage;
+  const range = pageSize * Number(currentPage);
   const finalListPages =
     totalCount === one
       ? `${totalCount} of ${totalCount} ${title}`

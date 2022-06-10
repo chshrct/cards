@@ -29,7 +29,7 @@ export const SortCardsTitle: React.FC<SortTitleType> = ({
   const changeArrowHandle = (): void => {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     setNum(state => (state === 0 ? 1 : 0));
-    dispatch(fetchCards(cardsPackId, `${num}${sortBy}`, page, pageCount));
+    dispatch(fetchCards(cardsPackId, page, `${num}${sortBy}`, pageCount));
   };
 
   if (sortCards === undefined) sortCards = '0grade';
