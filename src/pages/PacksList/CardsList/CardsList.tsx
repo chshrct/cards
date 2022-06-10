@@ -1,11 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 import React, { ChangeEvent, MutableRefObject, useEffect, useRef } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { ReactComponent as BackArrow } from '../../../assets/icons/back-arrow.svg';
 import { SuperButton } from '../../../components';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
 import {
+  BACK,
   DELAY,
   DIVISOR_EQUAL_TWO,
   EMPTY_STRING,
@@ -26,20 +29,28 @@ import { SortCardsTitle } from './SortCardsTitle/SortCardsTitle';
 export const CardsList: React.FC = () => {
   const cards = useAppSelector(state => state.cards.cards.cards);
   const sortCards = useAppSelector(state => state.cards.sortCards);
+  const cardsCreatorId = useAppSelector(state => state.cards.cards.packUserId);
   const { page, pageCount, totalCount, siblingCount } = useAppSelector(
     state => state.cards.paginator,
   );
   const isAddNewCard = useAppSelector(state => state.cards.isAddNewCard);
   const cardQuestion = useAppSelector(state => state.cards.cardQuestion);
   const cardAnswer = useAppSelector(state => state.cards.cardAnswer);
+  const userId = useAppSelector(state => state.app.userId);
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const packName = useAppSelector(
+    state => state.packs.packs.cardPacks.find(pack => pack._id === id)?.name,
+  );
 
   const isSearchEmpty = cardQuestion === EMPTY_STRING && cardAnswer === EMPTY_STRING;
+  const isUsersPack = cardsCreatorId === userId;
 
   /*
-   * Search Debounce
+   * Debounce for Search
    */
 
   const timeoutId = useRef() as MutableRefObject<
@@ -51,12 +62,12 @@ export const CardsList: React.FC = () => {
       dispatch(fetchCards(id, sortCards, page, pageCount, cardQuestion, cardAnswer));
     } else {
       timeoutId.current = setTimeout(() => {
-        timeoutId.current = undefined;
         dispatch(fetchCards(id, sortCards, page, pageCount, cardQuestion, cardAnswer));
       }, DELAY);
     }
     return () => {
       clearTimeout(timeoutId.current);
+      timeoutId.current = undefined;
     };
   }, [cardQuestion, cardAnswer]);
 
@@ -75,7 +86,10 @@ export const CardsList: React.FC = () => {
 
   return (
     <div className={s.cardsListContainer}>
-      <h4>cardsList</h4>
+      <div className={s.headerWrapper}>
+        <BackArrow onClick={() => navigate(BACK)} />
+        <h3>{packName}</h3>
+      </div>
       <div className={s.searchButtonBlock}>
         <SuperInputSearch
           placeholder="Search by question..."
@@ -87,7 +101,11 @@ export const CardsList: React.FC = () => {
           onChange={onCardAnswerChange}
           value={cardAnswer}
         />
-        <SuperButton onClick={addNewCardHandle} disabled={isAddNewCard} size="large">
+        <SuperButton
+          onClick={addNewCardHandle}
+          disabled={isAddNewCard || !isUsersPack}
+          size="large"
+        >
           Add new card
         </SuperButton>
       </div>

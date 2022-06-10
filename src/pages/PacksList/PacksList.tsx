@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useRef } from 'react';
+import React, { ChangeEvent, FC, MutableRefObject, useEffect, useRef } from 'react';
 
 import { SuperButton } from '../../components';
 import { Paginator } from '../../components/shared/Paginator/Paginator';
@@ -38,7 +38,9 @@ export const PacksList: FC = () => {
    *  Debounce for Search,MultiRange
    */
 
-  const timeoutId = useRef();
+  const timeoutId = useRef() as MutableRefObject<
+    ReturnType<typeof setTimeout> | undefined
+  >;
 
   useEffect(() => {
     if (
@@ -48,15 +50,13 @@ export const PacksList: FC = () => {
     ) {
       dispatch(fetchPacks(PAGE_ONE, pageCount, inputTitle));
     } else {
-      // @ts-ignore
       timeoutId.current = setTimeout(() => {
         dispatch(fetchPacks(PAGE_ONE, pageCount, inputTitle));
       }, DELAY);
     }
     return () => {
       clearTimeout(timeoutId.current);
-      // @ts-ignore
-      timeoutId.current = null;
+      timeoutId.current = undefined;
     };
   }, [inputTitle, minCardsCount, maxCardsCount]);
 

@@ -99,22 +99,20 @@
   border-radius: 2px;
 }
 
-.button:disabled {
+.button:disabled,
+.button[disabled] {
   opacity: 0.5;
   cursor: not-allowed;
   transition: none;
   transform: none;
 }
 
-.button.colorSecondary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transition: none;
-  transform: none;
+.button:disabled.colorPrimary {
+  background-color: hsl(237, 63%, 35%);
 }
-.button.colorAlerty:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transition: none;
-  transform: none;
+.button:disabled.colorSecondary {
+  background-color: #d7d8ef;
+}
+.button:disabled.colorAlerty {
+  background-color: hsl(3, 87%, 59%);
 }
