@@ -8,11 +8,13 @@ import s from './SuperInputSearch.module.css';
 type SuperInputSearchType = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  placeholder?: string;
 };
 
 export const SuperInputSearch: FC<SuperInputSearchType> = ({
   onChange,
   value,
+  placeholder,
   ...restProps
 }) => {
   return (
@@ -20,7 +22,7 @@ export const SuperInputSearch: FC<SuperInputSearchType> = ({
       <img src={search} alt="search:" />
       <SuperInputText
         type="text"
-        placeholder="Search..."
+        placeholder={placeholder || 'Search...'}
         onChange={onChange}
         value={value}
         // eslint-disable-next-line react/jsx-props-no-spreading

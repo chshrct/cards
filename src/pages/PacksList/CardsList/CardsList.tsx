@@ -1,15 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, MutableRefObject, useEffect, useRef } from 'react';
 
 import { useParams } from 'react-router-dom';
 
 import { SuperButton } from '../../../components';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
-import { DIVISOR_EQUAL_TWO, EMPTY_STRING, REMAINDER_EQUAL_ZERO } from '../../../constant';
+import {
+  DELAY,
+  DIVISOR_EQUAL_TWO,
+  EMPTY_STRING,
+  REMAINDER_EQUAL_ZERO,
+} from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 
 import s from './CardsList.module.css';
-import { addNewCard, fetchCards } from './CardsListReducer';
+import {
+  addNewCard,
+  fetchCards,
+  setCardAnswer,
+  setCardQuestion,
+} from './CardsListReducer';
 import { CardsRow } from './CarsdRow/CardsRow';
 import { SortCardsTitle } from './SortCardsTitle/SortCardsTitle';
 
@@ -20,25 +30,63 @@ export const CardsList: React.FC = () => {
     state => state.cards.paginator,
   );
   const isAddNewCard = useAppSelector(state => state.cards.isAddNewCard);
+  const cardQuestion = useAppSelector(state => state.cards.cardQuestion);
+  const cardAnswer = useAppSelector(state => state.cards.cardAnswer);
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
+  const isSearchEmpty = cardQuestion === EMPTY_STRING && cardAnswer === EMPTY_STRING;
+
+  /*
+   * Search Debounce
+   */
+
+  const timeoutId = useRef() as MutableRefObject<
+    ReturnType<typeof setTimeout> | undefined
+  >;
+
   useEffect(() => {
-    dispatch(fetchCards(id, sortCards, page, pageCount));
-  }, []);
+    if (isSearchEmpty) {
+      dispatch(fetchCards(id, sortCards, page, pageCount, cardQuestion, cardAnswer));
+    } else {
+      timeoutId.current = setTimeout(() => {
+        timeoutId.current = undefined;
+        dispatch(fetchCards(id, sortCards, page, pageCount, cardQuestion, cardAnswer));
+      }, DELAY);
+    }
+    return () => {
+      clearTimeout(timeoutId.current);
+    };
+  }, [cardQuestion, cardAnswer]);
 
   const addNewCardHandle = (): void =>
     dispatch(addNewCard({ card: { cardsPack_id: id } }));
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchCards(id, sortCards, pageNumber, pageCount));
   };
+
+  const onCardQuestionChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(setCardQuestion(event.target.value));
+  };
+  const onCardAnswerChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    dispatch(setCardAnswer(event.target.value));
+  };
+
   return (
     <div className={s.cardsListContainer}>
       <h4>cardsList</h4>
       <div className={s.searchButtonBlock}>
-        <SuperInputSearch onChange={() => {}} value={EMPTY_STRING} />
-        <SuperInputSearch onChange={() => {}} value={EMPTY_STRING} />
+        <SuperInputSearch
+          placeholder="Search by question..."
+          onChange={onCardQuestionChange}
+          value={cardQuestion}
+        />
+        <SuperInputSearch
+          placeholder="Search by answer..."
+          onChange={onCardAnswerChange}
+          value={cardAnswer}
+        />
         <SuperButton onClick={addNewCardHandle} disabled={isAddNewCard} size="large">
           Add new card
         </SuperButton>
