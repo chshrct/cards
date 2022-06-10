@@ -113,13 +113,17 @@ export const fetchCards =
 
 export const addNewCard =
   (payload: NewCardData): ThunkApp =>
-  dispatch => {
+  (dispatch, getState) => {
+    const {
+      sortCards,
+      paginator: { page, pageCount },
+    } = getState().cards;
     dispatch(setIsLoading(true));
     dispatch(setIsAddNewCard(true));
     cardsAPI
       .addCard(payload)
       .then(data => {
-        dispatch(fetchCards(data.newCard.cardsPack_id));
+        dispatch(fetchCards(data.newCard.cardsPack_id, sortCards, page, pageCount));
       })
       .catch(e => {
         const error = e.response

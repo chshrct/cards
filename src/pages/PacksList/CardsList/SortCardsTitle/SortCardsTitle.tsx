@@ -22,13 +22,14 @@ export const SortCardsTitle: React.FC<SortTitleType> = ({
   const [num, setNum] = useState<0 | 1>(1);
 
   let sortCards = useAppSelector(state => state.cards.sortCards);
+  const { page, pageCount } = useAppSelector(state => state.cards.paginator);
 
   const dispatch = useAppDispatch();
 
   const changeArrowHandle = (): void => {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     setNum(state => (state === 0 ? 1 : 0));
-    dispatch(fetchCards(cardsPackId, `${num}${sortBy}`));
+    dispatch(fetchCards(cardsPackId, `${num}${sortBy}`, page, pageCount));
   };
 
   if (sortCards === undefined) sortCards = '0grade';
