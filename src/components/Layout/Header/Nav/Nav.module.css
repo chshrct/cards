@@ -1,0 +1,27 @@
+.nav {
+  display: flex;
+  width: 346px;
+}
+.Link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 173px;
+  height: 60px;
+  text-decoration: none;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+
+  color: #2d2e46;
+}
+.Link span {
+  margin-left: 8px;
+}
+.activeLink {
+  border-bottom: 3px solid #21268f;
+  background-color: #dcccdb;
+}

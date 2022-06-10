@@ -1,0 +1,45 @@
+.body {
+  min-height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name,
+.cardsCount,
+.updated,
+.userName,
+.buttonsBlock {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #2d2e46;
+}
+
+.name {
+  flex: 1 0 150px;
+}
+
+.cardsCount {
+  flex: 1 0 50px;
+}
+
+.updated {
+  flex: 1 0 120px;
+}
+
+.userName {
+  flex: 1 0 240px;
+}
+
+.buttonsBlock {
+  flex: 1 0 300px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}

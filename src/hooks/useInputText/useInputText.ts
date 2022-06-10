@@ -4,14 +4,7 @@ import { EMPTY_STRING } from 'constant';
 
 export const useSuperInput = (
   validator: (text: string) => string,
-): [
-  string,
-  (text: string) => void,
-  string,
-  (text: string) => void,
-  boolean,
-  (event: any) => void,
-] => {
+): [string, (text: string) => void, string, boolean, (event: any) => void] => {
   const [value, setValue] = useState<string>(EMPTY_STRING);
   const [error, setError] = useState<string>(EMPTY_STRING);
   const [isTouched, setIsTouched] = useState<boolean>(false);
@@ -28,5 +21,5 @@ export const useSuperInput = (
       if (!validator(text)) setIsTouched(true);
     }
   };
-  return [value, onChange, error, setError, isTouched, onBlur];
+  return [value, onChange, error, isTouched, onBlur];
 };

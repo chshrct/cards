@@ -5,3 +5,5 @@ export { SuperInputText } from './SuperInputText';
 export { SuperRadio } from './SuperRadio';
 export { SuperRange } from './SuperRange';
 export { SuperSelect } from './SuperSelect';
+export { ProgressInfinite } from './ProgressInfinite';
+export { ErrorMessage } from './ErrorMessage';

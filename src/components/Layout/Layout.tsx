@@ -2,13 +2,16 @@ import React, { FC } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import { Nav } from './Nav';
+import { Header } from './Header/Header';
+import s from './Layout.module.css';
 
 export const Layout: FC = () => {
   return (
     <>
-      <Nav />
-      <Outlet />
+      <Header />
+      <div className={s.outletWrapper}>
+        <Outlet />
+      </div>
     </>
   );
 };

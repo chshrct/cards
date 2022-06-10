@@ -1,0 +1,31 @@
+.body {
+    min-height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question, .answer, .updated, .grade {
+    padding: 10px;
+}
+
+.question {
+    flex: 1 0 35%;
+    word-wrap: break-word;
+}
+
+.answer {
+    flex: 1 0 35%;
+
+}
+
+.updated {
+    flex: 1 0 20%;
+
+}
+
+.grade {
+    flex: 1 0 10%;
+
+}
+

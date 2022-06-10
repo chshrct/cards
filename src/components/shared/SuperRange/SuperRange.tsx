@@ -2,6 +2,8 @@ import React, { ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes } from '
 
 import s from './SuperRange.module.css';
 
+import { EMPTY_STRING } from 'constant';
+
 type DefaultInputPropsType = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -26,7 +28,7 @@ export const SuperRange: FC<SuperRangePropsType> = ({
     onChangeRange?.(+e.currentTarget.value);
   };
 
-  const finalRangeClassName = `${s.range} ${className || ''}`;
+  const finalRangeClassName = `${s.range} ${className || EMPTY_STRING}`;
 
   return (
     <input
