@@ -10,7 +10,7 @@ import s from './Table.module.css';
 export const Table: React.FC = () => {
   const packs = useAppSelector(state => state.packs.packs.cardPacks);
   return (
-    <div className={s.tableContainer}>
+    <div className={s.tableBlock}>
       <Header />
       {packs.map((p, i) => {
         return (

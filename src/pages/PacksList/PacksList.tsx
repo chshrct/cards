@@ -90,7 +90,7 @@ export const PacksList: FC = () => {
           </SuperButton>
         </div>
         {packs === undefined || !packs.length ? (
-          <span>This pack is empty. Click add new card to fill this pack</span>
+          <span>There is no packs. Try to add some.</span>
         ) : (
           <>
             <Table />
