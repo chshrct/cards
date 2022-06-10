@@ -1,6 +1,7 @@
 import { cardsAPI, CardsResponseType, NewCardData } from '../../../api/cardsApi';
 
 import { setError, setIsLoading } from 'App';
+import { EMPTY_STRING } from 'constant';
 import { ThunkApp } from 'store';
 
 enum CardsListActionsTypes {
@@ -9,6 +10,8 @@ enum CardsListActionsTypes {
   setIsAddNewCard = 'CARDS-LIST/SET_IS_ADD_NEW_CARD',
   setCurrentPage = 'CARDS-LIST/SET_CURRENT_PAGE',
   setTotalCardsCount = 'CARDS-LIST/SET_TOTAL_CARDS_COUNT',
+  setCardQuestion = 'CARDS-LIST/SET-CARD_QUESTION',
+  setCardAnswer = 'CARDS-LIST/SET-CARD_ANSWER',
   // changeInputTitle = 'PACKS-LIST/CHANGE_INPUT_TITLE',
   // toggleId = 'PACKS-LIST/TOGGLE_ID',
 }
@@ -18,13 +21,17 @@ type SortCardsACType = ReturnType<typeof sortCardsAC>;
 type SetIsAddNewCardType = ReturnType<typeof setIsAddNewCard>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
 type SetTotalCardsCountType = ReturnType<typeof setTotalCardsCount>;
+type SetCardQuestionType = ReturnType<typeof setCardQuestion>;
+type SetCardAnswerType = ReturnType<typeof setCardAnswer>;
 
 export type CardsListRootActionType =
   | FetchCardsACType
   | SortCardsACType
   | SetIsAddNewCardType
   | SetCurrentPageType
-  | SetTotalCardsCountType;
+  | SetTotalCardsCountType
+  | SetCardQuestionType
+  | SetCardAnswerType;
 
 const initialState = {
   cards: {} as CardsResponseType,
@@ -36,6 +43,8 @@ const initialState = {
     pageCount: 10,
     siblingCount: 1,
   },
+  cardQuestion: EMPTY_STRING,
+  cardAnswer: EMPTY_STRING,
   sortCards: '0grade' as string | undefined,
 };
 
@@ -53,6 +62,10 @@ export const cardsListReducer = (
     case CardsListActionsTypes.setCurrentPage:
     case CardsListActionsTypes.setTotalCardsCount:
       return { ...state, paginator: { ...state.paginator, ...payload } };
+    case CardsListActionsTypes.setCardAnswer:
+      return { ...state, ...payload };
+    case CardsListActionsTypes.setCardQuestion:
+      return { ...state, ...payload };
     default:
       return state;
   }
@@ -69,12 +82,20 @@ export const setCurrentPage = (page?: number | string) =>
   ({ type: CardsListActionsTypes.setCurrentPage, payload: { page } } as const);
 export const setTotalCardsCount = (totalCount: number) =>
   ({ type: CardsListActionsTypes.setTotalCardsCount, payload: { totalCount } } as const);
+export const setCardQuestion = (cardQuestion: string) =>
+  ({
+    type: CardsListActionsTypes.setCardQuestion,
+    payload: { cardQuestion },
+  } as const);
+export const setCardAnswer = (cardAnswer: string) =>
+  ({
+    type: CardsListActionsTypes.setCardAnswer,
+    payload: { cardAnswer },
+  } as const);
 
 // thunk
 export const fetchCards =
   (
-    // cardAnswer?: string,
-    // cardQuestion?: string,
     // eslint-disable-next-line camelcase
     cardsPack_id: string | undefined,
     // min?: number,
@@ -82,6 +103,8 @@ export const fetchCards =
     sortCards?: string | undefined,
     page?: number | string,
     pageCount?: number,
+    cardQuestion?: string,
+    cardAnswer?: string,
   ): ThunkApp =>
   dispatch => {
     // const { isToggleAllId } = getState().packs;
@@ -93,7 +116,7 @@ export const fetchCards =
     dispatch(setCurrentPage(page));
     cardsAPI
       // eslint-disable-next-line camelcase
-      .fetchCards({ cardsPack_id, sortCards, page, pageCount })
+      .fetchCards({ cardsPack_id, sortCards, page, pageCount, cardAnswer, cardQuestion })
       .then(data => {
         dispatch(fetchCardsAC(data));
         dispatch(setTotalCardsCount(data.cardsTotalCount));
