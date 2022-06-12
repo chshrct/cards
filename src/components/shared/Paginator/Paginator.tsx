@@ -58,7 +58,7 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
       currentPage === pageNumber && s.selectedPage
     }`;
   };
-  const finalListPagesStyle = `${s.paginationItem}  ${s.listPages}`;
+  const finalListPagesStyle = `${s.paginationItem} ${s.listPages}`;
   const finalDotsStyle = `${s.paginationItem}  ${s.dots}`;
   const range = pageSize * Number(currentPage);
   const finalListPages =
