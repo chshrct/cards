@@ -5,6 +5,7 @@ import arrowLeftGrey from '../../../assets/icons/arrows/arrowLeftGrey.png';
 import arrowRightBlue from '../../../assets/icons/arrows/arrowRightBlue.png';
 import arrowRightGrey from '../../../assets/icons/arrows/arrowRightGrey.png';
 import { useAppSelector } from '../../../store';
+import { SuperSelect } from '../SuperSelect';
 
 import s from './Paginator.module.css';
 import { DOTS, usePagination } from './usePagination';
@@ -13,13 +14,22 @@ type PaginatorPropsType = {
   title: string;
   currentPage: number | string;
   onPageChange: (currentPage: number | string) => void;
+  onPageSizeChange: (pageSize: number) => void;
   totalCount: number;
   siblingCount: number;
   pageSize: number;
 };
 
 export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => {
-  const { currentPage, onPageChange, totalCount, siblingCount, pageSize, title } = props;
+  const {
+    currentPage,
+    onPageChange,
+    onPageSizeChange,
+    totalCount,
+    siblingCount,
+    pageSize,
+    title,
+  } = props;
   const isLoading = useAppSelector(state => state.app.isLoading);
 
   const paginationRange: any = usePagination({
@@ -29,8 +39,12 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
     pageSize,
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const one = 1;
   const four = 4;
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  const pageSizeRange = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+
   const onNext = (): void => {
     if (!isLoading) onPageChange(Number(currentPage) + one);
   };
@@ -101,6 +115,11 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
           )}
         </div>
       </div>
+      <SuperSelect
+        options={pageSizeRange}
+        value={pageSize}
+        onChangeOption={onPageSizeChange}
+      />
     </div>
   );
 };

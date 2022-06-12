@@ -12,6 +12,7 @@ enum CardsListActionsTypes {
   setTotalCardsCount = 'CARDS-LIST/SET_TOTAL_CARDS_COUNT',
   setCardQuestion = 'CARDS-LIST/SET-CARD_QUESTION',
   setCardAnswer = 'CARDS-LIST/SET-CARD_ANSWER',
+  setPageCount = 'CARDS-LIST/SET_PAGE_COUNT',
   // changeInputTitle = 'PACKS-LIST/CHANGE_INPUT_TITLE',
   // toggleId = 'PACKS-LIST/TOGGLE_ID',
 }
@@ -23,6 +24,7 @@ type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
 type SetTotalCardsCountType = ReturnType<typeof setTotalCardsCount>;
 type SetCardQuestionType = ReturnType<typeof setCardQuestion>;
 type SetCardAnswerType = ReturnType<typeof setCardAnswer>;
+type SetPageCountType = ReturnType<typeof setPageCount>;
 
 export type CardsListRootActionType =
   | FetchCardsACType
@@ -31,7 +33,8 @@ export type CardsListRootActionType =
   | SetCurrentPageType
   | SetTotalCardsCountType
   | SetCardQuestionType
-  | SetCardAnswerType;
+  | SetCardAnswerType
+  | SetPageCountType;
 
 const initialState = {
   cards: {} as CardsResponseType,
@@ -58,14 +61,13 @@ export const cardsListReducer = (
     case CardsListActionsTypes.fetchCards:
     case CardsListActionsTypes.sortCards:
     case CardsListActionsTypes.setIsAddNewCard:
+    case CardsListActionsTypes.setCardAnswer:
+    case CardsListActionsTypes.setCardQuestion:
       return { ...state, ...payload };
     case CardsListActionsTypes.setCurrentPage:
     case CardsListActionsTypes.setTotalCardsCount:
+    case CardsListActionsTypes.setPageCount:
       return { ...state, paginator: { ...state.paginator, ...payload } };
-    case CardsListActionsTypes.setCardAnswer:
-      return { ...state, ...payload };
-    case CardsListActionsTypes.setCardQuestion:
-      return { ...state, ...payload };
     default:
       return state;
   }
@@ -83,15 +85,11 @@ export const setCurrentPage = (page: number | string) =>
 export const setTotalCardsCount = (totalCount: number) =>
   ({ type: CardsListActionsTypes.setTotalCardsCount, payload: { totalCount } } as const);
 export const setCardQuestion = (cardQuestion: string) =>
-  ({
-    type: CardsListActionsTypes.setCardQuestion,
-    payload: { cardQuestion },
-  } as const);
+  ({ type: CardsListActionsTypes.setCardQuestion, payload: { cardQuestion } } as const);
 export const setCardAnswer = (cardAnswer: string) =>
-  ({
-    type: CardsListActionsTypes.setCardAnswer,
-    payload: { cardAnswer },
-  } as const);
+  ({ type: CardsListActionsTypes.setCardAnswer, payload: { cardAnswer } } as const);
+export const setPageCount = (pageCount: number) =>
+  ({ type: CardsListActionsTypes.setPageCount, payload: { pageCount } } as const);
 
 // thunk
 export const fetchCards =
@@ -101,8 +99,8 @@ export const fetchCards =
     page: number | string,
     // min?: number,
     // max?: number,
+    pageCount: number,
     sortCards?: string | undefined,
-    pageCount?: number,
     cardQuestion?: string,
     cardAnswer?: string,
   ): ThunkApp =>
@@ -114,6 +112,7 @@ export const fetchCards =
     dispatch(setIsLoading(true));
     dispatch(setIsAddNewCard(true));
     dispatch(setCurrentPage(page));
+    dispatch(setPageCount(pageCount));
     cardsAPI
       // eslint-disable-next-line camelcase
       .fetchCards({ cardsPack_id, sortCards, page, pageCount, cardAnswer, cardQuestion })
@@ -146,7 +145,7 @@ export const addNewCard =
     cardsAPI
       .addCard(payload)
       .then(data => {
-        dispatch(fetchCards(data.newCard.cardsPack_id, page, sortCards, pageCount));
+        dispatch(fetchCards(data.newCard.cardsPack_id, page, pageCount, sortCards));
       })
       .catch(e => {
         const error = e.response
