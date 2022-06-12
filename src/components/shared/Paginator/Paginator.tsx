@@ -4,6 +4,8 @@ import arrowLeftBlue from '../../../assets/icons/arrows/arrowLeftBlue.png';
 import arrowLeftGrey from '../../../assets/icons/arrows/arrowLeftGrey.png';
 import arrowRightBlue from '../../../assets/icons/arrows/arrowRightBlue.png';
 import arrowRightGrey from '../../../assets/icons/arrows/arrowRightGrey.png';
+import { useAppSelector } from '../../../store';
+import { SuperSelect } from '../SuperSelect';
 
 import s from './Paginator.module.css';
 import { DOTS, usePagination } from './usePagination';
@@ -12,13 +14,23 @@ type PaginatorPropsType = {
   title: string;
   currentPage: number | string;
   onPageChange: (currentPage: number | string) => void;
+  onPageSizeChange: (pageSize: number) => void;
   totalCount: number;
   siblingCount: number;
   pageSize: number;
 };
 
 export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => {
-  const { currentPage, onPageChange, totalCount, siblingCount, pageSize, title } = props;
+  const {
+    currentPage,
+    onPageChange,
+    onPageSizeChange,
+    totalCount,
+    siblingCount,
+    pageSize,
+    title,
+  } = props;
+  const isLoading = useAppSelector(state => state.app.isLoading);
 
   const paginationRange: any = usePagination({
     currentPage,
@@ -27,20 +39,26 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
     pageSize,
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const one = 1;
   const four = 4;
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  const pageSizeRange = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+
   const onNext = (): void => {
-    onPageChange(Number(currentPage) + one);
+    if (!isLoading) onPageChange(Number(currentPage) + one);
   };
   const onPrevious = (): void => {
-    onPageChange(Number(currentPage) - one);
+    if (!isLoading) onPageChange(Number(currentPage) - one);
   };
 
   const lastPage = paginationRange[paginationRange.length - one];
   const finalPageStyle = (pageNumber: number | string): any => {
-    return `${s.paginationItem} ${currentPage === pageNumber && s.selectedPage}`;
+    return `${isLoading && s.disabled} ${s.paginationItem} ${
+      currentPage === pageNumber && s.selectedPage
+    }`;
   };
-  const finalListPagesStyle = `${s.paginationItem}  ${s.listPages}`;
+  const finalListPagesStyle = `${s.paginationItem} ${s.listPages}`;
   const finalDotsStyle = `${s.paginationItem}  ${s.dots}`;
   const range = pageSize * Number(currentPage);
   const finalListPages =
@@ -51,20 +69,21 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
           totalCount > four ? (range > totalCount ? totalCount : range) : totalCount
         } 
         of ${totalCount} ${title}s`;
+  const finalArrowsStyle = `${isLoading && s.disabled} ${s.arrow}`;
   return (
     <div className={s.paginationContainer}>
       <div className={finalListPagesStyle}>{finalListPages}</div>
       <div className={s.pagesContainer}>
         <div className={s.paginationItem}>
           {currentPage === one ? (
-            <img src={arrowLeftGrey} alt="prev" className={s.arrow} />
+            <img src={arrowLeftGrey} alt="prev" className={finalArrowsStyle} />
           ) : (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
             <img
               src={arrowLeftBlue}
               alt="prev"
               onClick={onPrevious}
-              className={s.arrow}
+              className={finalArrowsStyle}
             />
           )}
         </div>
@@ -81,7 +100,7 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
             <span
               key={paginationRange[i]}
               className={finalPageStyle(pageNumber)}
-              onClick={() => onPageChange(pageNumber)}
+              onClick={() => !isLoading && onPageChange(pageNumber)}
             >
               {pageNumber}
             </span>
@@ -96,6 +115,11 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
           )}
         </div>
       </div>
+      <SuperSelect
+        options={pageSizeRange}
+        value={pageSize}
+        onChangeOption={onPageSizeChange}
+      />
     </div>
   );
 };
