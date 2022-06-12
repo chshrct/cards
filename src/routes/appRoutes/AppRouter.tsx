@@ -14,6 +14,7 @@ import {
   EditProfile,
   Registration,
 } from 'pages';
+import { Learn } from 'pages/Learn/Learn';
 import { CardsList } from 'pages/PacksList/CardsList/CardsList';
 import { PacksList } from 'pages/PacksList/PacksList';
 import { AuthCheck } from 'routes/AuthCheck';
@@ -60,7 +61,25 @@ export const AppRouter: FC = () => {
           index: true,
           element: <PacksList />,
         },
-        { path: AppRoutePaths.CARDS_LIST, element: <CardsList /> },
+        {
+          path: AppRoutePaths.ID_QUERY,
+          element: <CardsList />,
+        },
+      ],
+    },
+
+    {
+      path: `${AppRoutePaths.PACKS_LIST_LEARN}/${AppRoutePaths.ID_QUERY}`,
+      element: (
+        <AuthCheck>
+          <Layout />
+        </AuthCheck>
+      ),
+      children: [
+        {
+          index: true,
+          element: <Learn />,
+        },
       ],
     },
   ]);

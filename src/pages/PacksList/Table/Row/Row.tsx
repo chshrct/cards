@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
+
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { CardPackType } from '../../../../api/packsApi';
 import { SuperButton } from '../../../../components';
@@ -9,6 +10,9 @@ import { useAppDispatch, useAppSelector } from '../../../../store';
 import { deletePacks, updatePacks } from '../../PacksListReducer';
 
 import s from './Row.module.css';
+
+import { ZERO } from 'constant';
+import { AppRoutePaths } from 'routes';
 
 type RowType = {
   pack: CardPackType;
@@ -22,9 +26,12 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
   const userId = useAppSelector(state => state.app.userId);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const deletePackHandle = (): void => dispatch(deletePacks(pack._id));
   const editPackHandle = (): void => dispatch(updatePacks(pack._id, 'NEW PACK NAME'));
+  const onLearnPackClick = (): void =>
+    navigate(`${AppRoutePaths.PACKS_LIST_LEARN}/${pack._id}`);
 
   return (
     <div className={`${s.body} ${className}`}>
@@ -37,6 +44,16 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
       </div>
       <div className={s.userName}>{pack.user_name}</div>
       <div className={s.buttonsBlock}>
+        {pack.cardsCount > ZERO && (
+          <SuperButton
+            size="small"
+            shape="square"
+            color="secondary"
+            onClick={onLearnPackClick}
+          >
+            Learn
+          </SuperButton>
+        )}
         {pack.user_id === userId ? (
           <>
             <SuperButton

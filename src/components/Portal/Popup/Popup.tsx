@@ -17,24 +17,21 @@ type PropsType = {
 
 export const Popup: FC<PropsType> = ({ children, isOpened = true }) => {
   const [isPopupOpened, setIsPopupOpened] = useState<boolean>(isOpened);
+
   const closePopup = (): void => {
     setIsPopupOpened(false);
   };
+
+  const propsToSend: PropsToSendType = { closePopup };
+
   if (!isPopupOpened) {
     return null;
   }
 
-  const propsToSend: PropsToSendType = { closePopup };
-
   return (
     <Portal>
       <div className={s.container} role="dialog">
-        <div
-          className={s.overlay}
-          role="button"
-          tabIndex={0}
-          onClick={() => setIsPopupOpened(false)}
-        />
+        <div className={s.overlay} role="button" tabIndex={0} onClick={closePopup} />
         <div className={s.content}>
           {typeof children === 'function' ? children(propsToSend) : children}
         </div>

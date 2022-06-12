@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DIVISOR_EQUAL_TWO, REMAINDER_EQUAL_ZERO } from '../../../constant';
+import { DIVISOR_EQUAL_TWO, ZERO } from '../../../constant';
 import { useAppSelector } from '../../../store';
 
 import { Header } from './Header/Header';
@@ -19,9 +19,7 @@ export const Table: React.FC = () => {
             key={p._id}
             pack={p}
             className={
-              i % DIVISOR_EQUAL_TWO === REMAINDER_EQUAL_ZERO
-                ? s.lightBackground
-                : s.darkBackground
+              i % DIVISOR_EQUAL_TWO === ZERO ? s.lightBackground : s.darkBackground
             }
           />
         );
