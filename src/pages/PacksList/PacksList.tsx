@@ -67,6 +67,9 @@ export const PacksList: FC = () => {
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchPacks(pageNumber, pageCount, inputTitle));
   };
+  const onPageSizeChange = (option: number): void => {
+    dispatch(fetchPacks(page, option));
+  };
   const onMultiRangeSliderChange = ({ min, max }: { min: number; max: number }): void => {
     dispatch(setMinCardsCount(min));
     dispatch(setMaxCardsCount(max));
@@ -97,6 +100,7 @@ export const PacksList: FC = () => {
             <Paginator
               currentPage={page}
               onPageChange={onPageChanged}
+              onPageSizeChange={onPageSizeChange}
               totalCount={totalCount}
               pageSize={pageCount}
               siblingCount={siblingCount}

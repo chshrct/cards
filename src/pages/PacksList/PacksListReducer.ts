@@ -14,6 +14,7 @@ enum PacksListActionsTypes {
   toggleId = 'PACKS-LIST/TOGGLE_ID',
   setMinCardsCount = 'PACK-LIST/SET_MIN_CARDS_COUNT',
   setMaxCardsCount = 'PACK-LIST/SET_MAX_CARDS_COUNT',
+  setPageCount = 'PACK-LIST/SET_PAGE_COUNT',
 }
 
 type FetchPacksType = ReturnType<typeof fetchPacksAC>;
@@ -25,6 +26,7 @@ type SortPacksACType = ReturnType<typeof sortPacksAC>;
 type ToggleIdType = ReturnType<typeof toggleId>;
 type SetMinCardsCountType = ReturnType<typeof setMinCardsCount>;
 type SetMaxCardsCountType = ReturnType<typeof setMaxCardsCount>;
+type SetPageCountCountType = ReturnType<typeof setPageCount>;
 
 export type PacksListRootActionType =
   | FetchPacksType
@@ -35,7 +37,8 @@ export type PacksListRootActionType =
   | SortPacksACType
   | ToggleIdType
   | SetMinCardsCountType
-  | SetMaxCardsCountType;
+  | SetMaxCardsCountType
+  | SetPageCountCountType;
 
 const initialState = {
   packs: {} as PacksResponseType,
@@ -66,15 +69,13 @@ export const packsListReducer = (
     case PacksListActionsTypes.changeInputTitle:
     case PacksListActionsTypes.sortPacks:
     case PacksListActionsTypes.toggleId:
+    case PacksListActionsTypes.setMinCardsCount:
+    case PacksListActionsTypes.setMaxCardsCount:
       return { ...state, ...payload };
     case PacksListActionsTypes.setCurrentPage:
     case PacksListActionsTypes.setTotalPacksCount:
+    case PacksListActionsTypes.setPageCount:
       return { ...state, paginator: { ...state.paginator, ...payload } };
-    case PacksListActionsTypes.setMinCardsCount: {
-      return { ...state, ...payload };
-    }
-    case PacksListActionsTypes.setMaxCardsCount:
-      return { ...state, ...payload };
     default:
       return state;
   }
@@ -94,20 +95,13 @@ export const changeInputTitle = (inputTitle: string) =>
 export const sortPacksAC = (sortPacks: string | undefined) =>
   ({ type: PacksListActionsTypes.sortPacks, payload: { sortPacks } } as const);
 export const toggleId = (isToggleAllId: boolean) =>
-  ({
-    type: PacksListActionsTypes.toggleId,
-    payload: { isToggleAllId },
-  } as const);
+  ({ type: PacksListActionsTypes.toggleId, payload: { isToggleAllId } } as const);
 export const setMinCardsCount = (minCardsCount: number) =>
-  ({
-    type: PacksListActionsTypes.setMinCardsCount,
-    payload: { minCardsCount },
-  } as const);
+  ({ type: PacksListActionsTypes.setMinCardsCount, payload: { minCardsCount } } as const);
 export const setMaxCardsCount = (maxCardsCount: number) =>
-  ({
-    type: PacksListActionsTypes.setMaxCardsCount,
-    payload: { maxCardsCount },
-  } as const);
+  ({ type: PacksListActionsTypes.setMaxCardsCount, payload: { maxCardsCount } } as const);
+export const setPageCount = (pageCount: number) =>
+  ({ type: PacksListActionsTypes.setPageCount, payload: { pageCount } } as const);
 
 // thunk
 export const fetchPacks =
@@ -127,6 +121,7 @@ export const fetchPacks =
     dispatch(setIsLoading(true));
     dispatch(setIsAddNewPack(true));
     dispatch(setCurrentPage(page));
+    dispatch(setPageCount(pageCount));
     packsApi
       .fetchPacks(
         page,
