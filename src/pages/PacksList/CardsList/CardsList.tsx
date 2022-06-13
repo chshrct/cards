@@ -20,6 +20,8 @@ import { SortCardsTitle } from './SortCardsTitle/SortCardsTitle';
 
 export const CardsList: React.FC = () => {
   const cards = useAppSelector(state => state.cards.cards.cards);
+  const packUserId = useAppSelector(state => state.cards.cards.packUserId);
+  const userId = useAppSelector(state => state.app.userId);
   const sortCards = useAppSelector(state => state.cards.sortCards);
   const { page, pageCount, totalCount, siblingCount } = useAppSelector(
     state => state.cards.paginator,
@@ -84,9 +86,11 @@ export const CardsList: React.FC = () => {
           onChange={onCardAnswerChange}
           value={cardAnswer}
         />
-        <SuperButton onClick={addNewCardHandle} disabled={isAddNewCard} size="large">
-          Add new card
-        </SuperButton>
+        {userId === packUserId ? (
+          <SuperButton onClick={addNewCardHandle} disabled={isAddNewCard} size="large">
+            Add new card
+          </SuperButton>
+        ) : null}
       </div>
       <div className={s.tableBlock}>
         <div className={s.head}>
@@ -114,6 +118,7 @@ export const CardsList: React.FC = () => {
             sortBy="grade"
             title="Grade Updated"
           />
+          {userId === packUserId ? <div className={s.buttonsBlock}>Actions</div> : null}
         </div>
         {cards
           ? cards.map((p, i) => {
@@ -121,6 +126,7 @@ export const CardsList: React.FC = () => {
                 <CardsRow
                   // eslint-disable-next-line no-underscore-dangle
                   key={p._id}
+                  packUserId={p.user_id}
                   card={p}
                   className={
                     i % DIVISOR_EQUAL_TWO === ZERO ? s.lightBackground : s.darkBackground

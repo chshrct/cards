@@ -48,7 +48,8 @@
 .question,
 .answer,
 .updated,
-.grade {
+.grade,
+.buttonsBlock {
   padding: 10px;
   display: flex;
   align-items: center;
@@ -57,20 +58,24 @@
 }
 
 .question {
-  flex: 1 0 35%;
+  flex: 1 0 25%;
   word-wrap: break-word;
 }
 
 .answer {
-  flex: 1 0 35%;
+  flex: 1 0 30%;
 }
 
 .updated {
-  flex: 1 0 20%;
+  flex: 1 0 15%;
 }
 
 .grade {
-  flex: 1 0 10%;
+  flex: 1 0 15%;
+}
+
+.buttonsBlock {
+  flex: 1 0 15%;
 }
 
 .lightBackground {
