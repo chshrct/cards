@@ -29,3 +29,34 @@
   align-items: center;
   margin: 15px 0 15px 0;
 }
+
+.modalWindow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 395px;
+  height: 233px;
+  background: #fefeff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.modalWidowHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionTitle {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.close {
+  width: 14px;
+  height: 14px;
+}
+
+.modalWindowButtons {
+  display: flex;
+  justify-content: space-between;
+}

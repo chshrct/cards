@@ -10,11 +10,11 @@ import { instance } from './apiCfg';
   // user_id: '5eb543f6bea3ad21480f1ee7',
 }; */
 
-const cardsPack = {
+/* const cardsPack = {
   name: 'no Name',
   deckCover: 'url or base64',
   private: false,
-};
+}; */
 
 export const packsApi = {
   fetchPacks(
@@ -34,9 +34,9 @@ export const packsApi = {
       })
       .then(res => res.data);
   },
-  addPack() {
+  addPack(name: string) {
     return instance
-      .post<PackResponseType>('/cards/pack', { cardsPack })
+      .post<PackResponseType>('/cards/pack', { cardsPack: { name } })
       .then(res => res.data);
   },
   deletePacks(id: string) {

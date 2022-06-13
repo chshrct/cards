@@ -1,5 +1,5 @@
 import { packsApi, PacksResponseType } from '../../api/packsApi';
-import { PAGE_ONE } from '../../constant';
+import { EMPTY_STRING, PAGE_ONE } from '../../constant';
 
 import { setError, setIsLoading } from 'App';
 import { ThunkApp } from 'store';
@@ -15,6 +15,7 @@ enum PacksListActionsTypes {
   setMinCardsCount = 'PACK-LIST/SET_MIN_CARDS_COUNT',
   setMaxCardsCount = 'PACK-LIST/SET_MAX_CARDS_COUNT',
   setPageCount = 'PACK-LIST/SET_PAGE_COUNT',
+  changeNewPackTitle = 'PACK-LIST/CHANGE_NEW_PACK_TITLE',
 }
 
 type FetchPacksType = ReturnType<typeof fetchPacksAC>;
@@ -27,6 +28,7 @@ type ToggleIdType = ReturnType<typeof toggleId>;
 type SetMinCardsCountType = ReturnType<typeof setMinCardsCount>;
 type SetMaxCardsCountType = ReturnType<typeof setMaxCardsCount>;
 type SetPageCountCountType = ReturnType<typeof setPageCount>;
+type ChangeNewPackTitleType = ReturnType<typeof changeNewPackTitle>;
 
 export type PacksListRootActionType =
   | FetchPacksType
@@ -38,7 +40,8 @@ export type PacksListRootActionType =
   | ToggleIdType
   | SetMinCardsCountType
   | SetMaxCardsCountType
-  | SetPageCountCountType;
+  | SetPageCountCountType
+  | ChangeNewPackTitleType;
 
 const initialState = {
   packs: {} as PacksResponseType,
@@ -55,6 +58,7 @@ const initialState = {
   inputTitle: '',
   sortPacks: '0updated' as string | undefined,
   isToggleAllId: true,
+  newPackTitle: '',
 };
 
 type PacksListStateType = typeof initialState;
@@ -71,6 +75,7 @@ export const packsListReducer = (
     case PacksListActionsTypes.toggleId:
     case PacksListActionsTypes.setMinCardsCount:
     case PacksListActionsTypes.setMaxCardsCount:
+    case PacksListActionsTypes.changeNewPackTitle:
       return { ...state, ...payload };
     case PacksListActionsTypes.setCurrentPage:
     case PacksListActionsTypes.setTotalPacksCount:
@@ -102,6 +107,11 @@ export const setMaxCardsCount = (maxCardsCount: number) =>
   ({ type: PacksListActionsTypes.setMaxCardsCount, payload: { maxCardsCount } } as const);
 export const setPageCount = (pageCount: number) =>
   ({ type: PacksListActionsTypes.setPageCount, payload: { pageCount } } as const);
+export const changeNewPackTitle = (newPackTitle: string) =>
+  ({
+    type: PacksListActionsTypes.changeNewPackTitle,
+    payload: { newPackTitle },
+  } as const);
 
 // thunk
 export const fetchPacks =
@@ -149,24 +159,27 @@ export const fetchPacks =
       });
   };
 
-export const addNewPack = (): ThunkApp => (dispatch, getState) => {
-  dispatch(setIsLoading(true));
-  dispatch(setIsAddNewPack(true));
-  packsApi
-    .addPack()
-    .then(() => {
-      const { pageCount } = getState().packs.packs;
-      dispatch(fetchPacks(PAGE_ONE, pageCount));
-    })
-    .catch(e => {
-      const error = e.response
-        ? e.response.data.error
-        : `${e.message}, more details in the console`;
-      dispatch(setError(error));
-      dispatch(setIsLoading(false));
-      dispatch(setIsAddNewPack(false));
-    });
-};
+export const addNewPack =
+  (newPackTitle: string): ThunkApp =>
+  (dispatch, getState) => {
+    dispatch(setIsLoading(true));
+    dispatch(setIsAddNewPack(true));
+    packsApi
+      .addPack(newPackTitle)
+      .then(() => {
+        const { pageCount } = getState().packs.packs;
+        dispatch(fetchPacks(PAGE_ONE, pageCount));
+        dispatch(changeNewPackTitle(EMPTY_STRING));
+      })
+      .catch(e => {
+        const error = e.response
+          ? e.response.data.error
+          : `${e.message}, more details in the console`;
+        dispatch(setError(error));
+        dispatch(setIsLoading(false));
+        dispatch(setIsAddNewPack(false));
+      });
+  };
 
 export const deletePacks =
   (id: string): ThunkApp =>
