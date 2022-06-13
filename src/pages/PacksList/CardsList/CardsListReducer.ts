@@ -1,4 +1,9 @@
-import { cardsAPI, CardsResponseType, NewCardData } from '../../../api/cardsApi';
+import {
+  cardsAPI,
+  CardsResponseType,
+  NewCardData,
+  UpdatedCardDataType,
+} from '../../../api/cardsApi';
 
 import { setError, setIsLoading } from 'App';
 import { EMPTY_STRING } from 'constant';
@@ -157,44 +162,48 @@ export const addNewCard =
       });
   };
 
-// export const deletePacks =
-//   (id: string): ThunkApp =>
-//   (dispatch, getState) => {
-//     dispatch(setIsLoading(true));
-//     dispatch(setIsAddNewPack(true));
-//     packsApi
-//       .deletePacks(id)
-//       .then(() => {
-//         const { page, pageCount } = getState().packs.packs;
-//         dispatch(fetchPacks(page, pageCount));
-//       })
-//       .catch(e => {
-//         const error = e.response
-//           ? e.response.data.error
-//           : `${e.message}, more details in the console`;
-//         dispatch(setError(error));
-//         dispatch(setIsLoading(false));
-//         dispatch(setIsAddNewPack(false));
-//       });
-//   };
-//
-// export const updatePacks =
-//   (_id: string, name: string): ThunkApp =>
-//   (dispatch, getState) => {
-//     dispatch(setIsLoading(true));
-//     dispatch(setIsAddNewPack(true));
-//     packsApi
-//       .updatePack(_id, name)
-//       .then(() => {
-//         const { page, pageCount } = getState().packs.packs;
-//         dispatch(fetchPacks(page, pageCount));
-//       })
-//       .catch(e => {
-//         const error = e.response
-//           ? e.response.data.error
-//           : `${e.message}, more details in the console`;
-//         dispatch(setError(error));
-//         dispatch(setIsLoading(false));
-//         dispatch(setIsAddNewPack(false));
-//       });
-//   };
+export const deleteCard =
+  (id: string): ThunkApp =>
+  (dispatch, getState) => {
+    dispatch(setIsLoading(true));
+    dispatch(setIsAddNewCard(true));
+    cardsAPI
+      .deleteCard(id)
+      .then(() => {
+        const { page, pageCount } = getState().cards.cards;
+        // eslint-disable-next-line camelcase,@typescript-eslint/no-magic-numbers
+        const { cardsPack_id } = getState().cards.cards.cards[0];
+        dispatch(fetchCards(cardsPack_id, page, pageCount));
+      })
+      .catch(e => {
+        const error = e.response
+          ? e.response.data.error
+          : `${e.message}, more details in the console`;
+        dispatch(setError(error));
+        dispatch(setIsLoading(false));
+        dispatch(setIsAddNewCard(false));
+      });
+  };
+
+export const updateCard =
+  (payload: UpdatedCardDataType): ThunkApp =>
+  (dispatch, getState) => {
+    dispatch(setIsLoading(true));
+    dispatch(setIsAddNewCard(true));
+    cardsAPI
+      .updateCard(payload)
+      .then(() => {
+        const { page, pageCount } = getState().cards.cards;
+        // eslint-disable-next-line camelcase,@typescript-eslint/no-magic-numbers
+        const { cardsPack_id } = getState().cards.cards.cards[0];
+        dispatch(fetchCards(cardsPack_id, page, pageCount));
+      })
+      .catch(e => {
+        const error = e.response
+          ? e.response.data.error
+          : `${e.message}, more details in the console`;
+        dispatch(setError(error));
+        dispatch(setIsLoading(false));
+        dispatch(setIsAddNewCard(false));
+      });
+  };

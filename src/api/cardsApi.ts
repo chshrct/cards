@@ -16,13 +16,13 @@ export const cardsAPI = {
   deleteCard(id: string) {
     return instance
       .delete<string, AxiosResponse<RemovedCardType>>('/cards/card/', {
-        params: id,
+        params: { id },
       })
       .then(res => res.data);
   },
   updateCard(payload: UpdatedCardDataType) {
     return instance
-      .put<UpdatedCardType, AxiosResponse<UpdatedCardType>>('/cards/card/', payload)
+      .put<UpdatedCardDataType, AxiosResponse<UpdatedCardType>>('/cards/card/', payload)
       .then(res => res.data);
   },
 };
@@ -81,8 +81,13 @@ export type NewCardData = {
   };
 };
 
-type UpdatedCardDataType = {
-  card: CardType;
+export type UpdatedCardDataType = {
+  card: {
+    _id: string;
+    question?: string;
+    answer?: string;
+    comments?: string;
+  };
 };
 
 type RemovedCardType = {

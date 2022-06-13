@@ -2,7 +2,8 @@ import React from 'react';
 
 import { CardType } from '../../../../api/cardsApi';
 import { SuperButton } from '../../../../components';
-import { useAppSelector } from '../../../../store';
+import { useAppDispatch, useAppSelector } from '../../../../store';
+import { deleteCard, updateCard } from '../CardsListReducer';
 
 import s from './CardsRow.module.css';
 
@@ -16,16 +17,25 @@ const SLICE_BEGIN_INDEX = 0;
 const SLICE_END_INDEX = 10;
 
 export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }) => {
-  // const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
+  const isAddNewCard = useAppSelector(state => state.cards.isAddNewCard);
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => state.app.userId);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   // eslint-disable-next-line no-underscore-dangle
-  // const deletePackHandle = (): void => dispatch(deletePacks(card._id));
-  // const editPackHandle = (): void =>
-  // eslint-disable-next-line no-underscore-dangle
-  // dispatch(updatePacks(card._id, 'NEW PACK NAME'));
+  const deleteCardHandle = (): void => dispatch(deleteCard(card._id));
+  const editCardHandle = (): void =>
+    dispatch(
+      updateCard({
+        card: {
+          // eslint-disable-next-line no-underscore-dangle
+          _id: card._id,
+          answer: 'ANSWER',
+          question: 'QUESTION',
+          comments: 'NO COMMENTS',
+        },
+      }),
+    );
 
   return (
     <div className={`${s.body} ${className}`}>
@@ -41,16 +51,16 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
           <SuperButton
             color="alerty"
             shape="square"
-            // onClick={deletePackHandle}
-            // disabled={isAddNewPack}
+            onClick={deleteCardHandle}
+            disabled={isAddNewCard}
           >
             Delete
           </SuperButton>
           <SuperButton
             color="secondary"
             shape="square"
-            // onClick={editPackHandle}
-            // disabled={isAddNewPack}
+            onClick={editCardHandle}
+            disabled={isAddNewCard}
           >
             Edit
           </SuperButton>
