@@ -1,4 +1,4 @@
-import { useState, useEffect, FC, ReactNode } from 'react';
+import { useEffect, FC, useRef, MutableRefObject, ReactNode } from 'react';
 
 import ReactDOM from 'react-dom';
 
@@ -7,16 +7,18 @@ type PropsType = {
 };
 
 const Portal: FC<PropsType> = ({ children }) => {
-  const [container] = useState(() => document.createElement('div'));
+  const container = useRef(
+    document.createElement('div'),
+  ) as MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
-    document.body.appendChild(container);
+    document.body.appendChild(container.current);
     return () => {
-      document.body.removeChild(container);
+      document.body.removeChild(container.current);
     };
   }, []);
 
-  return ReactDOM.createPortal(children, container);
+  return ReactDOM.createPortal(children, container.current);
 };
 
 export default Portal;
