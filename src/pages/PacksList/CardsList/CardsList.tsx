@@ -103,24 +103,28 @@ export const CardsList: React.FC = () => {
                 className={s.question}
                 sortBy="question"
                 title="Question"
+                disabled={isAddNewCard}
               />
               <SortCardsTitle
                 cardsPackId={id}
                 className={s.answer}
                 sortBy="answer"
                 title="Answer"
+                disabled={isAddNewCard}
               />
               <SortCardsTitle
                 cardsPackId={id}
                 className={s.updated}
                 sortBy="updated"
                 title="Last Updated"
+                disabled={isAddNewCard}
               />
               <SortCardsTitle
                 cardsPackId={id}
                 className={s.grade}
                 sortBy="grade"
                 title="Grade Updated"
+                disabled={isAddNewCard}
               />
               {userId === packUserId ? (
                 <div className={s.buttonsBlock}>Actions</div>
