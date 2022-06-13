@@ -1,39 +1,34 @@
 /* eslint-disable no-underscore-dangle */
-import React, { FC } from 'react';
+import { FC, useEffect } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import s from './Learn.module.css';
+import { LearnCard } from './LearnCard/LearnCard';
 
-import { SuperButton } from 'components';
-import { AppRoutePaths } from 'routes';
-import { useAppSelector } from 'store';
+import { CardType } from 'api/cardsApi';
+import { ONE, ZERO } from 'constant';
+import { weightedRandom } from 'helpers';
+import { fetchCards } from 'pages/PacksList/CardsList/CardsListReducer';
+import { useAppDispatch, useAppSelector } from 'store';
+
+const cardsToLoad = 150;
 
 export const Learn: FC = () => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { id } = useParams();
   const packName = useAppSelector(
     state => state.packs.packs.cardPacks.find(pack => pack._id === id)?.name,
   );
-  const question = 'Some Question RIght there!';
+  const cards = useAppSelector(state => state.cards.cards.cards);
+  let cardToLearn = { question: 'why this card is not loaded?' };
+  if (cards && cards.length > ZERO) {
+    const grades = cards.map(el => el.grade);
+    cardToLearn = weightedRandom<CardType>(cards, grades);
+  }
 
-  const onCancelClick = (): void => {
-    navigate(AppRoutePaths.PACKS_LIST);
-  };
+  useEffect(() => {
+    dispatch(fetchCards(id, ONE, cardsToLoad));
+  }, [id]);
 
-  return (
-    <div className={s.learnWrapper}>
-      <h2> {`Learn ${packName || 'some pack'}`}</h2>
-      <p>
-        <b>Question: </b>
-        {`${question}`}
-      </p>
-      <div className={s.buttonWrapper}>
-        <SuperButton size="small" color="secondary" onClick={onCancelClick}>
-          Cancel
-        </SuperButton>
-        <SuperButton size="medium">Show Answer</SuperButton>
-      </div>
-    </div>
-  );
+  return <LearnCard packName={packName} cardToLearn={cardToLearn} />;
 };

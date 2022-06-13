@@ -1,5 +1,5 @@
 import { packsApi, PacksResponseType } from '../../api/packsApi';
-import { PAGE_ONE } from '../../constant';
+import { ONE } from '../../constant';
 
 import { setError, setIsLoading } from 'App';
 import { ThunkApp } from 'store';
@@ -156,7 +156,7 @@ export const addNewPack = (): ThunkApp => (dispatch, getState) => {
     .addPack()
     .then(() => {
       const { pageCount } = getState().packs.packs;
-      dispatch(fetchPacks(PAGE_ONE, pageCount));
+      dispatch(fetchPacks(ONE, pageCount));
     })
     .catch(e => {
       const error = e.response
