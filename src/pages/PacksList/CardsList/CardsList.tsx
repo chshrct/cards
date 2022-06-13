@@ -92,36 +92,38 @@ export const CardsList: React.FC = () => {
           </SuperButton>
         ) : null}
       </div>
-      <div className={s.tableBlock}>
-        <div className={s.head}>
-          <SortCardsTitle
-            cardsPackId={id}
-            className={s.question}
-            sortBy="question"
-            title="Question"
-          />
-          <SortCardsTitle
-            cardsPackId={id}
-            className={s.answer}
-            sortBy="answer"
-            title="Answer"
-          />
-          <SortCardsTitle
-            cardsPackId={id}
-            className={s.updated}
-            sortBy="updated"
-            title="Last Updated"
-          />
-          <SortCardsTitle
-            cardsPackId={id}
-            className={s.grade}
-            sortBy="grade"
-            title="Grade Updated"
-          />
-          {userId === packUserId ? <div className={s.buttonsBlock}>Actions</div> : null}
-        </div>
-        {cards
-          ? cards.map((p, i) => {
+      {cards === undefined || !cards.length ? (
+        <span>There is no cards. Try to add some.</span>
+      ) : (
+        <>
+          <div className={s.tableBlock}>
+            <div className={s.head}>
+              <SortCardsTitle
+                cardsPackId={id}
+                className={s.question}
+                sortBy="question"
+                title="Question"
+              />
+              <SortCardsTitle
+                cardsPackId={id}
+                className={s.answer}
+                sortBy="answer"
+                title="Answer"
+              />
+              <SortCardsTitle
+                cardsPackId={id}
+                className={s.updated}
+                sortBy="updated"
+                title="Last Updated"
+              />
+              <SortCardsTitle
+                cardsPackId={id}
+                className={s.grade}
+                sortBy="grade"
+                title="Grade Updated"
+              />
+            </div>
+            {cards.map((p, i) => {
               return (
                 <CardsRow
                   // eslint-disable-next-line no-underscore-dangle
@@ -133,18 +135,19 @@ export const CardsList: React.FC = () => {
                   }
                 />
               );
-            })
-          : null}
-      </div>
-      <Paginator
-        currentPage={page}
-        onPageChange={onPageChanged}
-        onPageSizeChange={onPageSizeChange}
-        totalCount={totalCount}
-        pageSize={pageCount}
-        siblingCount={siblingCount}
-        title="card"
-      />
+            })}
+          </div>
+          <Paginator
+            currentPage={page}
+            onPageChange={onPageChanged}
+            onPageSizeChange={onPageSizeChange}
+            totalCount={totalCount}
+            pageSize={pageCount}
+            siblingCount={siblingCount}
+            title="card"
+          />
+        </>
+      )}
     </div>
   );
 };

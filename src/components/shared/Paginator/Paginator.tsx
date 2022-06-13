@@ -119,6 +119,7 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
         options={pageSizeRange}
         value={pageSize}
         onChangeOption={onPageSizeChange}
+        className={`${isLoading && s.disabled}`}
       />
     </div>
   );
