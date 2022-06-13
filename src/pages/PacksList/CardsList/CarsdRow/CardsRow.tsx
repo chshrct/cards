@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Rating } from 'react-simple-star-rating';
+
 import { CardType } from '../../../../api/cardsApi';
 import { SuperButton } from '../../../../components';
 import { useAppDispatch, useAppSelector } from '../../../../store';
@@ -44,7 +46,18 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
       <div className={s.updated}>
         {card.updated.slice(SLICE_BEGIN_INDEX, SLICE_END_INDEX)}
       </div>
-      <div className={s.grade}>{card.grade}</div>
+      <div className={s.grade}>
+        <Rating
+          ratingValue={0}
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+          initialValue={card.grade}
+          readonly
+          iconsCount={5}
+          size={17}
+          fillColor="#21268F"
+          emptyColor="#D7D8EF"
+        />
+      </div>
 
       {packUserId === userId ? (
         <div className={s.buttonsBlock}>
