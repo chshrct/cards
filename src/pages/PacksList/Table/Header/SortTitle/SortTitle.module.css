@@ -1,0 +1,6 @@
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transition: none;
+    transform: none;
+}

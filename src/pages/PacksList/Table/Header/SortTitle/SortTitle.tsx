@@ -4,14 +4,21 @@ import { ReactComponent as ArrowDown } from '../../../../../assets/icons/arrows/
 import { ReactComponent as ArrowUp } from '../../../../../assets/icons/arrows/arrowUp.svg';
 import { useAppDispatch, useAppSelector } from '../../../../../store';
 import { fetchPacks } from '../../../PacksListReducer';
-import s from '../Header.module.css';
+
+import s from './SortTitle.module.css';
 
 type SortTitleType = {
   className: string;
   sortBy?: string;
   title: string;
+  disabled: boolean;
 };
-export const SortTitle: React.FC<SortTitleType> = ({ className, sortBy, title }) => {
+export const SortTitle: React.FC<SortTitleType> = ({
+  className,
+  sortBy,
+  title,
+  disabled,
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const [num, setNum] = useState<0 | 1>(1);
 
@@ -50,7 +57,11 @@ export const SortTitle: React.FC<SortTitleType> = ({ className, sortBy, title })
       />
     );
   return (
-    <div role="none" onClick={changeArrowHandle} className={className}>
+    <div
+      role="none"
+      onClick={!disabled ? changeArrowHandle : undefined}
+      className={`${className} ${disabled && s.disabled}`}
+    >
       {title}
       {viewArrow && arrow}
     </div>
