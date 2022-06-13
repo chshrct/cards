@@ -6,6 +6,8 @@ import React, {
   FC,
 } from 'react';
 
+import { useAppSelector } from '../../../store';
+
 import s from './SuperSelect.module.css';
 
 import { EMPTY_STRING } from 'constant';
@@ -28,6 +30,7 @@ export const SuperSelect: FC<SuperSelectPropsType> = ({
   ...restProps
 }) => {
   const selectClassName = `${s.select} ${className || EMPTY_STRING}`;
+  const isLoading = useAppSelector(state => state.app.isLoading);
 
   const mappedOptions: any[] = options
     ? options.map(o => {
@@ -41,9 +44,11 @@ export const SuperSelect: FC<SuperSelectPropsType> = ({
     : [];
 
   const onChangeCallback = (e: ChangeEvent<HTMLSelectElement>): void => {
-    onChange?.(e);
-    onChangeOption?.(e.currentTarget.value);
-    e.currentTarget.blur();
+    if (!isLoading) {
+      onChange?.(e);
+      onChangeOption?.(e.currentTarget.value);
+      e.currentTarget.blur();
+    }
   };
 
   return (
