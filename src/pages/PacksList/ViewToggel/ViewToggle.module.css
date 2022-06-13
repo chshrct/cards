@@ -18,3 +18,10 @@
   background: #9a91c8;
   color: #ffffff;
 }
+
+.disabled {
+  /*opacity: 0.5;*/
+  cursor: not-allowed;
+  transition: none;
+  transform: none;
+}
