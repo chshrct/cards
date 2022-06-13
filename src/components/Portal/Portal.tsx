@@ -1,4 +1,4 @@
-import { useEffect, FC, useRef, MutableRefObject, ReactNode } from 'react';
+import { FC, useRef, MutableRefObject, ReactNode, useLayoutEffect } from 'react';
 
 import ReactDOM from 'react-dom';
 
@@ -11,7 +11,7 @@ const Portal: FC<PropsType> = ({ children }) => {
     document.createElement('div'),
   ) as MutableRefObject<HTMLDivElement>;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.appendChild(container.current);
     return () => {
       document.body.removeChild(container.current);
