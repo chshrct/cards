@@ -65,12 +65,15 @@ export const PacksList: FC = () => {
   const changeTitle = (e: ChangeEvent<HTMLInputElement>): void => {
     dispatch(changeInputTitle(e.currentTarget.value));
   };
+  const closeWindow = (): void => {
+    setIsWindowOpened(false);
+  };
   const addNewPackHandle = (): void => {
     setIsWindowOpened(true);
   };
   const saveNewPack = (): void => {
     dispatch(addNewPack(newPackTitle));
-    setIsWindowOpened(false);
+    closeWindow();
   };
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchPacks(pageNumber, pageCount, inputTitle));
@@ -80,9 +83,6 @@ export const PacksList: FC = () => {
   };
   const onChangeNewPackTitle = (e: ChangeEvent<HTMLInputElement>): void => {
     dispatch(changeNewPackTitle(e.currentTarget.value));
-  };
-  const closeWindow = (): void => {
-    setIsWindowOpened(false);
   };
   const onMultiRangeSliderChange = ({ min, max }: { min: number; max: number }): void => {
     dispatch(setMinCardsCount(min));
