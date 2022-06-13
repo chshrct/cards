@@ -122,6 +122,9 @@ export const CardsList: React.FC = () => {
                 sortBy="grade"
                 title="Grade Updated"
               />
+              {userId === packUserId ? (
+                <div className={s.buttonsBlock}>Actions</div>
+              ) : null}
             </div>
             {cards.map((p, i) => {
               return (
