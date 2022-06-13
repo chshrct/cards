@@ -1,6 +1,14 @@
-import React, { ChangeEvent, FC, MutableRefObject, useEffect, useRef } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { SuperButton } from '../../components';
+import { Popup } from '../../components/Portal/Popup/Popup';
 import { Paginator } from '../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../components/shared/SuperInputSearch/SuperInputSearch';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -27,7 +35,7 @@ export const PacksList: FC = () => {
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
   const { page, pageCount, totalCount, siblingCount } = paginator;
   const dispatch = useAppDispatch();
-
+  const [isOpenModal, setIsOpenModal] = useState(false);
   /*
    *  Debounce for Search,MultiRange
    */
@@ -53,7 +61,10 @@ export const PacksList: FC = () => {
   const changeTitle = (e: ChangeEvent<HTMLInputElement>): void => {
     dispatch(changeInputTitle(e.currentTarget.value));
   };
-  const addNewPackHandle = (): void => dispatch(addNewPack());
+  const addNewPackHandle = (): void => {
+    dispatch(addNewPack());
+    setIsOpenModal(true);
+  };
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchPacks(pageNumber, pageCount, inputTitle));
   };
@@ -64,7 +75,6 @@ export const PacksList: FC = () => {
     dispatch(setMinCardsCount(min));
     dispatch(setMaxCardsCount(max));
   };
-
   const packs = useAppSelector(state => state.packs.packs.cardPacks);
   return (
     <div className={s.packsListContainer}>
@@ -81,6 +91,9 @@ export const PacksList: FC = () => {
           <SuperButton onClick={addNewPackHandle} disabled={isAddNewPack} size="large">
             Add new pack
           </SuperButton>
+          <Popup isOpened={isOpenModal}>
+            <div>lalalalala</div>
+          </Popup>
         </div>
         {packs === undefined || !packs.length ? (
           <span>There is no packs. Try to add some.</span>
