@@ -17,7 +17,6 @@ import s from './PacksList.module.css';
 import {
   addNewPack,
   changeInputTitle,
-  changeNewPackTitle,
   fetchPacks,
   setMaxCardsCount,
   setMinCardsCount,
@@ -34,8 +33,8 @@ export const PacksList: FC = () => {
   const paginator = useAppSelector(state => state.packs.paginator);
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
-  const newPackTitle = useAppSelector(state => state.packs.newPackTitle);
   const { page, pageCount, totalCount, siblingCount } = paginator;
+  const [newPackTitle, setNewPackTitle] = useState<string>('');
   const [isWindowOpened, setIsWindowOpened] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
@@ -80,7 +79,7 @@ export const PacksList: FC = () => {
     dispatch(fetchPacks(page, option));
   };
   const onChangeNewPackTitle = (e: ChangeEvent<HTMLInputElement>): void => {
-    dispatch(changeNewPackTitle(e.currentTarget.value));
+    setNewPackTitle(e.currentTarget.value);
   };
   const onMultiRangeSliderChange = ({ min, max }: { min: number; max: number }): void => {
     dispatch(setMinCardsCount(min));
