@@ -36,6 +36,11 @@ export const CardsList: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const packName = useAppSelector(
+    // eslint-disable-next-line no-underscore-dangle
+    state => state.packs.packs.cardPacks.find(p => p._id === id)?.name,
+  );
+
   const isSearchEmpty = cardQuestion === EMPTY_STRING && cardAnswer === EMPTY_STRING;
 
   /*
@@ -78,10 +83,10 @@ export const CardsList: React.FC = () => {
   const returnHandle = (): void => navigate(BACK);
   return (
     <div className={s.cardsListContainer}>
-      <h4 className={s.headerWrapper}>
-        <ArrowBack onClick={returnHandle} height={25} width={25} />
-        packName
-      </h4>
+      <h3 className={s.headerWrapper}>
+        <ArrowBack onClick={returnHandle} height={30} width={30} />
+        {packName}
+      </h3>
       <div className={s.searchButtonBlock}>
         <SuperInputSearch
           placeholder="Search by question..."

@@ -11,13 +11,12 @@
 }
 
 .headerWrapper {
-  width: min-content;
+  width: fit-content;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
-  gap: 5px;
-  text-wrap: none;
+  gap: 10px;
 }
 .headerWrapper > svg {
   cursor: pointer;
