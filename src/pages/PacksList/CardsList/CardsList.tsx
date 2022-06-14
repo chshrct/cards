@@ -1,11 +1,12 @@
 import React, { ChangeEvent, MutableRefObject, useEffect, useRef } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { ReactComponent as ArrowBack } from '../../../assets/icons/arrows/arrowBack.svg';
 import { SuperButton } from '../../../components';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
-import { DELAY, DIVISOR_EQUAL_TWO, EMPTY_STRING, ZERO } from '../../../constant';
+import { BACK, DELAY, DIVISOR_EQUAL_TWO, EMPTY_STRING, ZERO } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 
 import s from './CardsList.module.css';
@@ -20,6 +21,7 @@ import { SortCardsTitle } from './SortCardsTitle/SortCardsTitle';
 
 export const CardsList: React.FC = () => {
   const cards = useAppSelector(state => state.cards.cards.cards);
+
   const packUserId = useAppSelector(state => state.cards.cards.packUserId);
   const userId = useAppSelector(state => state.app.userId);
   const sortCards = useAppSelector(state => state.cards.sortCards);
@@ -31,6 +33,7 @@ export const CardsList: React.FC = () => {
   const cardAnswer = useAppSelector(state => state.cards.cardAnswer);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const isSearchEmpty = cardQuestion === EMPTY_STRING && cardAnswer === EMPTY_STRING;
@@ -72,9 +75,13 @@ export const CardsList: React.FC = () => {
     dispatch(setCardAnswer(event.target.value));
   };
 
+  const returnHandle = (): void => navigate(BACK);
   return (
     <div className={s.cardsListContainer}>
-      <h4>cardsList</h4>
+      <h4 className={s.headerWrapper}>
+        <ArrowBack onClick={returnHandle} height={25} width={25} />
+        packName
+      </h4>
       <div className={s.searchButtonBlock}>
         <SuperInputSearch
           placeholder="Search by question..."

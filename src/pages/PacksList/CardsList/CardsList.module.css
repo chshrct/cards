@@ -11,15 +11,18 @@
 }
 
 .headerWrapper {
+  width: min-content;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
   gap: 5px;
+  text-wrap: none;
 }
 .headerWrapper > svg {
   cursor: pointer;
 }
+
 .searchButtonBlock {
   display: flex;
   gap: 5px;
