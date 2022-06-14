@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers,jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions */
 import { FC } from 'react';
 
 import arrowLeftBlue from '../../../assets/icons/arrows/arrowLeftBlue.png';
@@ -38,21 +39,16 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
     siblingCount,
     pageSize,
   });
-
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-  const one = 1;
-  const four = 4;
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const pageSizeRange = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
 
   const onNext = (): void => {
-    if (!isLoading) onPageChange(Number(currentPage) + one);
+    if (!isLoading) onPageChange(Number(currentPage) + 1);
   };
   const onPrevious = (): void => {
-    if (!isLoading) onPageChange(Number(currentPage) - one);
+    if (!isLoading) onPageChange(Number(currentPage) - 1);
   };
 
-  const lastPage = paginationRange[paginationRange.length - one];
+  const lastPage = paginationRange[paginationRange.length - 1];
   const finalPageStyle = (pageNumber: number | string): any => {
     return `${isLoading && s.disabled} ${s.paginationItem} ${
       currentPage === pageNumber && s.selectedPage
@@ -62,11 +58,11 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
   const finalDotsStyle = `${s.paginationItem}  ${s.dots}`;
   const range = pageSize * Number(currentPage);
   const finalListPages =
-    totalCount === one
+    totalCount === 1
       ? `${totalCount} of ${totalCount} ${title}`
-      : `${range - (pageSize - one)}-${
+      : `${range - (pageSize - 1)}-${
           // eslint-disable-next-line no-nested-ternary
-          totalCount > four ? (range > totalCount ? totalCount : range) : totalCount
+          totalCount > 4 ? (range > totalCount ? totalCount : range) : totalCount
         } 
         of ${totalCount} ${title}s`;
   const finalArrowsStyle = `${isLoading && s.disabled} ${s.arrow}`;
@@ -75,10 +71,9 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
       <div className={finalListPagesStyle}>{finalListPages}</div>
       <div className={s.pagesContainer}>
         <div className={s.paginationItem}>
-          {currentPage === one ? (
+          {currentPage === 1 ? (
             <img src={arrowLeftGrey} alt="prev" className={finalArrowsStyle} />
           ) : (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
             <img
               src={arrowLeftBlue}
               alt="prev"
@@ -96,7 +91,6 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
             );
           }
           return (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <span
               key={paginationRange[i]}
               className={finalPageStyle(pageNumber)}
@@ -108,10 +102,14 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
         })}
         <div className={s.paginationItem}>
           {currentPage === lastPage ? (
-            <img src={arrowRightGrey} alt="next" className={s.arrow} />
+            <img src={arrowRightGrey} alt="next" className={finalArrowsStyle} />
           ) : (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-            <img src={arrowRightBlue} alt="next" onClick={onNext} className={s.arrow} />
+            <img
+              src={arrowRightBlue}
+              alt="next"
+              onClick={onNext}
+              className={finalArrowsStyle}
+            />
           )}
         </div>
       </div>
