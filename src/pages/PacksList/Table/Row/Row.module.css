@@ -43,3 +43,11 @@
   justify-content: flex-start;
   gap: 10px;
 }
+
+.deletePackText {
+  padding: 30px 0 30px 0;
+}
+
+.packName {
+  font-weight: 700;
+}
