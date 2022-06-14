@@ -1,0 +1,30 @@
+.modalWindow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 395px;
+  background: #fefeff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.modalWidowHeader {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.actionTitle {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.close {
+  width: 14px;
+  height: 14px;
+}
+
+.modalWindowButtons {
+  display: flex;
+  justify-content: space-between;
+}
