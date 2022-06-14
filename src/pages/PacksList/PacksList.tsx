@@ -7,9 +7,8 @@ import React, {
   useState,
 } from 'react';
 
-import close from '../../assets/icons/close.png';
 import { SuperButton, SuperInputText } from '../../components';
-import { Popup } from '../../components/Portal/Popup/Popup';
+import { ModalWindow } from '../../components/shared/ModalWindow/ModalWindow';
 import { Paginator } from '../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../components/shared/SuperInputSearch/SuperInputSearch';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -27,7 +26,7 @@ import { Table } from './Table/Table';
 import { ViewToggle } from './ViewToggel/ViewToggle';
 
 import { MultiRangeSlider } from 'components/shared/MultiRangeSlider/MultiRangeSlider';
-import { DELAY, EMPTY_STRING, ZERO, PAGE_ONE } from 'constant';
+import { DELAY, EMPTY_STRING, PAGE_ONE, ZERO } from 'constant';
 
 export const PacksList: FC = () => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
@@ -73,7 +72,7 @@ export const PacksList: FC = () => {
   };
   const saveNewPack = (): void => {
     dispatch(addNewPack(newPackTitle));
-    closeWindow();
+    /* closeWindow(); */
   };
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchPacks(pageNumber, pageCount, inputTitle));
@@ -106,31 +105,22 @@ export const PacksList: FC = () => {
             Add new pack
           </SuperButton>
         </div>
-        <Popup isOpened={isWindowOpened} onClose={closeWindow}>
-          <div className={s.modalWindow}>
-            <div className={s.modalWidowHeader}>
-              <span className={s.actionTitle}>Add new pack</span>
-              <div>
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-                <img src={close} alt="close" className={s.close} onClick={closeWindow} />
-              </div>
-            </div>
+        <ModalWindow
+          closeWindow={closeWindow}
+          isOpened={isWindowOpened}
+          actionTitle="Add new pack"
+          onClick={saveNewPack}
+          submitButtonName="Save"
+          disabled={isAddNewPack}
+        >
+          <div className={s.titlePack}>
             <SuperInputText
               label="Name pack"
               onChange={onChangeNewPackTitle}
               value={newPackTitle}
             />
-            <div className={s.modalWindowButtons}>
-              <SuperButton onClick={closeWindow} color="secondary" size="small">
-                Cansel
-              </SuperButton>
-              <SuperButton onClick={saveNewPack} disabled={isAddNewPack} size="small">
-                Save
-              </SuperButton>
-            </div>
           </div>
-        </Popup>
-
+        </ModalWindow>
         {packs === undefined || !packs.length ? (
           <span>There is no packs. Try to add some.</span>
         ) : (
