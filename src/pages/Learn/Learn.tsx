@@ -24,9 +24,10 @@ export const Learn: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
-  const packName = useAppSelector(
-    state => state.packs.packs.cardPacks.find(pack => pack._id === id)?.name,
-  );
+  const cardPacks = useAppSelector(state => state.packs.packs.cardPacks);
+  const packName = cardPacks
+    ? cardPacks.find(pack => pack._id === id)?.name
+    : 'Cant find pack name';
   const cardToLearn = useAppSelector(state => state.cards.cardToLearn);
 
   const [isAnswerOpened, setIsAnswerOpened] = useState<boolean>(false);
@@ -77,7 +78,6 @@ export const Learn: FC = () => {
       <div className={s.ratingWrapper}>
         <Rating
           ratingValue={0}
-          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
           initialValue={cardToLearn.grade}
           readonly
           iconsCount={5}
