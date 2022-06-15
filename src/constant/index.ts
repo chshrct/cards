@@ -7,3 +7,4 @@ export const DELAY = 500;
 export const ZERO = 0;
 export const TWO = 2;
 export const MAX_CARDS_COUNT = 150;
+export const MAX_GRADE = 5;

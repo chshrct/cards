@@ -11,7 +11,7 @@ import {
 } from '../../../api/cardsApi';
 
 import { setError, setIsLoading } from 'App';
-import { EMPTY_STRING } from 'constant';
+import { EMPTY_STRING, MAX_GRADE } from 'constant';
 import { weightedRandom } from 'helpers';
 import { ThunkApp } from 'store';
 
@@ -101,9 +101,8 @@ export const cardsListReducer = (
         ...state,
         cardToLearn: (() => {
           const { cards } = state.cards;
-          const grades = cards.map(el => el.grade);
-          const card = weightedRandom<CardType>(cards, grades);
-          return card;
+          const grades = cards.map(el => MAX_GRADE - el.grade);
+          return weightedRandom<CardType>(cards, grades);
         })(),
       };
     default:
