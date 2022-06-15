@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,7 +8,7 @@ import { SuperButton, SuperInputText } from '../../../components';
 import { ModalWindow } from '../../../components/shared/ModalWindow/ModalWindow';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
-import { DELAY, TWO, EMPTY_STRING, ZERO, BACK } from '../../../constant';
+import { BACK, DELAY, EMPTY_STRING, ONE, TWO, ZERO } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 
 import s from './CardsList.module.css';
@@ -29,7 +30,7 @@ export const CardsList: React.FC = () => {
   const { page, pageCount, totalCount, siblingCount } = useAppSelector(
     state => state.cards.paginator,
   );
-  const isAddNewCard = useAppSelector(state => state.cards.isAddNewCard);
+  const isLoading = useAppSelector(state => state.app.isLoading);
   const cardQuestion = useAppSelector(state => state.cards.cardQuestion);
   const cardAnswer = useAppSelector(state => state.cards.cardAnswer);
   const [newQuestionTitle, setNewQuestionTitle] = useState<string>('');
@@ -41,7 +42,6 @@ export const CardsList: React.FC = () => {
   const { id } = useParams();
 
   const packName = useAppSelector(
-    // eslint-disable-next-line no-underscore-dangle
     state => state.packs.packs.cardPacks.find(p => p._id === id)?.name,
   );
 
@@ -57,11 +57,11 @@ export const CardsList: React.FC = () => {
 
   useEffect(() => {
     if (isSearchEmpty) {
-      dispatch(fetchCards(id, page, pageCount, sortCards, cardQuestion, cardAnswer));
+      dispatch(fetchCards(id, ONE, pageCount, sortCards, cardQuestion, cardAnswer));
     } else {
       timeoutId.current = setTimeout(() => {
         timeoutId.current = undefined;
-        dispatch(fetchCards(id, page, pageCount, sortCards, cardQuestion, cardAnswer));
+        dispatch(fetchCards(id, ONE, pageCount, sortCards, cardQuestion, cardAnswer));
       }, DELAY);
     }
     return () => {
@@ -90,8 +90,7 @@ export const CardsList: React.FC = () => {
   const onChangeAnswerTitle = (e: ChangeEvent<HTMLInputElement>): void => {
     setNewAnswerTitle(e.currentTarget.value);
   };
-  /* const addNewCardHandle = (): void =>
-    dispatch(addNewCard({ card: { cardsPack_id: id } })); */
+
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchCards(id, pageNumber, pageCount));
   };
@@ -124,7 +123,7 @@ export const CardsList: React.FC = () => {
           value={cardAnswer}
         />
         {userId === packUserId ? (
-          <SuperButton onClick={addNewCardHandle} disabled={isAddNewCard} size="large">
+          <SuperButton onClick={addNewCardHandle} disabled={isLoading} size="large">
             Add new card
           </SuperButton>
         ) : null}
@@ -134,7 +133,7 @@ export const CardsList: React.FC = () => {
           actionTitle="Add new card"
           onClick={saveNewCard}
           submitButtonName="Save"
-          disabled={isAddNewCard}
+          disabled={isLoading}
         >
           <div className={s.titleQuestion}>
             <SuperInputText
@@ -163,28 +162,28 @@ export const CardsList: React.FC = () => {
                 className={s.question}
                 sortBy="question"
                 title="Question"
-                disabled={isAddNewCard}
+                disabled={isLoading}
               />
               <SortCardsTitle
                 cardsPackId={id}
                 className={s.answer}
                 sortBy="answer"
                 title="Answer"
-                disabled={isAddNewCard}
+                disabled={isLoading}
               />
               <SortCardsTitle
                 cardsPackId={id}
                 className={s.updated}
                 sortBy="updated"
                 title="Last Updated"
-                disabled={isAddNewCard}
+                disabled={isLoading}
               />
               <SortCardsTitle
                 cardsPackId={id}
                 className={s.grade}
                 sortBy="grade"
                 title="Grade Updated"
-                disabled={isAddNewCard}
+                disabled={isLoading}
               />
               {userId === packUserId ? (
                 <div className={s.buttonsBlock}>Actions</div>
@@ -193,7 +192,6 @@ export const CardsList: React.FC = () => {
             {cards.map((p, i) => {
               return (
                 <CardsRow
-                  // eslint-disable-next-line no-underscore-dangle
                   key={p._id}
                   packUserId={p.user_id}
                   card={p}

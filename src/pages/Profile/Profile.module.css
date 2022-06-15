@@ -1,7 +1,7 @@
 .profileContainer {
   margin: 24px 136px 71px 136px;
   min-height: calc(100vh - 60px - 71px - 24px);
-  min-width: calc(100vw - 136px - 136px);
+  min-width: calc(100vw - 10%);
 
   display: flex;
   background: #fefeff;

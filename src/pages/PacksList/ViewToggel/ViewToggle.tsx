@@ -19,14 +19,14 @@ const ButtonForToggle: React.FC<ButtonForToggleType> = ({
   className,
   disabled,
 }) => {
-  const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
+  const isLoading = useAppSelector(state => state.app.isLoading);
 
   return (
     <button
       disabled={disabled}
-      onClick={!isAddNewPack ? changeIdHandle : undefined}
+      onClick={!isLoading ? changeIdHandle : undefined}
       type="button"
-      className={`${s.button} ${className} ${(disabled || isAddNewPack) && s.disabled}`}
+      className={`${s.button} ${className} ${(disabled || isLoading) && s.disabled}`}
     >
       {title}
     </button>

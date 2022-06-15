@@ -21,7 +21,7 @@ const SLICE_BEGIN_INDEX = 0;
 const SLICE_END_INDEX = 10;
 
 export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }) => {
-  const isAddNewCard = useAppSelector(state => state.cards.isAddNewCard);
+  const isLoading = useAppSelector(state => state.app.isLoading);
   const userId = useAppSelector(state => state.app.userId);
   const [isDeleteWindowOpened, setIsDeleteWindowOpened] = useState<boolean>(false);
   const [isEditWindowOpened, setIsEditWindowOpened] = useState<boolean>(false);
@@ -73,7 +73,6 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
       <div className={s.grade}>
         <Rating
           ratingValue={0}
-          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
           initialValue={card.grade}
           readonly
           iconsCount={5}
@@ -89,7 +88,7 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
             color="alerty"
             shape="square"
             onClick={deleteCardHandle}
-            disabled={isAddNewCard}
+            disabled={isLoading}
           >
             Delete
           </SuperButton>
@@ -99,7 +98,7 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
             actionTitle="Delete Card"
             onClick={deleteThisCard}
             submitButtonName="Delete"
-            disabled={isAddNewCard}
+            disabled={isLoading}
             buttonColor="alerty"
           >
             <span className={s.deleteCardText}>
@@ -114,7 +113,7 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
             color="secondary"
             shape="square"
             onClick={editCardHandle}
-            disabled={isAddNewCard}
+            disabled={isLoading}
           >
             Edit
           </SuperButton>
@@ -124,7 +123,7 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
             actionTitle="Edit Pack"
             onClick={updateThisCard}
             submitButtonName="Save"
-            disabled={isAddNewCard}
+            disabled={isLoading}
           >
             <div className={s.titleQuestion}>
               <SuperInputText label="Question" onChange={editQuestion} value={question} />
