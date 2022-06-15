@@ -46,3 +46,12 @@
 .cardName {
   font-weight: 700;
 }
+
+.titleQuestion {
+  margin: 30px 0 20px 0;
+}
+
+.titleAnswer {
+  margin: 15px 0 35px 0;
+}
+
