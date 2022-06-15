@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase,no-param-reassign */
 import { packsApi, PacksResponseType } from '../../api/packsApi';
 import { ONE } from '../../constant';
 
@@ -107,9 +107,12 @@ export const fetchPacks =
   ): ThunkApp =>
   (dispatch, getState) => {
     const { isToggleAllId, minCardsCount, maxCardsCount } = getState().packs;
+
+    if (!sortPacks) sortPacks = getState().packs.sortPacks;
+
     const { userId } = getState().app;
-    // eslint-disable-next-line no-param-reassign
     if (!isToggleAllId) user_id = userId;
+
     dispatch(setIsLoading(true));
     dispatch(setCurrentPage(page));
     dispatch(setPageCount(pageCount));
