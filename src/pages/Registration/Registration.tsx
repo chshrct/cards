@@ -65,6 +65,14 @@ export const Registration: React.FC = () => {
     },
   });
 
+  const buttonDisabled =
+    !!formik.errors.email ||
+    !!formik.errors.password ||
+    !!formik.errors.confirmPassword ||
+    formik.values.email === EMPTY_STRING ||
+    formik.values.password === EMPTY_STRING ||
+    formik.values.confirmPassword === EMPTY_STRING;
+
   const navigateToLogin = (): void => navigate(AppRoutePaths.LOGIN);
 
   if (error === 'Created') return <Navigate to={AppRoutePaths.LOGIN} />;
@@ -113,15 +121,14 @@ export const Registration: React.FC = () => {
           />
 
           <div className={s.buttonBlock}>
-            <SuperButton className={s.buttonLog} onClick={navigateToLogin}>
-              back to Login
+            <SuperButton onClick={navigateToLogin} color="secondary" size="medium">
+              Cancel
             </SuperButton>
-            <SuperButton className={s.buttonReg} type="submit">
+            <SuperButton type="submit" disabled={buttonDisabled} size="large">
               Register
             </SuperButton>
           </div>
         </form>
-        <span>{error}</span>
       </div>
     </div>
   );
