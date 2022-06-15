@@ -2,6 +2,7 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
+import { Rating } from 'react-simple-star-rating';
 
 import { ReactComponent as Loader } from '../../assets/loaders/loader.svg';
 
@@ -72,6 +73,19 @@ export const Learn: FC = () => {
   return (
     <div className={s.learnWrapper}>
       <h2>{`Learn ${packName || 'some pack'}`}</h2>
+
+      <div className={s.ratingWrapper}>
+        <Rating
+          ratingValue={0}
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+          initialValue={cardToLearn.grade}
+          readonly
+          iconsCount={5}
+          size={17}
+          fillColor="#21268F"
+          emptyColor="#D7D8EF"
+        />
+      </div>
       <p>
         <b>Question: </b>
         {`${cardToLearn?.question}`}

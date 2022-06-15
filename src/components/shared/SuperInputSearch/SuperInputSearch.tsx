@@ -9,6 +9,7 @@ type SuperInputSearchType = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
   placeholder?: string;
+  disabled?: boolean;
 };
 
 export const SuperInputSearch: FC<SuperInputSearchType> = ({

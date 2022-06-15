@@ -25,6 +25,10 @@ h3 {
     margin-bottom: 39px;
 }
 
+.ratingWrapper {
+    margin-bottom: 30px;
+}
+
 .learnWrapper p {
     align-self: flex-start;
     font-family: 'Roboto', sans-serif;

@@ -33,6 +33,7 @@ export const PacksList: FC = () => {
   const paginator = useAppSelector(state => state.packs.paginator);
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
+  const isLoading = useAppSelector(state => state.app.isLoading);
   const { page, pageCount, totalCount, siblingCount } = paginator;
   const [newPackTitle, setNewPackTitle] = useState<string>('');
   const [isWindowOpened, setIsWindowOpened] = useState<boolean>(false);
@@ -99,7 +100,11 @@ export const PacksList: FC = () => {
       <div className={s.main}>
         <h3>Packs list</h3>
         <div className={s.searchBlock}>
-          <SuperInputSearch onChange={changeTitle} value={inputTitle} />
+          <SuperInputSearch
+            onChange={changeTitle}
+            value={inputTitle}
+            disabled={isLoading}
+          />
           <SuperButton onClick={addNewPackHandle} disabled={isAddNewPack} size="large">
             Add new pack
           </SuperButton>

@@ -38,7 +38,7 @@ export const ModalWindow: FC<PropsType> = ({
         {children}
         <div className={s.modalWindowButtons}>
           <SuperButton onClick={closeWindow} color="secondary" size="small">
-            Cansel
+            Cancel
           </SuperButton>
           <SuperButton
             onClick={onClickHandler}
