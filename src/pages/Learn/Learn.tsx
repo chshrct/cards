@@ -1,5 +1,110 @@
-import React, { FC } from 'react';
+/* eslint-disable no-underscore-dangle */
+import { ChangeEvent, FC, useEffect, useState } from 'react';
+
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { ReactComponent as Loader } from '../../assets/loaders/loader.svg';
+
+import s from './Learn.module.css';
+
+import { SuperButton, SuperRadio } from 'components';
+import { ONE, TWO } from 'constant';
+import {
+  fetchCards,
+  setCardToLearn,
+  updateCardGrade,
+} from 'pages/PacksList/CardsList/CardsListReducer';
+import { AppRoutePaths } from 'routes';
+import { useAppDispatch, useAppSelector } from 'store';
+
+const cardsToLoad = 150;
 
 export const Learn: FC = () => {
-  return <div>Learn</div>;
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const packName = useAppSelector(
+    state => state.packs.packs.cardPacks.find(pack => pack._id === id)?.name,
+  );
+  const cardToLearn = useAppSelector(state => state.cards.cardToLearn);
+
+  const [isAnswerOpened, setIsAnswerOpened] = useState<boolean>(false);
+  const [grade, setGrade] = useState<number>(ONE);
+
+  useEffect(() => {
+    dispatch(fetchCards(id, ONE, cardsToLoad)).then(
+      isRes => isRes && dispatch(setCardToLearn()),
+    );
+  }, [id]);
+
+  enum RadioOptions {
+    'Did not know' = 1,
+    'Forgot',
+    'A lot of thought',
+    'Confused',
+    'Knew the answer',
+  }
+  const keysAndValues = Object.keys(RadioOptions);
+  const RadioOptionsKeys = keysAndValues.slice(keysAndValues.length / TWO);
+
+  const onCancelClick = (): void => {
+    if (isAnswerOpened) {
+      dispatch(setCardToLearn());
+      return setIsAnswerOpened(false);
+    }
+    return navigate(AppRoutePaths.PACKS_LIST);
+  };
+
+  const onOpenAnswerClick = (): void => {
+    setIsAnswerOpened(true);
+  };
+  const onNextAnswerClick = (): void => {
+    dispatch(updateCardGrade({ card_id: cardToLearn!._id, grade }));
+    setIsAnswerOpened(false);
+    dispatch(setCardToLearn());
+  };
+
+  const onRadioChangeHandle = (e: ChangeEvent<HTMLInputElement>): void => {
+    setGrade(RadioOptions[e.currentTarget.value as keyof typeof RadioOptions]);
+  };
+
+  if (!cardToLearn) return <Loader />;
+  return (
+    <div className={s.learnWrapper}>
+      <h2>{`Learn ${packName || 'some pack'}`}</h2>
+      <p>
+        <b>Question: </b>
+        {`${cardToLearn?.question}`}
+      </p>
+      {isAnswerOpened && (
+        <>
+          <p>
+            <b>Answer: </b>
+            {`${cardToLearn?.answer}`}
+          </p>
+          <div className={s.radioWrapper}>
+            <p>
+              <b>Rate yourself:</b>
+            </p>
+            <SuperRadio
+              options={RadioOptionsKeys}
+              onChange={onRadioChangeHandle}
+              value={RadioOptions[grade]}
+            />
+          </div>
+        </>
+      )}
+      <div className={s.buttonWrapper}>
+        <SuperButton size="small" color="secondary" onClick={onCancelClick}>
+          Cancel
+        </SuperButton>
+        <SuperButton
+          size="medium"
+          onClick={isAnswerOpened ? onNextAnswerClick : onOpenAnswerClick}
+        >
+          {isAnswerOpened ? 'Next' : 'Show Answer'}
+        </SuperButton>
+      </div>
+    </div>
+  );
 };

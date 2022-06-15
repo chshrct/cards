@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PAGE_ONE } from '../../../constant';
+import { ONE } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 import { fetchPacks, toggleId } from '../PacksListReducer';
 
@@ -44,11 +44,11 @@ export const ViewToggle: React.FC = () => {
 
   const setMyIdHandle = (): void => {
     dispatch(toggleId(false));
-    dispatch(fetchPacks(PAGE_ONE, pageCount, inputTitle, sortPacks, userId));
+    dispatch(fetchPacks(ONE, pageCount, inputTitle, sortPacks, userId));
   };
   const setAllIdHandle = (): void => {
     dispatch(toggleId(true));
-    dispatch(fetchPacks(PAGE_ONE, pageCount));
+    dispatch(fetchPacks(ONE, pageCount));
   };
   const className1 = isToggleAllId ? s.lightFill : s.darkFill;
   const className2 = !isToggleAllId ? s.lightFill : s.darkFill;

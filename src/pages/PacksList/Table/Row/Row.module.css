@@ -13,12 +13,13 @@
   padding: 10px;
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 15px;
   color: #2d2e46;
+  overflow: hidden;
 }
+
 
 .name {
   flex: 1 0 150px;

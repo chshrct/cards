@@ -25,7 +25,7 @@ import { Table } from './Table/Table';
 import { ViewToggle } from './ViewToggel/ViewToggle';
 
 import { MultiRangeSlider } from 'components/shared/MultiRangeSlider/MultiRangeSlider';
-import { DELAY, EMPTY_STRING, PAGE_ONE, ZERO } from 'constant';
+import { DELAY, EMPTY_STRING, ZERO, ONE } from 'constant';
 
 export const PacksList: FC = () => {
   const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
@@ -48,10 +48,10 @@ export const PacksList: FC = () => {
 
   useEffect(() => {
     if (inputTitle === EMPTY_STRING && minCardsCount === ZERO && maxCardsCount === ZERO) {
-      dispatch(fetchPacks(PAGE_ONE, pageCount, inputTitle));
+      dispatch(fetchPacks(ONE, pageCount, inputTitle));
     } else {
       timeoutId.current = setTimeout(() => {
-        dispatch(fetchPacks(PAGE_ONE, pageCount, inputTitle));
+        dispatch(fetchPacks(ONE, pageCount, inputTitle));
       }, DELAY);
     }
     return () => {

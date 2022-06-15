@@ -6,7 +6,7 @@ import { ReactComponent as ArrowBack } from '../../../assets/icons/arrows/arrowB
 import { SuperButton } from '../../../components';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
-import { BACK, DELAY, DIVISOR_EQUAL_TWO, EMPTY_STRING, ZERO } from '../../../constant';
+import { DELAY, TWO, EMPTY_STRING, ZERO, BACK } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 
 import s from './CardsList.module.css';
@@ -149,9 +149,7 @@ export const CardsList: React.FC = () => {
                   key={p._id}
                   packUserId={p.user_id}
                   card={p}
-                  className={
-                    i % DIVISOR_EQUAL_TWO === ZERO ? s.lightBackground : s.darkBackground
-                  }
+                  className={i % TWO === ZERO ? s.lightBackground : s.darkBackground}
                 />
               );
             })}

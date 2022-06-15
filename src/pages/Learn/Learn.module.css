@@ -1,0 +1,49 @@
+.learnWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 413px;
+    background: #f9f9fe;
+    border-radius: 8px;
+    padding: 0 33px 31px;
+    min-height: 300px;
+}
+
+.learnWrapper h2,
+h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.learnWrapper h2 {
+    margin-top: 32px;
+    font-size: 26px;
+}
+
+.learnWrapper h3 {
+    font-size: 22px;
+    margin-bottom: 39px;
+}
+
+.learnWrapper p {
+    align-self: flex-start;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    margin: 6px;
+}
+
+.radioWrapper {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 48px;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 41px;
+    margin-top: 78px;
+}

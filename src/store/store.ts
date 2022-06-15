@@ -32,7 +32,12 @@ export type AppRootActionType =
   | PacksListRootActionType
   | CardsListRootActionType;
 
-export type ThunkApp = ThunkAction<void, AppRootStateType, unknown, AppRootActionType>;
+export type ThunkApp<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppRootStateType,
+  unknown,
+  AppRootActionType
+>;
 export type TypedDispatch = ThunkDispatch<AppRootStateType, unknown, AppRootActionType>;
 
 export const useAppDispatch = (): TypedDispatch => useDispatch<TypedDispatch>();

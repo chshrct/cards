@@ -25,6 +25,11 @@ export const cardsAPI = {
       .put<UpdatedCardDataType, AxiosResponse<UpdatedCardType>>('/cards/card/', payload)
       .then(res => res.data);
   },
+  updateCardGrade(payload: UpdateCardGradeDataType) {
+    return instance
+      .put<UpdatedCardGradeType>('/cards/grade', payload)
+      .then(res => res.data.updatedGrade);
+  },
 };
 
 // types
@@ -100,4 +105,23 @@ type UpdatedCardType = {
 
 type NewCardType = {
   newCard: CardType;
+};
+
+export type UpdateCardGradeDataType = { card_id: string; grade: number };
+
+type UpdatedCardGradeType = {
+  token: string;
+  tokenDeathTime: number;
+  updatedGrade: {
+    card_id: string;
+    cardsPack_id: string;
+    created: string;
+    grade: number;
+    more_id: string;
+    shots: number;
+    updated: string;
+    user_id: string;
+    __v: number;
+    _id: string;
+  };
 };
