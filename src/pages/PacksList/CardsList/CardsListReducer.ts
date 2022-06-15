@@ -1,4 +1,4 @@
-/* eslint-disable new-cap */
+/* eslint-disable new-cap,no-param-reassign */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import {
@@ -140,7 +140,11 @@ export const fetchCards =
     cardQuestion?: string,
     cardAnswer?: string,
   ): ThunkApp<Promise<boolean>> =>
-  dispatch => {
+  (dispatch, getState) => {
+    if (!sortCards) sortCards = getState().cards.sortCards;
+    if (!cardAnswer) cardAnswer = getState().cards.cardAnswer;
+    if (!cardQuestion) cardQuestion = getState().cards.cardQuestion;
+
     dispatch(setIsLoading(true));
     dispatch(setCurrentPage(page));
     dispatch(setPageCount(pageCount));
