@@ -7,7 +7,6 @@
     border-radius: 8px;
     padding: 0 33px 31px;
     min-height: 300px;
-    text-align: center;
 }
 
 .learnWrapper h2,
@@ -27,11 +26,19 @@ h3 {
 }
 
 .learnWrapper p {
+    align-self: flex-start;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 16px;
-    margin-top: 30px;
-    text-align: center;
+    margin: 6px;
+}
+
+.radioWrapper {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 48px;
 }
 
 .buttonWrapper {

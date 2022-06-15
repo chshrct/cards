@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DIVISOR_EQUAL_TWO, ZERO } from '../../../constant';
+import { TWO, ZERO } from '../../../constant';
 import { useAppSelector } from '../../../store';
 
 import { Header } from './Header/Header';
@@ -18,9 +18,7 @@ export const Table: React.FC = () => {
             // eslint-disable-next-line no-underscore-dangle
             key={p._id}
             pack={p}
-            className={
-              i % DIVISOR_EQUAL_TWO === ZERO ? s.lightBackground : s.darkBackground
-            }
+            className={i % TWO === ZERO ? s.lightBackground : s.darkBackground}
           />
         );
       })}

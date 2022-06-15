@@ -43,7 +43,7 @@ export const SuperRadio: FC<SuperRadioPropsType> = ({
         const key = useId();
         const id = useId();
         return (
-          <label htmlFor={id} key={key}>
+          <label htmlFor={id} key={key} className={s.label}>
             <input
               id={id}
               type="radio"

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { SuperButton } from '../../../components';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
-import { DELAY, DIVISOR_EQUAL_TWO, EMPTY_STRING, ZERO } from '../../../constant';
+import { DELAY, TWO, EMPTY_STRING, ZERO } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 
 import s from './CardsList.module.css';
@@ -122,9 +122,7 @@ export const CardsList: React.FC = () => {
                   // eslint-disable-next-line no-underscore-dangle
                   key={p._id}
                   card={p}
-                  className={
-                    i % DIVISOR_EQUAL_TWO === ZERO ? s.lightBackground : s.darkBackground
-                  }
+                  className={i % TWO === ZERO ? s.lightBackground : s.darkBackground}
                 />
               );
             })
