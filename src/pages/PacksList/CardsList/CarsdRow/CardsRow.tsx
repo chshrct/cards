@@ -1,9 +1,11 @@
-import React from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { ChangeEvent, useState } from 'react';
 
 import { Rating } from 'react-simple-star-rating';
 
 import { CardType } from '../../../../api/cardsApi';
-import { SuperButton } from '../../../../components';
+import { SuperButton, SuperInputText } from '../../../../components';
+import { ModalWindow } from '../../../../components/shared/ModalWindow/ModalWindow';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import { deleteCard, updateCard } from '../CardsListReducer';
 
@@ -20,25 +22,47 @@ const SLICE_END_INDEX = 10;
 
 export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }) => {
   const isAddNewCard = useAppSelector(state => state.cards.isAddNewCard);
-  // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => state.app.userId);
+  const [isDeleteWindowOpened, setIsDeleteWindowOpened] = useState<boolean>(false);
+  const [isEditWindowOpened, setIsEditWindowOpened] = useState<boolean>(false);
+  const [question, setQuestion] = useState(card.question);
+  const [answer, setAnswer] = useState(card.answer);
+
   const dispatch = useAppDispatch();
 
-  // eslint-disable-next-line no-underscore-dangle
-  const deleteCardHandle = (): void => dispatch(deleteCard(card._id));
-  const editCardHandle = (): void =>
+  const closeDeleteWindow = (): void => {
+    setIsDeleteWindowOpened(false);
+  };
+  const deleteCardHandle = (): void => {
+    setIsDeleteWindowOpened(true);
+  };
+  const deleteThisCard = (): void => {
+    dispatch(deleteCard(card._id));
+  };
+  const closeEditWindow = (): void => {
+    setIsEditWindowOpened(false);
+  };
+  const editCardHandle = (): void => {
+    setIsEditWindowOpened(true);
+  };
+  const updateThisCard = (): void => {
     dispatch(
       updateCard({
         card: {
-          // eslint-disable-next-line no-underscore-dangle
           _id: card._id,
-          answer: 'ANSWER',
-          question: 'QUESTION',
+          answer,
+          question,
           comments: 'NO COMMENTS',
         },
       }),
     );
-
+  };
+  const editQuestion = (e: ChangeEvent<HTMLInputElement>): void => {
+    setQuestion(e.currentTarget.value);
+  };
+  const editAnswer = (e: ChangeEvent<HTMLInputElement>): void => {
+    setAnswer(e.currentTarget.value);
+  };
   return (
     <div className={`${s.body} ${className}`}>
       <div className={s.question}>{card.question}</div>
@@ -69,6 +93,23 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
           >
             Delete
           </SuperButton>
+          <ModalWindow
+            closeWindow={closeDeleteWindow}
+            isOpened={isDeleteWindowOpened}
+            actionTitle="Delete Card"
+            onClick={deleteThisCard}
+            submitButtonName="Delete"
+            disabled={isAddNewCard}
+            buttonColor="alerty"
+          >
+            <span className={s.deleteCardText}>
+              Do you really want to remove
+              <span className={s.cardName}>
+                {' '}
+                Card - &quot;{card.question}&quot;?{' '}
+              </span>{' '}
+            </span>
+          </ModalWindow>
           <SuperButton
             color="secondary"
             shape="square"
@@ -77,6 +118,21 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
           >
             Edit
           </SuperButton>
+          <ModalWindow
+            closeWindow={closeEditWindow}
+            isOpened={isEditWindowOpened}
+            actionTitle="Edit Pack"
+            onClick={updateThisCard}
+            submitButtonName="Save"
+            disabled={isAddNewCard}
+          >
+            <div className={s.titleQuestion}>
+              <SuperInputText label="Question" onChange={editQuestion} value={question} />
+            </div>
+            <div className={s.titleAnswer}>
+              <SuperInputText label="Answer" onChange={editAnswer} value={answer} />
+            </div>
+          </ModalWindow>
         </div>
       ) : null}
     </div>
