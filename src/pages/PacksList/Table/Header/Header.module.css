@@ -21,10 +21,14 @@
   align-items: center;
   flex-wrap: nowrap;
 }
+
+.name,
 .cardsCount,
+.userName,
 .updated {
   cursor: pointer;
 }
+
 .name {
   flex: 1 0 150px;
 }
