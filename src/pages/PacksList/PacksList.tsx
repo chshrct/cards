@@ -71,6 +71,7 @@ export const PacksList: FC = () => {
   };
   const saveNewPack = (): void => {
     dispatch(addNewPack(newPackTitle));
+    setNewPackTitle('');
   };
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchPacks(pageNumber, pageCount, inputTitle));
