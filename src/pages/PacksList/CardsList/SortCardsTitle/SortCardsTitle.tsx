@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { ReactComponent as ArrowDown } from '../../../../assets/icons/arrows/arrowDown.svg';
 import { ReactComponent as ArrowUp } from '../../../../assets/icons/arrows/arrowUp.svg';
+import { ONE } from '../../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import { fetchCards } from '../CardsListReducer';
 
@@ -25,14 +26,14 @@ export const SortCardsTitle: React.FC<SortTitleType> = ({
   const [num, setNum] = useState<0 | 1>(1);
 
   let sortCards = useAppSelector(state => state.cards.sortCards);
-  const { page, pageCount } = useAppSelector(state => state.cards.paginator);
+  const { pageCount } = useAppSelector(state => state.cards.paginator);
 
   const dispatch = useAppDispatch();
 
   const changeArrowHandle = (): void => {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     setNum(state => (state === 0 ? 1 : 0));
-    dispatch(fetchCards(cardsPackId, page, pageCount, `${num}${sortBy}`));
+    dispatch(fetchCards(cardsPackId, ONE, pageCount, `${num}${sortBy}`));
   };
 
   if (sortCards === undefined) sortCards = '0grade';

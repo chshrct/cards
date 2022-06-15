@@ -8,7 +8,7 @@ import { SuperButton, SuperInputText } from '../../../components';
 import { ModalWindow } from '../../../components/shared/ModalWindow/ModalWindow';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
-import { BACK, DELAY, EMPTY_STRING, TWO, ZERO } from '../../../constant';
+import { BACK, DELAY, EMPTY_STRING, ONE, TWO, ZERO } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 
 import s from './CardsList.module.css';
@@ -57,11 +57,11 @@ export const CardsList: React.FC = () => {
 
   useEffect(() => {
     if (isSearchEmpty) {
-      dispatch(fetchCards(id, page, pageCount, sortCards, cardQuestion, cardAnswer));
+      dispatch(fetchCards(id, ONE, pageCount, sortCards, cardQuestion, cardAnswer));
     } else {
       timeoutId.current = setTimeout(() => {
         timeoutId.current = undefined;
-        dispatch(fetchCards(id, page, pageCount, sortCards, cardQuestion, cardAnswer));
+        dispatch(fetchCards(id, ONE, pageCount, sortCards, cardQuestion, cardAnswer));
       }, DELAY);
     }
     return () => {
