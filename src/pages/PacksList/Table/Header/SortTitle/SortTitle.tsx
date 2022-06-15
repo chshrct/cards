@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import React, { useState } from 'react';
 
 import { ReactComponent as ArrowDown } from '../../../../../assets/icons/arrows/arrowDown.svg';
@@ -19,7 +20,6 @@ export const SortTitle: React.FC<SortTitleType> = ({
   title,
   disabled,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const [num, setNum] = useState<0 | 1>(1);
 
   const page = useAppSelector(state => state.packs.paginator.page);
@@ -30,31 +30,18 @@ export const SortTitle: React.FC<SortTitleType> = ({
   const dispatch = useAppDispatch();
 
   const changeArrowHandle = (): void => {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     setNum(state => (state === 0 ? 1 : 0));
     dispatch(fetchPacks(page, pageCount, inputTitle, `${num}${sortBy}`));
   };
 
   if (sortPacks === undefined) sortPacks = '0updated';
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const viewArrow = sortPacks.slice(1, sortPacks.length) === sortBy;
 
   const arrow =
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     num === 0 ? (
-      <ArrowDown
-        className={s.arrow}
-        height={15}
-        width={15}
-        // fill={error && 'red'}
-      />
+      <ArrowDown className={s.arrow} height={15} width={15} />
     ) : (
-      <ArrowUp
-        className={s.arrow}
-        height={15}
-        width={15}
-        // fill={error && 'red'}
-      />
+      <ArrowUp className={s.arrow} height={15} width={15} />
     );
   return (
     <div
