@@ -1,9 +1,10 @@
-import React, { ChangeEvent, MutableRefObject, useEffect, useRef } from 'react';
+import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as ArrowBack } from '../../../assets/icons/arrows/arrowBack.svg';
-import { SuperButton } from '../../../components';
+import { SuperButton, SuperInputText } from '../../../components';
+import { ModalWindow } from '../../../components/shared/ModalWindow/ModalWindow';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
 import { DELAY, TWO, EMPTY_STRING, ZERO, BACK } from '../../../constant';
@@ -31,6 +32,9 @@ export const CardsList: React.FC = () => {
   const isAddNewCard = useAppSelector(state => state.cards.isAddNewCard);
   const cardQuestion = useAppSelector(state => state.cards.cardQuestion);
   const cardAnswer = useAppSelector(state => state.cards.cardAnswer);
+  const [newQuestionTitle, setNewQuestionTitle] = useState<string>('');
+  const [newAnswerTitle, setNewAnswerTitle] = useState<string>('');
+  const [isWindowOpened, setIsWindowOpened] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -65,8 +69,29 @@ export const CardsList: React.FC = () => {
     };
   }, [cardQuestion, cardAnswer]);
 
-  const addNewCardHandle = (): void =>
-    dispatch(addNewCard({ card: { cardsPack_id: id } }));
+  const closeWindow = (): void => {
+    setIsWindowOpened(false);
+  };
+  const addNewCardHandle = (): void => {
+    setIsWindowOpened(true);
+  };
+  const saveNewCard = (): void => {
+    dispatch(
+      addNewCard({
+        card: { cardsPack_id: id, question: newQuestionTitle, answer: newAnswerTitle },
+      }),
+    );
+    setNewQuestionTitle(EMPTY_STRING);
+    setNewAnswerTitle(EMPTY_STRING);
+  };
+  const onChangeQuestionTitle = (e: ChangeEvent<HTMLInputElement>): void => {
+    setNewQuestionTitle(e.currentTarget.value);
+  };
+  const onChangeAnswerTitle = (e: ChangeEvent<HTMLInputElement>): void => {
+    setNewAnswerTitle(e.currentTarget.value);
+  };
+  /* const addNewCardHandle = (): void =>
+    dispatch(addNewCard({ card: { cardsPack_id: id } })); */
   const onPageChanged = (pageNumber: number | string): void => {
     dispatch(fetchCards(id, pageNumber, pageCount));
   };
@@ -103,6 +128,29 @@ export const CardsList: React.FC = () => {
             Add new card
           </SuperButton>
         ) : null}
+        <ModalWindow
+          closeWindow={closeWindow}
+          isOpened={isWindowOpened}
+          actionTitle="Add new card"
+          onClick={saveNewCard}
+          submitButtonName="Save"
+          disabled={isAddNewCard}
+        >
+          <div className={s.titleQuestion}>
+            <SuperInputText
+              label="Question"
+              onChange={onChangeQuestionTitle}
+              value={newQuestionTitle}
+            />
+          </div>
+          <div className={s.titleAnswer}>
+            <SuperInputText
+              label="Answer"
+              onChange={onChangeAnswerTitle}
+              value={newAnswerTitle}
+            />
+          </div>
+        </ModalWindow>
       </div>
       {cards === undefined || !cards.length ? (
         <span>There is no cards. Try to add some.</span>
