@@ -25,10 +25,9 @@ import { Table } from './Table/Table';
 import { ViewToggle } from './ViewToggel/ViewToggle';
 
 import { MultiRangeSlider } from 'components/shared/MultiRangeSlider/MultiRangeSlider';
-import { DELAY, EMPTY_STRING, ZERO, ONE } from 'constant';
+import { DELAY, EMPTY_STRING, ONE, ZERO } from 'constant';
 
 export const PacksList: FC = () => {
-  const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
   const inputTitle = useAppSelector(state => state.packs.inputTitle);
   const paginator = useAppSelector(state => state.packs.paginator);
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
@@ -105,7 +104,7 @@ export const PacksList: FC = () => {
             value={inputTitle}
             disabled={isLoading}
           />
-          <SuperButton onClick={addNewPackHandle} disabled={isAddNewPack} size="large">
+          <SuperButton onClick={addNewPackHandle} disabled={isLoading} size="large">
             Add new pack
           </SuperButton>
         </div>
@@ -115,7 +114,7 @@ export const PacksList: FC = () => {
           actionTitle="Add new pack"
           onClick={saveNewPack}
           submitButtonName="Save"
-          disabled={isAddNewPack}
+          disabled={isLoading}
         >
           <div className={s.titlePack}>
             <SuperInputText

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { packsApi, PacksResponseType } from '../../api/packsApi';
 import { ONE } from '../../constant';
 
@@ -6,7 +7,6 @@ import { ThunkApp } from 'store';
 
 enum PacksListActionsTypes {
   fetchPacks = 'PACKS-LIST/FETCH_PACKS',
-  setIsAddNewPack = 'PACKS-LIST/SET_IS_ADD_NEW_PACK',
   setCurrentPage = 'PACKS-LIST/SET_CURRENT_PAGE',
   setTotalPacksCount = 'PACKS-LIST/SET_TOTAL_PACKS_COUNT',
   changeInputTitle = 'PACKS-LIST/CHANGE_INPUT_TITLE',
@@ -18,7 +18,6 @@ enum PacksListActionsTypes {
 }
 
 type FetchPacksType = ReturnType<typeof fetchPacksAC>;
-type SetIsAddNewPackType = ReturnType<typeof setIsAddNewPack>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
 type SetTotalPacksCountType = ReturnType<typeof setTotalPacksCount>;
 type ChangeInputTitleType = ReturnType<typeof changeInputTitle>;
@@ -30,7 +29,6 @@ type SetPageCountCountType = ReturnType<typeof setPageCount>;
 
 export type PacksListRootActionType =
   | FetchPacksType
-  | SetIsAddNewPackType
   | SetCurrentPageType
   | SetTotalPacksCountType
   | ChangeInputTitleType
@@ -42,10 +40,8 @@ export type PacksListRootActionType =
 
 const initialState = {
   packs: {} as PacksResponseType,
-  isAddNewPack: false,
   paginator: {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    page: 1 as number | string,
+    page: ONE as number | string,
     totalCount: 0,
     pageCount: 10,
     siblingCount: 1,
@@ -65,7 +61,6 @@ export const packsListReducer = (
 ): PacksListStateType => {
   switch (type) {
     case PacksListActionsTypes.fetchPacks:
-    case PacksListActionsTypes.setIsAddNewPack:
     case PacksListActionsTypes.changeInputTitle:
     case PacksListActionsTypes.sortPacks:
     case PacksListActionsTypes.toggleId:
@@ -84,8 +79,6 @@ export const packsListReducer = (
 // action
 export const fetchPacksAC = (packs: PacksResponseType) =>
   ({ type: PacksListActionsTypes.fetchPacks, payload: { packs } } as const);
-export const setIsAddNewPack = (isAddNewPack: boolean) =>
-  ({ type: PacksListActionsTypes.setIsAddNewPack, payload: { isAddNewPack } } as const);
 export const setCurrentPage = (page: number | string) =>
   ({ type: PacksListActionsTypes.setCurrentPage, payload: { page } } as const);
 export const setTotalPacksCount = (totalCount: number) =>
@@ -110,16 +103,14 @@ export const fetchPacks =
     pageCount: number,
     inputTitle?: string,
     sortPacks?: string,
-    // eslint-disable-next-line camelcase
     user_id?: string,
   ): ThunkApp =>
   (dispatch, getState) => {
     const { isToggleAllId, minCardsCount, maxCardsCount } = getState().packs;
     const { userId } = getState().app;
-    // eslint-disable-next-line camelcase,no-param-reassign
+    // eslint-disable-next-line no-param-reassign
     if (!isToggleAllId) user_id = userId;
     dispatch(setIsLoading(true));
-    dispatch(setIsAddNewPack(true));
     dispatch(setCurrentPage(page));
     dispatch(setPageCount(pageCount));
     packsApi
@@ -145,7 +136,6 @@ export const fetchPacks =
       })
       .finally(() => {
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewPack(false));
       });
   };
 
@@ -153,7 +143,6 @@ export const addNewPack =
   (newPackTitle: string): ThunkApp =>
   (dispatch, getState) => {
     dispatch(setIsLoading(true));
-    dispatch(setIsAddNewPack(true));
     packsApi
       .addPack(newPackTitle)
       .then(() => {
@@ -166,7 +155,6 @@ export const addNewPack =
           : `${e.message}, more details in the console`;
         dispatch(setError(error));
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewPack(false));
       });
   };
 
@@ -174,7 +162,6 @@ export const deletePacks =
   (id: string): ThunkApp =>
   (dispatch, getState) => {
     dispatch(setIsLoading(true));
-    dispatch(setIsAddNewPack(true));
     packsApi
       .deletePacks(id)
       .then(() => {
@@ -187,7 +174,6 @@ export const deletePacks =
           : `${e.message}, more details in the console`;
         dispatch(setError(error));
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewPack(false));
       });
   };
 
@@ -195,7 +181,6 @@ export const updatePacks =
   (_id: string, name: string): ThunkApp =>
   (dispatch, getState) => {
     dispatch(setIsLoading(true));
-    dispatch(setIsAddNewPack(true));
     packsApi
       .updatePack(_id, name)
       .then(() => {
@@ -208,6 +193,5 @@ export const updatePacks =
           : `${e.message}, more details in the console`;
         dispatch(setError(error));
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewPack(false));
       });
   };
