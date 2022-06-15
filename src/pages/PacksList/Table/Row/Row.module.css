@@ -10,7 +10,7 @@
 .updated,
 .userName,
 .buttonsBlock {
-  padding: 10px;
+  padding: 5px;
   display: flex;
   align-items: center;
   font-family: 'Roboto', sans-serif;
@@ -22,23 +22,23 @@
 
 
 .name {
-  flex: 1 0 150px;
+  flex: 1 0 25%;
 }
 
 .cardsCount {
-  flex: 1 0 50px;
+  flex: 1 0 10%;
 }
 
 .updated {
-  flex: 1 0 120px;
+  flex: 1 0 15%;
 }
 
 .userName {
-  flex: 1 0 240px;
+  flex: 1 0 25%;
 }
 
 .buttonsBlock {
-  flex: 1 0 300px;
+  flex: 1 0 25%;
   display: flex;
   align-items: center;
   justify-content: flex-start;

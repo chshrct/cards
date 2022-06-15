@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 
 import { TWO, ZERO } from '../../../constant';
@@ -15,7 +16,6 @@ export const Table: React.FC = () => {
       {packs.map((p, i) => {
         return (
           <Row
-            // eslint-disable-next-line no-underscore-dangle
             key={p._id}
             pack={p}
             className={i % TWO === ZERO ? s.lightBackground : s.darkBackground}

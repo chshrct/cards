@@ -24,7 +24,7 @@ const SLICE_BEGIN_INDEX = 0;
 const SLICE_END_INDEX = 10;
 
 export const Row: React.FC<RowType> = ({ pack, className }) => {
-  const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
+  const isLoading = useAppSelector(state => state.app.isLoading);
   const userId = useAppSelector(state => state.app.userId);
   const [isDeleteWindowOpened, setIsDeleteWindowOpened] = useState<boolean>(false);
   const [isEditWindowOpened, setIsEditWindowOpened] = useState<boolean>(false);
@@ -83,7 +83,7 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
               color="alerty"
               shape="square"
               onClick={deletePackHandle}
-              disabled={isAddNewPack}
+              disabled={isLoading}
             >
               Delete
             </SuperButton>
@@ -93,7 +93,7 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
               actionTitle="Delete Pack"
               onClick={deletePack}
               submitButtonName="Delete"
-              disabled={isAddNewPack}
+              disabled={isLoading}
               buttonColor="alerty"
             >
               <span className={s.deletePackText}>
@@ -109,7 +109,7 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
               color="secondary"
               shape="square"
               onClick={editPackHandle}
-              disabled={isAddNewPack}
+              disabled={isLoading}
             >
               Edit
             </SuperButton>
@@ -119,7 +119,7 @@ export const Row: React.FC<RowType> = ({ pack, className }) => {
               actionTitle="Edit Pack"
               onClick={updatePack}
               submitButtonName="Save"
-              disabled={isAddNewPack}
+              disabled={isLoading}
             >
               <div className={s.titlePack}>
                 <SuperInputText label="Name pack" onChange={editPack} value={packName} />

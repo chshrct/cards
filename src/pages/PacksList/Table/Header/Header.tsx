@@ -6,30 +6,30 @@ import s from './Header.module.css';
 import { SortTitle } from './SortTitle/SortTitle';
 
 export const Header: React.FC = () => {
-  const isAddNewPack = useAppSelector(state => state.packs.isAddNewPack);
+  const isLoading = useAppSelector(state => state.app.isLoading);
   return (
     <div className={s.head}>
       <SortTitle
         className={s.name}
-        disabled={isAddNewPack}
+        disabled={isLoading}
         sortBy="name"
         title="Pack Name"
       />
       <SortTitle
         className={s.cardsCount}
-        disabled={isAddNewPack}
+        disabled={isLoading}
         sortBy="cardsCount"
         title="Cards"
       />
       <SortTitle
         className={s.updated}
-        disabled={isAddNewPack}
+        disabled={isLoading}
         sortBy="updated"
         title="Last Updated"
       />
       <SortTitle
         className={s.userName}
-        disabled={isAddNewPack}
+        disabled={isLoading}
         sortBy="user_name"
         title="Created by"
       />

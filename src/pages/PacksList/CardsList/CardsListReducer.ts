@@ -2,23 +2,22 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import {
-  UpdatedCardDataType,
   cardsAPI,
   CardsResponseType,
   CardType,
   NewCardData,
   UpdateCardGradeDataType,
+  UpdatedCardDataType,
 } from '../../../api/cardsApi';
 
 import { setError, setIsLoading } from 'App';
-import { EMPTY_STRING, MAX_GRADE } from 'constant';
+import { EMPTY_STRING, MAX_GRADE, ONE } from 'constant';
 import { weightedRandom } from 'helpers';
 import { ThunkApp } from 'store';
 
 enum CardsListActionsTypes {
   fetchCards = 'CARDS-LIST/FETCH_CARDS',
   sortCards = 'CARDS-LIST/SORT_CARDS',
-  setIsAddNewCard = 'CARDS-LIST/SET_IS_ADD_NEW_CARD',
   setCurrentPage = 'CARDS-LIST/SET_CURRENT_PAGE',
   setTotalCardsCount = 'CARDS-LIST/SET_TOTAL_CARDS_COUNT',
   setCardQuestion = 'CARDS-LIST/SET-CARD_QUESTION',
@@ -30,7 +29,6 @@ enum CardsListActionsTypes {
 
 type FetchCardsACType = ReturnType<typeof fetchCardsAC>;
 type SortCardsACType = ReturnType<typeof sortCardsAC>;
-type SetIsAddNewCardType = ReturnType<typeof setIsAddNewCard>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
 type SetTotalCardsCountType = ReturnType<typeof setTotalCardsCount>;
 type SetCardQuestionType = ReturnType<typeof setCardQuestion>;
@@ -42,7 +40,6 @@ type SetCardToLearnType = ReturnType<typeof setCardToLearn>;
 export type CardsListRootActionType =
   | FetchCardsACType
   | SortCardsACType
-  | SetIsAddNewCardType
   | SetCurrentPageType
   | SetTotalCardsCountType
   | SetCardQuestionType
@@ -53,10 +50,8 @@ export type CardsListRootActionType =
 
 const initialState = {
   cards: {} as CardsResponseType,
-  isAddNewCard: false,
   paginator: {
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    page: 1 as number | string,
+    page: ONE as number | string,
     totalCount: 0,
     pageCount: 10,
     siblingCount: 1,
@@ -76,7 +71,6 @@ export const cardsListReducer = (
   switch (type) {
     case CardsListActionsTypes.fetchCards:
     case CardsListActionsTypes.sortCards:
-    case CardsListActionsTypes.setIsAddNewCard:
     case CardsListActionsTypes.setCardAnswer:
     case CardsListActionsTypes.setCardQuestion:
       return { ...state, ...payload };
@@ -115,8 +109,6 @@ export const fetchCardsAC = (cards: CardsResponseType) =>
   ({ type: CardsListActionsTypes.fetchCards, payload: { cards } } as const);
 export const sortCardsAC = (sortCards: string | undefined) =>
   ({ type: CardsListActionsTypes.sortCards, payload: { sortCards } } as const);
-export const setIsAddNewCard = (isAddNewCard: boolean) =>
-  ({ type: CardsListActionsTypes.setIsAddNewCard, payload: { isAddNewCard } } as const);
 export const setCurrentPage = (page: number | string) =>
   ({ type: CardsListActionsTypes.setCurrentPage, payload: { page } } as const);
 export const setTotalCardsCount = (totalCount: number) =>
@@ -141,10 +133,8 @@ export const setCardToLearn = () =>
 // thunk
 export const fetchCards =
   (
-    // eslint-disable-next-line camelcase
     cardsPack_id: string | undefined,
     page: number | string,
-
     pageCount: number,
     sortCards?: string | undefined,
     cardQuestion?: string,
@@ -152,38 +142,33 @@ export const fetchCards =
   ): ThunkApp<Promise<boolean>> =>
   dispatch => {
     dispatch(setIsLoading(true));
-    dispatch(setIsAddNewCard(true));
     dispatch(setCurrentPage(page));
     dispatch(setPageCount(pageCount));
-    return (
-      cardsAPI
-        // eslint-disable-next-line camelcase
-        .fetchCards({
-          cardsPack_id,
-          sortCards,
-          page,
-          pageCount,
-          cardAnswer,
-          cardQuestion,
-        })
-        .then(data => {
-          dispatch(fetchCardsAC(data));
-          dispatch(setTotalCardsCount(data.cardsTotalCount));
-          dispatch(sortCardsAC(sortCards));
-          return true;
-        })
-        .catch(e => {
-          const error = e.response
-            ? e.response.data.error
-            : `${e.message}, more details in the console`;
-          dispatch(setError(error));
-          return false;
-        })
-        .finally(() => {
-          dispatch(setIsLoading(false));
-          dispatch(setIsAddNewCard(false));
-        })
-    );
+    return cardsAPI
+      .fetchCards({
+        cardsPack_id,
+        sortCards,
+        page,
+        pageCount,
+        cardAnswer,
+        cardQuestion,
+      })
+      .then(data => {
+        dispatch(fetchCardsAC(data));
+        dispatch(setTotalCardsCount(data.cardsTotalCount));
+        dispatch(sortCardsAC(sortCards));
+        return true;
+      })
+      .catch(e => {
+        const error = e.response
+          ? e.response.data.error
+          : `${e.message}, more details in the console`;
+        dispatch(setError(error));
+        return false;
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
   };
 
 export const addNewCard =
@@ -194,7 +179,6 @@ export const addNewCard =
       paginator: { page, pageCount },
     } = getState().cards;
     dispatch(setIsLoading(true));
-    dispatch(setIsAddNewCard(true));
     cardsAPI
       .addCard(payload)
       .then(data => {
@@ -206,7 +190,6 @@ export const addNewCard =
           : `${e.message}, more details in the console`;
         dispatch(setError(error));
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewCard(false));
       });
   };
 
@@ -214,7 +197,6 @@ export const deleteCard =
   (id: string): ThunkApp =>
   (dispatch, getState) => {
     dispatch(setIsLoading(true));
-    dispatch(setIsAddNewCard(true));
     cardsAPI
       .deleteCard(id)
       .then(() => {
@@ -229,7 +211,6 @@ export const deleteCard =
           : `${e.message}, more details in the console`;
         dispatch(setError(error));
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewCard(false));
       });
   };
 
@@ -237,7 +218,6 @@ export const updateCard =
   (payload: UpdatedCardDataType): ThunkApp =>
   (dispatch, getState) => {
     dispatch(setIsLoading(true));
-    dispatch(setIsAddNewCard(true));
     cardsAPI
       .updateCard(payload)
       .then(() => {
@@ -252,7 +232,6 @@ export const updateCard =
           : `${e.message}, more details in the console`;
         dispatch(setError(error));
         dispatch(setIsLoading(false));
-        dispatch(setIsAddNewCard(false));
       });
   };
 export const updateCardGrade =
