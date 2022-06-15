@@ -9,7 +9,7 @@ import { ReactComponent as Loader } from '../../assets/loaders/loader.svg';
 import s from './Learn.module.css';
 
 import { SuperButton, SuperRadio } from 'components';
-import { ONE, TWO } from 'constant';
+import { ONE, TWO, MAX_CARDS_COUNT } from 'constant';
 import {
   fetchCards,
   setCardToLearn,
@@ -17,8 +17,6 @@ import {
 } from 'pages/PacksList/CardsList/CardsListReducer';
 import { AppRoutePaths } from 'routes';
 import { useAppDispatch, useAppSelector } from 'store';
-
-const cardsToLoad = 150;
 
 export const Learn: FC = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +32,7 @@ export const Learn: FC = () => {
   const [grade, setGrade] = useState<number>(ONE);
 
   useEffect(() => {
-    dispatch(fetchCards(id, ONE, cardsToLoad)).then(
+    dispatch(fetchCards(id, ONE, MAX_CARDS_COUNT)).then(
       isRes => isRes && dispatch(setCardToLearn()),
     );
   }, [id]);
