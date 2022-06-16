@@ -4,10 +4,11 @@ import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } fro
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as ArrowBack } from '../../../assets/icons/arrows/arrowBack.svg';
-import { SuperButton, SuperInputText } from '../../../components';
+import { SuperButton } from '../../../components';
 import { ModalWindow } from '../../../components/shared/ModalWindow/ModalWindow';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
+import { SuperTextarea } from '../../../components/shared/SuperTextarea/SuperTextarea';
 import { BACK, DELAY, EMPTY_STRING, ONE, TWO, ZERO } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 
@@ -83,10 +84,10 @@ export const CardsList: React.FC = () => {
     setNewQuestionTitle(EMPTY_STRING);
     setNewAnswerTitle(EMPTY_STRING);
   };
-  const onChangeQuestionTitle = (e: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeQuestionTitle = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setNewQuestionTitle(e.currentTarget.value);
   };
-  const onChangeAnswerTitle = (e: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeAnswerTitle = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setNewAnswerTitle(e.currentTarget.value);
   };
 
@@ -135,14 +136,14 @@ export const CardsList: React.FC = () => {
           disabled={isLoading}
         >
           <div className={s.titleQuestion}>
-            <SuperInputText
+            <SuperTextarea
               label="Question"
               onChange={onChangeQuestionTitle}
               value={newQuestionTitle}
             />
           </div>
           <div className={s.titleAnswer}>
-            <SuperInputText
+            <SuperTextarea
               label="Answer"
               onChange={onChangeAnswerTitle}
               value={newAnswerTitle}

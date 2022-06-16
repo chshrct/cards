@@ -39,6 +39,7 @@
 }
 
 textarea {
+    width: 100%;
     border: 2px solid rgba(36, 37, 74, 0.2);
     border-radius: 8px;
     outline: none;
