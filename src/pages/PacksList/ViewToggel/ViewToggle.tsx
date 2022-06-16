@@ -34,9 +34,6 @@ const ButtonForToggle: React.FC<ButtonForToggleType> = ({
 };
 
 export const ViewToggle: React.FC = () => {
-  const pageCount = useAppSelector(state => state.packs.paginator.pageCount);
-  const inputTitle = useAppSelector(state => state.packs.inputTitle);
-  const sortPacks = useAppSelector(state => state.packs.sortPacks);
   const userId = useAppSelector(state => state.app.userId);
   const isToggleAllId = useAppSelector(state => state.packs.isToggleAllId);
 
@@ -44,11 +41,11 @@ export const ViewToggle: React.FC = () => {
 
   const setMyIdHandle = (): void => {
     dispatch(toggleId(false));
-    dispatch(fetchPacks(ONE, pageCount, inputTitle, sortPacks, userId));
+    dispatch(fetchPacks({ page: ONE, user_id: userId }));
   };
   const setAllIdHandle = (): void => {
     dispatch(toggleId(true));
-    dispatch(fetchPacks(ONE, pageCount));
+    dispatch(fetchPacks({ page: ONE }));
   };
   const className1 = isToggleAllId ? s.lightFill : s.darkFill;
   const className2 = !isToggleAllId ? s.lightFill : s.darkFill;

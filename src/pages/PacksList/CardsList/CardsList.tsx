@@ -23,16 +23,15 @@ import { SortCardsTitle } from './SortCardsTitle/SortCardsTitle';
 
 export const CardsList: React.FC = () => {
   const cards = useAppSelector(state => state.cards.cards.cards);
-
   const packUserId = useAppSelector(state => state.cards.cards.packUserId);
   const userId = useAppSelector(state => state.app.userId);
-  // const sortCards = useAppSelector(state => state.cards.sortCards);
   const { page, pageCount, totalCount, siblingCount } = useAppSelector(
     state => state.cards.paginator,
   );
   const isLoading = useAppSelector(state => state.app.isLoading);
   const cardQuestion = useAppSelector(state => state.cards.cardQuestion);
   const cardAnswer = useAppSelector(state => state.cards.cardAnswer);
+
   const [newQuestionTitle, setNewQuestionTitle] = useState<string>('');
   const [newAnswerTitle, setNewAnswerTitle] = useState<string>('');
   const [isWindowOpened, setIsWindowOpened] = useState<boolean>(false);
@@ -57,18 +56,11 @@ export const CardsList: React.FC = () => {
 
   useEffect(() => {
     if (isSearchEmpty) {
-      // dispatch(fetchCards(id, ONE, pageCount, sortCards, cardQuestion, cardAnswer));
       dispatch(fetchCards({ cardsPack_id: id, page: ONE }));
     } else {
       timeoutId.current = setTimeout(() => {
         timeoutId.current = undefined;
-        // dispatch(fetchCards(id, ONE, pageCount, sortCards, cardQuestion, cardAnswer));
-        dispatch(
-          fetchCards({
-            cardsPack_id: id,
-            page: ONE,
-          }),
-        );
+        dispatch(fetchCards({ cardsPack_id: id, page: ONE }));
       }, DELAY);
     }
     return () => {
@@ -99,11 +91,9 @@ export const CardsList: React.FC = () => {
   };
 
   const onPageChanged = (pageNumber: number | string): void => {
-    // dispatch(fetchCards(id, pageNumber, pageCount));
     dispatch(fetchCards({ cardsPack_id: id, page: pageNumber }));
   };
   const onPageSizeChange = (option: number): void => {
-    // dispatch(fetchCards(id, page, option));
     dispatch(fetchCards({ cardsPack_id: id, pageCount: option }));
   };
   const onCardQuestionChange = (event: ChangeEvent<HTMLInputElement>): void => {

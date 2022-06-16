@@ -1,5 +1,5 @@
 /* eslint-disable camelcase,no-param-reassign */
-import { packsApi, PacksResponseType } from '../../api/packsApi';
+import { packsApi, PacksDataQuery, PacksResponseType } from '../../api/packsApi';
 import { ONE } from '../../constant';
 
 import { setError, setIsLoading } from 'App';
@@ -98,38 +98,30 @@ export const setPageCount = (pageCount: number) =>
 
 // thunk
 export const fetchPacks =
-  (
-    page: number | string,
-    pageCount: number,
-    inputTitle?: string,
-    sortPacks?: string,
-    user_id?: string,
-  ): ThunkApp =>
+  (payload: PacksDataQuery): ThunkApp =>
   (dispatch, getState) => {
-    const { isToggleAllId, minCardsCount, maxCardsCount } = getState().packs;
+    const { packName, sortPacks, page, pageCount, min, max } = payload;
+    const { isToggleAllId } = getState().packs;
 
-    if (!sortPacks) sortPacks = getState().packs.sortPacks;
+    if (!sortPacks) payload.sortPacks = getState().packs.sortPacks;
+    if (!min) payload.min = getState().packs.minCardsCount;
+    if (!max) payload.max = getState().packs.maxCardsCount;
+    if (!packName) payload.packName = getState().packs.inputTitle;
+    if (!page) payload.page = getState().packs.paginator.page;
+    if (!pageCount) payload.pageCount = getState().packs.paginator.pageCount;
 
     const { userId } = getState().app;
-    if (!isToggleAllId) user_id = userId;
+    if (!isToggleAllId) payload.user_id = userId;
 
     dispatch(setIsLoading(true));
-    dispatch(setCurrentPage(page));
-    dispatch(setPageCount(pageCount));
+    dispatch(setCurrentPage(payload.page!));
+    dispatch(setPageCount(payload.pageCount!));
     packsApi
-      .fetchPacks(
-        page,
-        pageCount,
-        inputTitle,
-        sortPacks,
-        user_id,
-        minCardsCount,
-        maxCardsCount,
-      )
+      .fetchPacks(payload)
       .then(data => {
         dispatch(fetchPacksAC(data));
         dispatch(setTotalPacksCount(data.cardPacksTotalCount));
-        dispatch(sortPacksAC(sortPacks));
+        dispatch(sortPacksAC(payload.sortPacks));
       })
       .catch(e => {
         const error = e.response
@@ -144,13 +136,12 @@ export const fetchPacks =
 
 export const addNewPack =
   (newPackTitle: string): ThunkApp =>
-  (dispatch, getState) => {
+  dispatch => {
     dispatch(setIsLoading(true));
     packsApi
       .addPack(newPackTitle)
       .then(() => {
-        const { pageCount } = getState().packs.packs;
-        dispatch(fetchPacks(ONE, pageCount));
+        dispatch(fetchPacks({ page: ONE }));
       })
       .catch(e => {
         const error = e.response
@@ -163,13 +154,12 @@ export const addNewPack =
 
 export const deletePacks =
   (id: string): ThunkApp =>
-  (dispatch, getState) => {
+  dispatch => {
     dispatch(setIsLoading(true));
     packsApi
       .deletePacks(id)
       .then(() => {
-        const { page, pageCount } = getState().packs.packs;
-        dispatch(fetchPacks(page, pageCount));
+        dispatch(fetchPacks({}));
       })
       .catch(e => {
         const error = e.response
@@ -182,13 +172,12 @@ export const deletePacks =
 
 export const updatePacks =
   (_id: string, name: string): ThunkApp =>
-  (dispatch, getState) => {
+  dispatch => {
     dispatch(setIsLoading(true));
     packsApi
       .updatePack(_id, name)
       .then(() => {
-        const { page, pageCount } = getState().packs.packs;
-        dispatch(fetchPacks(page, pageCount));
+        dispatch(fetchPacks({}));
       })
       .catch(e => {
         const error = e.response

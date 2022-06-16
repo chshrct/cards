@@ -48,10 +48,10 @@ export const PacksList: FC = () => {
 
   useEffect(() => {
     if (inputTitle === EMPTY_STRING && minCardsCount === ZERO && maxCardsCount === ZERO) {
-      dispatch(fetchPacks(ONE, pageCount, inputTitle));
+      dispatch(fetchPacks({ page: ONE }));
     } else {
       timeoutId.current = setTimeout(() => {
-        dispatch(fetchPacks(ONE, pageCount, inputTitle));
+        dispatch(fetchPacks({ page: ONE }));
       }, DELAY);
     }
     return () => {
@@ -74,10 +74,10 @@ export const PacksList: FC = () => {
     setNewPackTitle(EMPTY_STRING);
   };
   const onPageChanged = (pageNumber: number | string): void => {
-    dispatch(fetchPacks(pageNumber, pageCount, inputTitle));
+    dispatch(fetchPacks({ page: pageNumber }));
   };
   const onPageSizeChange = (option: number): void => {
-    dispatch(fetchPacks(page, option));
+    dispatch(fetchPacks({ pageCount: option }));
   };
   const onChangeNewPackTitle = (e: ChangeEvent<HTMLInputElement>): void => {
     setNewPackTitle(e.currentTarget.value);

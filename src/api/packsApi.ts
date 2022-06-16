@@ -1,14 +1,5 @@
+/* eslint-disable camelcase */
 import { instance } from './apiCfg';
-
-/* const params = {
-  packName: 'english',
-  min: 3,
-  max: 9,
-  sortPacks: '0updated',
-  page: 1,
-  pageCount: 4,
-  // user_id: '5eb543f6bea3ad21480f1ee7',
-}; */
 
 /* const cardsPack = {
   name: 'no Name',
@@ -17,21 +8,9 @@ import { instance } from './apiCfg';
 }; */
 
 export const packsApi = {
-  fetchPacks(
-    page?: number | string,
-    pageCount?: number,
-    packName?: string,
-    sortPacks?: string,
-    // eslint-disable-next-line camelcase
-    user_id?: string,
-    min?: number,
-    max?: number,
-  ) {
+  fetchPacks(payload: PacksDataQuery) {
     return instance
-      .get<PacksResponseType>('/cards/pack', {
-        // eslint-disable-next-line camelcase
-        params: { page, pageCount, packName, sortPacks, user_id, min, max },
-      })
+      .get<PacksResponseType>('/cards/pack', { params: payload })
       .then(res => res.data);
   },
   addPack(name: string) {
@@ -52,6 +31,16 @@ export const packsApi = {
 };
 
 // types
+
+export type PacksDataQuery = {
+  page?: number | string;
+  pageCount?: number;
+  packName?: string;
+  sortPacks?: string;
+  user_id?: string;
+  min?: number;
+  max?: number;
+};
 
 export type CardPackType = {
   _id: string;

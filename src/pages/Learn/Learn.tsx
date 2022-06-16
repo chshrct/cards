@@ -32,7 +32,6 @@ export const Learn: FC = () => {
   const [grade, setGrade] = useState<number>(ONE);
 
   useEffect(() => {
-    // dispatch(fetchCards(id, ONE, MAX_CARDS_COUNT)).then(
     dispatch(fetchCards({ cardsPack_id: id, page: ONE, max: MAX_CARDS_COUNT })).then(
       isRes => isRes && dispatch(setCardToLearn()),
     );

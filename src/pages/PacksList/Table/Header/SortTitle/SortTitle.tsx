@@ -23,15 +23,13 @@ export const SortTitle: React.FC<SortTitleType> = ({
 }) => {
   const [num, setNum] = useState<0 | 1>(1);
 
-  const pageCount = useAppSelector(state => state.packs.paginator.pageCount);
-  const inputTitle = useAppSelector(state => state.packs.inputTitle);
   let sortPacks = useAppSelector(state => state.packs.sortPacks);
 
   const dispatch = useAppDispatch();
 
   const changeArrowHandle = (): void => {
     setNum(state => (state === 0 ? 1 : 0));
-    dispatch(fetchPacks(ONE, pageCount, inputTitle, `${num}${sortBy}`));
+    dispatch(fetchPacks({ page: ONE, sortPacks: `${num}${sortBy}` }));
   };
 
   if (sortPacks === undefined) sortPacks = '0updated';
