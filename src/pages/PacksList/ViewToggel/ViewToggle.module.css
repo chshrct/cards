@@ -9,9 +9,32 @@
   border: none;
 }
 
+.lightFill, .darkFill{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+}
+
 .lightFill {
   background: #ffffff;
   color: #2d2e46;
+  cursor: pointer;
+}
+
+.lightFill:active {
+  background-color: hsa(238, 43%, 89%, 0.32);
+  transform: scale(0.99);
+}
+
+.lightFill:hover,
+.lightFill:focus {
+  background: #21268f;
+  box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35),
+  inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  filter: brightness(1.25);
+  color: #ececf9;
 }
 
 .darkFill {
