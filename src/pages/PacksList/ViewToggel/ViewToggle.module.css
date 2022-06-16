@@ -38,12 +38,12 @@
 }
 
 .darkFill {
-  background: #9a91c8;
+  background: #21268f;
   color: #ffffff;
 }
 
 .disabled {
-  /*opacity: 0.5;*/
+  opacity: 0.5;
   cursor: not-allowed;
   transition: none;
   transform: none;

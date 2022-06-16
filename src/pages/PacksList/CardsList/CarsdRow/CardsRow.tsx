@@ -4,8 +4,9 @@ import React, { ChangeEvent, useState } from 'react';
 import { Rating } from 'react-simple-star-rating';
 
 import { CardType } from '../../../../api/cardsApi';
-import { SuperButton, SuperInputText } from '../../../../components';
+import { SuperButton } from '../../../../components';
 import { ModalWindow } from '../../../../components/shared/ModalWindow/ModalWindow';
+import { SuperTextarea } from '../../../../components/shared/SuperTextarea/SuperTextarea';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import { deleteCard, updateCard } from '../CardsListReducer';
 
@@ -57,10 +58,10 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
       }),
     );
   };
-  const editQuestion = (e: ChangeEvent<HTMLInputElement>): void => {
+  const editQuestion = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setQuestion(e.currentTarget.value);
   };
-  const editAnswer = (e: ChangeEvent<HTMLInputElement>): void => {
+  const editAnswer = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setAnswer(e.currentTarget.value);
   };
   return (
@@ -126,10 +127,10 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
             disabled={isLoading}
           >
             <div className={s.titleQuestion}>
-              <SuperInputText label="Question" onChange={editQuestion} value={question} />
+              <SuperTextarea label="Question" onChange={editQuestion} value={question} />
             </div>
             <div className={s.titleAnswer}>
-              <SuperInputText label="Answer" onChange={editAnswer} value={answer} />
+              <SuperTextarea label="Answer" onChange={editAnswer} value={answer} />
             </div>
           </ModalWindow>
         </div>
