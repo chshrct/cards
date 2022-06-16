@@ -1,8 +1,9 @@
-/* eslint-disable new-cap,no-param-reassign */
+/* eslint-disable new-cap,no-param-reassign,prefer-const,@typescript-eslint/no-magic-numbers */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import {
   cardsAPI,
+  CardsDataQuery,
   CardsResponseType,
   CardType,
   NewCardData,
@@ -132,35 +133,24 @@ export const setCardToLearn = () =>
 
 // thunk
 export const fetchCards =
-  (
-    cardsPack_id: string | undefined,
-    page: number | string,
-    pageCount: number,
-    sortCards?: string | undefined,
-    cardQuestion?: string,
-    cardAnswer?: string,
-  ): ThunkApp<Promise<boolean>> =>
+  (payload: CardsDataQuery): ThunkApp<Promise<boolean>> =>
   (dispatch, getState) => {
-    if (!sortCards) sortCards = getState().cards.sortCards;
-    if (!cardAnswer) cardAnswer = getState().cards.cardAnswer;
-    if (!cardQuestion) cardQuestion = getState().cards.cardQuestion;
+    let { sortCards, cardAnswer, cardQuestion, page, pageCount } = payload;
+    if (!sortCards) payload.sortCards = getState().cards.sortCards;
+    if (!cardAnswer) payload.cardAnswer = getState().cards.cardAnswer;
+    if (!cardQuestion) payload.cardQuestion = getState().cards.cardQuestion;
+    if (!page) payload.page = getState().cards.paginator.page;
+    if (!pageCount) payload.pageCount = getState().cards.paginator.pageCount;
 
     dispatch(setIsLoading(true));
-    dispatch(setCurrentPage(page));
-    dispatch(setPageCount(pageCount));
+    dispatch(setCurrentPage(payload.page!));
+    dispatch(setPageCount(payload.pageCount!));
     return cardsAPI
-      .fetchCards({
-        cardsPack_id,
-        sortCards,
-        page,
-        pageCount,
-        cardAnswer,
-        cardQuestion,
-      })
+      .fetchCards(payload)
       .then(data => {
         dispatch(fetchCardsAC(data));
         dispatch(setTotalCardsCount(data.cardsTotalCount));
-        dispatch(sortCardsAC(sortCards));
+        dispatch(sortCardsAC(payload.sortCards));
         return true;
       })
       .catch(e => {
@@ -177,16 +167,12 @@ export const fetchCards =
 
 export const addNewCard =
   (payload: NewCardData): ThunkApp =>
-  (dispatch, getState) => {
-    const {
-      sortCards,
-      paginator: { page, pageCount },
-    } = getState().cards;
+  dispatch => {
     dispatch(setIsLoading(true));
     cardsAPI
       .addCard(payload)
       .then(data => {
-        dispatch(fetchCards(data.newCard.cardsPack_id, page, pageCount, sortCards));
+        dispatch(fetchCards({ cardsPack_id: data.newCard.cardsPack_id }));
       })
       .catch(e => {
         const error = e.response
@@ -204,10 +190,8 @@ export const deleteCard =
     cardsAPI
       .deleteCard(id)
       .then(() => {
-        const { page, pageCount } = getState().cards.cards;
-        // eslint-disable-next-line camelcase,@typescript-eslint/no-magic-numbers
         const { cardsPack_id } = getState().cards.cards.cards[0];
-        dispatch(fetchCards(cardsPack_id, page, pageCount));
+        dispatch(fetchCards({ cardsPack_id }));
       })
       .catch(e => {
         const error = e.response
@@ -225,10 +209,8 @@ export const updateCard =
     cardsAPI
       .updateCard(payload)
       .then(() => {
-        const { page, pageCount } = getState().cards.cards;
-        // eslint-disable-next-line camelcase,@typescript-eslint/no-magic-numbers
         const { cardsPack_id } = getState().cards.cards.cards[0];
-        dispatch(fetchCards(cardsPack_id, page, pageCount));
+        dispatch(fetchCards({ cardsPack_id }));
       })
       .catch(e => {
         const error = e.response

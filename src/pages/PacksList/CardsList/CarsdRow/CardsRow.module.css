@@ -12,11 +12,12 @@
 .grade,
 .buttonsBlock {
   padding: 10px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .question {
   flex: 1 0 25%;
-  word-wrap: break-word;
 }
 
 .answer {

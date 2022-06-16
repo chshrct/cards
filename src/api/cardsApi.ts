@@ -34,14 +34,14 @@ export const cardsAPI = {
 
 // types
 
-type CardsDataQuery = {
+export type CardsDataQuery = {
   cardAnswer?: string;
   cardQuestion?: string;
   cardsPack_id: string | undefined;
   min?: number;
   max?: number;
   sortCards?: string;
-  page: number | string;
+  page?: number | string;
   pageCount?: number;
 };
 
