@@ -7,6 +7,11 @@
     border-radius: 8px;
     padding: 0 33px 31px;
     min-height: 300px;
+    margin: 20px;
+}
+
+.learnWrapper pre {
+    overflow: hidden !important;
 }
 
 .learnWrapper h2,
@@ -37,12 +42,19 @@ h3 {
     margin: 6px;
 }
 
-.radioWrapper {
+.rateWrapper {
     align-self: flex-start;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-top: 48px;
+}
+
+.radioWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .buttonWrapper {

@@ -1,15 +1,18 @@
 /* eslint-disable no-underscore-dangle */
+
 import React, { ChangeEvent, useState } from 'react';
 
 import { Rating } from 'react-simple-star-rating';
 
 import { CardType } from '../../../../api/cardsApi';
-import { SuperButton, SuperInputText } from '../../../../components';
+import { SuperButton } from '../../../../components';
 import { ModalWindow } from '../../../../components/shared/ModalWindow/ModalWindow';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 import { deleteCard, updateCard } from '../CardsListReducer';
 
 import s from './CardsRow.module.css';
+
+import { SuperTextarea } from 'components/shared/SuperTextarea/SuperTextarea';
 
 type CardsRowType = {
   card: CardType;
@@ -57,10 +60,10 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
       }),
     );
   };
-  const editQuestion = (e: ChangeEvent<HTMLInputElement>): void => {
+  const editQuestion = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setQuestion(e.currentTarget.value);
   };
-  const editAnswer = (e: ChangeEvent<HTMLInputElement>): void => {
+  const editAnswer = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setAnswer(e.currentTarget.value);
   };
   return (
@@ -127,10 +130,22 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
             disabled={isAddNewCard}
           >
             <div className={s.titleQuestion}>
-              <SuperInputText label="Question" onChange={editQuestion} value={question} />
+              <SuperTextarea
+                label="Question"
+                onChange={editQuestion}
+                value={question}
+                cols={30}
+                rows={10}
+              />
             </div>
             <div className={s.titleAnswer}>
-              <SuperInputText label="Answer" onChange={editAnswer} value={answer} />
+              <SuperTextarea
+                label="Answer"
+                onChange={editAnswer}
+                value={answer}
+                cols={30}
+                rows={10}
+              />
             </div>
           </ModalWindow>
         </div>

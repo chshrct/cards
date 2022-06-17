@@ -3,11 +3,11 @@ import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } fro
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as ArrowBack } from '../../../assets/icons/arrows/arrowBack.svg';
-import { SuperButton, SuperInputText } from '../../../components';
+import { SuperButton } from '../../../components';
 import { ModalWindow } from '../../../components/shared/ModalWindow/ModalWindow';
 import { Paginator } from '../../../components/shared/Paginator/Paginator';
 import { SuperInputSearch } from '../../../components/shared/SuperInputSearch/SuperInputSearch';
-import { DELAY, TWO, EMPTY_STRING, ZERO, BACK } from '../../../constant';
+import { BACK, DELAY, EMPTY_STRING, TWO, ZERO } from '../../../constant';
 import { useAppDispatch, useAppSelector } from '../../../store';
 
 import s from './CardsList.module.css';
@@ -19,6 +19,8 @@ import {
 } from './CardsListReducer';
 import { CardsRow } from './CarsdRow/CardsRow';
 import { SortCardsTitle } from './SortCardsTitle/SortCardsTitle';
+
+import { SuperTextarea } from 'components/shared/SuperTextarea/SuperTextarea';
 
 export const CardsList: React.FC = () => {
   const cards = useAppSelector(state => state.cards.cards.cards);
@@ -84,10 +86,10 @@ export const CardsList: React.FC = () => {
     setNewQuestionTitle(EMPTY_STRING);
     setNewAnswerTitle(EMPTY_STRING);
   };
-  const onChangeQuestionTitle = (e: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeQuestionTitle = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setNewQuestionTitle(e.currentTarget.value);
   };
-  const onChangeAnswerTitle = (e: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeAnswerTitle = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setNewAnswerTitle(e.currentTarget.value);
   };
   /* const addNewCardHandle = (): void =>
@@ -137,17 +139,21 @@ export const CardsList: React.FC = () => {
           disabled={isAddNewCard}
         >
           <div className={s.titleQuestion}>
-            <SuperInputText
+            <SuperTextarea
               label="Question"
               onChange={onChangeQuestionTitle}
               value={newQuestionTitle}
+              cols={30}
+              rows={10}
             />
           </div>
           <div className={s.titleAnswer}>
-            <SuperInputText
+            <SuperTextarea
               label="Answer"
               onChange={onChangeAnswerTitle}
               value={newAnswerTitle}
+              cols={30}
+              rows={10}
             />
           </div>
         </ModalWindow>
