@@ -3,13 +3,15 @@ import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { ReactComponent as Loader } from '../../assets/loaders/loader.svg';
 
 import s from './Learn.module.css';
 
 import { SuperButton, SuperRadio } from 'components';
-import { ONE, TWO, MAX_CARDS_COUNT } from 'constant';
+import { MAX_CARDS_COUNT, ONE, TWO } from 'constant';
 import {
   fetchCards,
   setCardToLearn,
@@ -86,23 +88,29 @@ export const Learn: FC = () => {
       </div>
       <p>
         <b>Question: </b>
-        {`${cardToLearn?.question}`}
+        <SyntaxHighlighter language="javascript" style={docco} wrapLongLines>
+          {cardToLearn?.question}
+        </SyntaxHighlighter>
       </p>
       {isAnswerOpened && (
         <>
           <p>
             <b>Answer: </b>
-            {`${cardToLearn?.answer}`}
+            <SyntaxHighlighter language="javascript" style={docco} wrapLongLines>
+              {cardToLearn?.answer}
+            </SyntaxHighlighter>
           </p>
-          <div className={s.radioWrapper}>
+          <div className={s.rateWrapper}>
             <p>
               <b>Rate yourself:</b>
             </p>
-            <SuperRadio
-              options={RadioOptionsKeys}
-              onChange={onRadioChangeHandle}
-              value={RadioOptions[grade]}
-            />
+            <div className={s.radioWrapper}>
+              <SuperRadio
+                options={RadioOptionsKeys}
+                onChange={onRadioChangeHandle}
+                value={RadioOptions[grade]}
+              />
+            </div>
           </div>
         </>
       )}

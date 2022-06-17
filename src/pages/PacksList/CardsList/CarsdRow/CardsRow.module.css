@@ -50,9 +50,10 @@
 
 .titleQuestion {
   margin: 30px 0 20px 0;
+  align-self: center;
 }
 
 .titleAnswer {
+  align-self: center;
   margin: 15px 0 35px 0;
 }
-

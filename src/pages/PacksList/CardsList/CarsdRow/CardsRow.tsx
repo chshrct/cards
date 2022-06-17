@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+
 import React, { ChangeEvent, useState } from 'react';
 
 import { Rating } from 'react-simple-star-rating';
@@ -127,10 +128,22 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
             disabled={isLoading}
           >
             <div className={s.titleQuestion}>
-              <SuperTextarea label="Question" onChange={editQuestion} value={question} />
+              <SuperTextarea
+                label="Question"
+                onChange={editQuestion}
+                value={question}
+                cols={30}
+                rows={10}
+              />
             </div>
             <div className={s.titleAnswer}>
-              <SuperTextarea label="Answer" onChange={editAnswer} value={answer} />
+              <SuperTextarea
+                label="Answer"
+                onChange={editAnswer}
+                value={answer}
+                cols={30}
+                rows={10}
+              />
             </div>
           </ModalWindow>
         </div>

@@ -25,21 +25,26 @@
 .container::before {
     content: '';
     position: absolute;
-    top: 4px;
+    top: 3px;
     left: 7px;
-    height: 2px;
+    height: 4px;
     width: 60px;
     background-color: #fefeff;
     transition: transform .2s ease;
     transform: scaleX(0);
+    border: none;
+    outline: none;
 }
 
 .container:focus-within:before {
     transform: scaleX(1);
 }
 
-textarea {
-    width: 100%;
+.containerValue::before {
+    transform: scaleX(1);
+}
+
+.container textarea {
     border: 2px solid rgba(36, 37, 74, 0.2);
     border-radius: 8px;
     outline: none;
@@ -56,7 +61,7 @@ textarea {
     z-index: 0;
 }
 
-label {
+.container label {
     position: absolute;
     left: 7px;
     top: 11px;
@@ -69,7 +74,8 @@ label {
     padding: 5px;
 }
 
-textarea:focus+label {
+.container textarea:valid+label,
+.container textarea:focus+label {
     transform: translateY(-18px);
     font-size: 13px;
     font-weight: 400;

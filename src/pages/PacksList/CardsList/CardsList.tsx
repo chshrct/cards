@@ -140,6 +140,8 @@ export const CardsList: React.FC = () => {
               label="Question"
               onChange={onChangeQuestionTitle}
               value={newQuestionTitle}
+              cols={30}
+              rows={10}
             />
           </div>
           <div className={s.titleAnswer}>
@@ -147,6 +149,8 @@ export const CardsList: React.FC = () => {
               label="Answer"
               onChange={onChangeAnswerTitle}
               value={newAnswerTitle}
+              cols={30}
+              rows={10}
             />
           </div>
         </ModalWindow>

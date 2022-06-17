@@ -30,9 +30,13 @@ export const SuperTextarea: FC<PropsType> = ({
   const onChangeCallback = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     onChange?.(e);
   };
+  const containerStyle = restProps.value
+    ? `${s.container} ${s.containerValue}`
+    : s.container;
   return (
-    <div className={placeholder ? s.containerPlace : s.container}>
+    <div className={placeholder ? s.containerPlace : containerStyle}>
       <textarea
+        required
         id={id}
         placeholder={placeholder}
         onChange={onChangeCallback}
