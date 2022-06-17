@@ -1,6 +1,7 @@
-/* eslint-disable new-cap,no-param-reassign,prefer-const,@typescript-eslint/no-magic-numbers */
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable default-param-last */
 import {
   cardsAPI,
   CardsDataQuery,
@@ -97,6 +98,7 @@ export const cardsListReducer = (
         cardToLearn: (() => {
           const { cards } = state.cards;
           const grades = cards.map(el => MAX_GRADE - el.grade);
+
           return weightedRandom<CardType>(cards, grades);
         })(),
       };
@@ -113,13 +115,25 @@ export const sortCardsAC = (sortCards: string | undefined) =>
 export const setCurrentPage = (page: number | string) =>
   ({ type: CardsListActionsTypes.setCurrentPage, payload: { page } } as const);
 export const setTotalCardsCount = (totalCount: number) =>
-  ({ type: CardsListActionsTypes.setTotalCardsCount, payload: { totalCount } } as const);
+  ({
+    type: CardsListActionsTypes.setTotalCardsCount,
+    payload: { totalCount },
+  } as const);
 export const setCardQuestion = (cardQuestion: string) =>
-  ({ type: CardsListActionsTypes.setCardQuestion, payload: { cardQuestion } } as const);
+  ({
+    type: CardsListActionsTypes.setCardQuestion,
+    payload: { cardQuestion },
+  } as const);
 export const setCardAnswer = (cardAnswer: string) =>
-  ({ type: CardsListActionsTypes.setCardAnswer, payload: { cardAnswer } } as const);
+  ({
+    type: CardsListActionsTypes.setCardAnswer,
+    payload: { cardAnswer },
+  } as const);
 export const setPageCount = (pageCount: number) =>
-  ({ type: CardsListActionsTypes.setPageCount, payload: { pageCount } } as const);
+  ({
+    type: CardsListActionsTypes.setPageCount,
+    payload: { pageCount },
+  } as const);
 export const setCardGradeAndShots = (payload: UpdateCardGradeDataEntityType) =>
   ({
     type: CardsListActionsTypes.setCardGradeAndShots,
@@ -135,7 +149,8 @@ export const setCardToLearn = () =>
 export const fetchCards =
   (payload: CardsDataQuery): ThunkApp<Promise<boolean>> =>
   (dispatch, getState) => {
-    let { sortCards, cardAnswer, cardQuestion, page, pageCount } = payload;
+    const { sortCards, cardAnswer, cardQuestion, page, pageCount } = payload;
+
     if (!sortCards) payload.sortCards = getState().cards.sortCards;
     if (!cardAnswer) payload.cardAnswer = getState().cards.cardAnswer;
     if (!cardQuestion) payload.cardQuestion = getState().cards.cardQuestion;
@@ -145,19 +160,23 @@ export const fetchCards =
     dispatch(setIsLoading(true));
     dispatch(setCurrentPage(payload.page!));
     dispatch(setPageCount(payload.pageCount!));
+
     return cardsAPI
       .fetchCards(payload)
       .then(data => {
         dispatch(fetchCardsAC(data));
         dispatch(setTotalCardsCount(data.cardsTotalCount));
         dispatch(sortCardsAC(payload.sortCards));
+
         return true;
       })
       .catch(e => {
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
+
         dispatch(setError(error));
+
         return false;
       })
       .finally(() => {
@@ -178,6 +197,7 @@ export const addNewCard =
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
+
         dispatch(setError(error));
         dispatch(setIsLoading(false));
       });
@@ -191,12 +211,14 @@ export const deleteCard =
       .deleteCard(id)
       .then(() => {
         const { cardsPack_id } = getState().cards.cards.cards[0];
+
         dispatch(fetchCards({ cardsPack_id }));
       })
       .catch(e => {
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
+
         dispatch(setError(error));
         dispatch(setIsLoading(false));
       });
@@ -210,12 +232,14 @@ export const updateCard =
       .updateCard(payload)
       .then(() => {
         const { cardsPack_id } = getState().cards.cards.cards[0];
+
         dispatch(fetchCards({ cardsPack_id }));
       })
       .catch(e => {
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
+
         dispatch(setError(error));
         dispatch(setIsLoading(false));
       });
@@ -238,4 +262,8 @@ export const updateCardGrade =
       .finally(() => dispatch(setIsLoading(false)));
   };
 
-type UpdateCardGradeDataEntityType = { _id: string; grade: number; shots: number };
+type UpdateCardGradeDataEntityType = {
+  _id: string;
+  grade: number;
+  shots: number;
+};

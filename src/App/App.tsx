@@ -14,9 +14,10 @@ const App: FC = () => {
   const error = useAppSelector(state => state.app.error);
   const dispatch = useAppDispatch();
   const isInitialized = useAppSelector(state => state.app.isInitialized);
+
   useEffect(() => {
     dispatch(initializeApp());
-  }, []);
+  }, [dispatch]);
 
   if (!isInitialized)
     return (
@@ -24,6 +25,7 @@ const App: FC = () => {
         <Loader />
       </div>
     );
+
   return (
     <>
       {isLoading && <ProgressInfinite />}

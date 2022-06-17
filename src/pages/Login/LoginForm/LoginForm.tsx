@@ -30,9 +30,11 @@ export const LoginForm: React.FC = () => {
     },
     validate: (values: ValuesType) => {
       const errors = {} as ValuesType;
+
       if (validateEmail(values.email)) errors.email = validateEmail(values.email);
       if (validatePassword(values.password))
         errors.password = validatePassword(values.password);
+
       return errors;
     },
   });

@@ -27,14 +27,18 @@ export const SuperButton: FC<SuperButtonPropsType> = ({
   ...restProps
 }) => {
   let sizeClassName = s.sizeSmall;
+
   if (size === 'medium') sizeClassName = s.sizeMedium;
   if (size === 'large') sizeClassName = s.sizeLarge;
   let colorClassName = s.colorPrimary;
+
   if (color === 'secondary') colorClassName = s.colorSecondary;
   if (color === 'alerty') colorClassName = s.colorAlerty;
   let shapeClassName = s.shapeRound;
+
   if (shape === 'square') shapeClassName = s.shapeSquare;
   const finalClassName = `${s.button} ${sizeClassName} ${colorClassName} ${shapeClassName} ${className}`;
+
   return (
     <button
       type="button"

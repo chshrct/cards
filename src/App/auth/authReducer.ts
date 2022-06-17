@@ -54,6 +54,7 @@ const initialState = {
 export type AuthStateType = typeof initialState;
 
 export const authReducer = (
+  // eslint-disable-next-line default-param-last
   state: AuthStateType = initialState,
   { type, payload }: AuthRootActionType,
 ): AuthStateType => {
@@ -197,6 +198,7 @@ export const sendPassword =
   ): ThunkAction<Promise<boolean | void>, AppRootStateType, unknown, AppRootActionType> =>
   dispatch => {
     dispatch(setIsLoading(true));
+
     return authAPI
       .setNewPassword({ password, resetPasswordToken: token! })
       .then(() => {
@@ -208,6 +210,7 @@ export const sendPassword =
       .finally((redirectToLogin: boolean | void) => {
         dispatch(setIsLoading(false));
         if (redirectToLogin) return true;
+
         return false;
       });
   };

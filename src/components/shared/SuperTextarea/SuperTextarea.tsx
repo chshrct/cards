@@ -33,6 +33,7 @@ export const SuperTextarea: FC<PropsType> = ({
   const containerStyle = restProps.value
     ? `${s.container} ${s.containerValue}`
     : s.container;
+
   return (
     <div className={placeholder ? s.containerPlace : containerStyle}>
       <textarea

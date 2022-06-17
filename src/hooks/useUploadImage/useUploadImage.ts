@@ -12,6 +12,7 @@ export const useUploadImage = (imageSRC: string | null): ReturnedValueType => {
       fileReader.readAsDataURL(e.target.files[ZERO]);
       fileReader.onload = event => {
         const imageSrc = event.target?.result as string;
+
         setImage(imageSrc);
       };
     }

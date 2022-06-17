@@ -29,6 +29,7 @@ export const ModalWindow: FC<PropsType> = ({
     onClick();
     closeWindow();
   };
+
   return (
     <Popup isOpened={isOpened} onClose={closeWindow}>
       <div className={s.modalWindow}>

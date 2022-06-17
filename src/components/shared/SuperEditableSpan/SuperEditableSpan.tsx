@@ -53,6 +53,7 @@ export const SuperEditableSpan: FC<SuperEditableSpanType> = ({
   };
 
   const spanClassName = `${s.spanStyle} ${className}`;
+
   if (editMode)
     return (
       <SuperInputText
@@ -63,6 +64,7 @@ export const SuperEditableSpan: FC<SuperEditableSpanType> = ({
         {...restProps}
       />
     );
+
   return (
     <span
       onDoubleClick={onDoubleClickCallBack}

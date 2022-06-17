@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import React, { useState } from 'react';
 
 import { ReactComponent as ArrowDown } from '../../../../assets/icons/arrows/arrowDown.svg';
@@ -32,7 +31,11 @@ export const SortCardsTitle: React.FC<SortTitleType> = ({
   const changeArrowHandle = (): void => {
     setNum(state => (state === 0 ? 1 : 0));
     dispatch(
-      fetchCards({ cardsPack_id: cardsPackId, page: ONE, sortCards: `${num}${sortBy}` }),
+      fetchCards({
+        cardsPack_id: cardsPackId,
+        page: ONE,
+        sortCards: `${num}${sortBy}`,
+      }),
     );
   };
 
@@ -45,6 +48,7 @@ export const SortCardsTitle: React.FC<SortTitleType> = ({
     ) : (
       <ArrowUp className={s.arrow} height={15} width={15} />
     );
+
   return (
     <div
       role="none"

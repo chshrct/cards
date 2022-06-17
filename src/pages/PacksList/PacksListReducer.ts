@@ -1,3 +1,4 @@
+/* eslint-disable default-param-last */
 /* eslint-disable camelcase,no-param-reassign */
 import { packsApi, PacksDataQuery, PacksResponseType } from '../../api/packsApi';
 import { ONE } from '../../constant';
@@ -111,6 +112,7 @@ export const fetchPacks =
     if (!pageCount) payload.pageCount = getState().packs.paginator.pageCount;
 
     const { userId } = getState().app;
+
     if (!isToggleAllId) payload.user_id = userId;
 
     dispatch(setIsLoading(true));
@@ -127,6 +129,7 @@ export const fetchPacks =
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
+
         dispatch(setError(error));
       })
       .finally(() => {
@@ -147,6 +150,7 @@ export const addNewPack =
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
+
         dispatch(setError(error));
         dispatch(setIsLoading(false));
       });
@@ -165,6 +169,7 @@ export const deletePacks =
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
+
         dispatch(setError(error));
         dispatch(setIsLoading(false));
       });
@@ -183,6 +188,7 @@ export const updatePacks =
         const error = e.response
           ? e.response.data.error
           : `${e.message}, more details in the console`;
+
         dispatch(setError(error));
         dispatch(setIsLoading(false));
       });

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable no-magic-numbers */
 import { useMemo } from 'react';
 
 export const DOTS = '...';
@@ -16,8 +16,10 @@ const range = (start: number, end: number): number[] => {
         Create an array of certain length and set the elements within it from
       start value to end value.
     */
+
   return Array.from({ length }, (_, idx) => idx + start);
 };
+
 export const usePagination: any = ({
   totalCount,
   pageSize,
@@ -34,6 +36,7 @@ export const usePagination: any = ({
           If the number of pages is less than the page numbers we want to show in our
           paginationComponent, we return the range [1..totalPageCount]
         */
+
     if (totalPageNumbers >= totalPageCount) {
       return range(1, totalPageCount);
     }
@@ -69,6 +72,7 @@ export const usePagination: any = ({
     if (shouldShowLeftDots && !shouldShowRightDots) {
       const rightItemCount = 3 + 2 * siblingCount;
       const rightRange = range(totalPageCount - rightItemCount + 1, totalPageCount);
+
       return [firstPageIndex, DOTS, ...rightRange];
     }
 
@@ -77,6 +81,7 @@ export const usePagination: any = ({
         */
     if (shouldShowLeftDots && shouldShowRightDots) {
       const middleRange = range(leftSiblingIndex, rightSiblingIndex);
+
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
   }, [totalCount, pageSize, siblingCount, currentPage]);

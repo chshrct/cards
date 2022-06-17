@@ -21,7 +21,7 @@ import { AuthCheck } from 'routes/AuthCheck';
 
 export const AppRouter: FC = () => {
   const appRoutes = useRoutes([
-    { index: true, element: <Login /> },
+    { index: true, element: <Navigate to={AppRoutePaths.LOGIN} /> },
     { path: AppRoutePaths.LOGIN, element: <Login /> },
     {
       path: AppRoutePaths.RANDOM,
@@ -83,5 +83,6 @@ export const AppRouter: FC = () => {
       ],
     },
   ]);
+
   return appRoutes;
 };

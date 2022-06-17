@@ -1,10 +1,4 @@
-import React, {
-  SelectHTMLAttributes,
-  DetailedHTMLProps,
-  ChangeEvent,
-  useId,
-  FC,
-} from 'react';
+import { ChangeEvent, DetailedHTMLProps, FC, SelectHTMLAttributes } from 'react';
 
 import { useAppSelector } from '../../../store';
 
@@ -34,7 +28,8 @@ export const SuperSelect: FC<SuperSelectPropsType> = ({
 
   const mappedOptions: any[] = options
     ? options.map(o => {
-        const key = useId();
+        const key = Math.random();
+
         return (
           <option key={key} value={o}>
             {o}

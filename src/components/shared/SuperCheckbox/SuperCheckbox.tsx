@@ -21,8 +21,6 @@ type SuperCheckboxPropsType = DefaultInputPropsType & {
 };
 
 export const SuperCheckbox: FC<SuperCheckboxPropsType> = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type,
   onChange,
   onChangeChecked,
   className,
@@ -32,9 +30,11 @@ export const SuperCheckbox: FC<SuperCheckboxPropsType> = ({
 }) => {
   const onChangeCallback = (e: ChangeEvent<HTMLInputElement>): void => {
     const slowBlur = 3000;
+
     onChangeChecked?.(e.currentTarget.checked);
     onChange?.(e);
     const checkbox = e.currentTarget;
+
     setTimeout(() => {
       checkbox.blur();
     }, slowBlur);
@@ -42,6 +42,7 @@ export const SuperCheckbox: FC<SuperCheckboxPropsType> = ({
 
   const finalInputClassName = `${s.checkbox} ${className || EMPTY_STRING}`;
   const id = useId();
+
   return (
     <label htmlFor={id}>
       <input

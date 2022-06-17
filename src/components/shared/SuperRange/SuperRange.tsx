@@ -14,8 +14,6 @@ type SuperRangePropsType = DefaultInputPropsType & {
 };
 
 export const SuperRange: FC<SuperRangePropsType> = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type,
   onChange,
   onChangeRange,
   className,

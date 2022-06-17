@@ -5,6 +5,5 @@
   "singleQuote": true,
   "bracketSpacing": true,
   "arrowParens": "avoid",
-  "trailingComma": "all",
-  "endOfLine": "auto"
+  "trailingComma": "all"
 }

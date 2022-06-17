@@ -3,6 +3,7 @@ import { ONE, ZERO } from 'constant';
 export function getRandomArbitrary(min: number, max: number): number {
   const minF = Math.ceil(min);
   const maxF = Math.floor(max);
+
   return Math.floor(Math.random() * (maxF - minF + ONE)) + minF;
 }
 
@@ -29,5 +30,6 @@ export function weightedRandom<T>(items: T[], weights: number[]): T {
       return items[itemIndex];
     }
   }
+
   return items[ZERO];
 }

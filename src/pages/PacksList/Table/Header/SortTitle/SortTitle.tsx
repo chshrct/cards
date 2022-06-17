@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import React, { useState } from 'react';
 
 import { ReactComponent as ArrowDown } from '../../../../../assets/icons/arrows/arrowDown.svg';
@@ -41,6 +40,7 @@ export const SortTitle: React.FC<SortTitleType> = ({
     ) : (
       <ArrowUp className={s.arrow} height={15} width={15} />
     );
+
   return (
     <div
       role="none"

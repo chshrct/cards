@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  ChangeEvent,
-  InputHTMLAttributes,
-  DetailedHTMLProps,
-  useId,
-} from 'react';
+import { ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes } from 'react';
 
 import s from './SuperRadio.module.css';
 
@@ -21,8 +15,6 @@ type SuperRadioPropsType = DefaultRadioPropsType & {
 };
 // @ts-ignore
 export const SuperRadio: FC<SuperRadioPropsType> = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type,
   name,
   options,
   value,
@@ -40,8 +32,9 @@ export const SuperRadio: FC<SuperRadioPropsType> = ({
 
   const mappedOptions: any[] = options
     ? options.map(o => {
-        const key = useId();
-        const id = useId();
+        const key = Math.random();
+        const id = Math.random().toString();
+
         return (
           <label htmlFor={id} key={key} className={s.label}>
             <input

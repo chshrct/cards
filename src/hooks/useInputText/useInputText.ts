@@ -21,5 +21,6 @@ export const useSuperInput = (
       if (!validator(text)) setIsTouched(true);
     }
   };
+
   return [value, onChange, error, isTouched, onBlur];
 };

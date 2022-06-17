@@ -64,10 +64,11 @@ export const CardsList: React.FC = () => {
         dispatch(fetchCards({ cardsPack_id: id, page: ONE }));
       }, DELAY);
     }
+
     return () => {
       clearTimeout(timeoutId.current);
     };
-  }, [cardQuestion, cardAnswer]);
+  }, [cardQuestion, cardAnswer, dispatch, id, isSearchEmpty]);
 
   const closeWindow = (): void => {
     setIsWindowOpened(false);
@@ -105,6 +106,7 @@ export const CardsList: React.FC = () => {
   };
 
   const returnHandle = (): void => navigate(BACK);
+
   return (
     <div className={s.cardsListContainer}>
       <h3 className={s.headerWrapper}>

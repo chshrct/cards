@@ -37,7 +37,7 @@ export const Learn: FC = () => {
     dispatch(fetchCards({ cardsPack_id: id, page: ONE, max: MAX_CARDS_COUNT })).then(
       isRes => isRes && dispatch(setCardToLearn()),
     );
-  }, [id]);
+  }, [id, dispatch]);
 
   enum RadioOptions {
     'Did not know' = 1,
@@ -52,8 +52,10 @@ export const Learn: FC = () => {
   const onCancelClick = (): void => {
     if (isAnswerOpened) {
       dispatch(setCardToLearn());
+
       return setIsAnswerOpened(false);
     }
+
     return navigate(AppRoutePaths.PACKS_LIST);
   };
 
@@ -71,6 +73,7 @@ export const Learn: FC = () => {
   };
 
   if (!cardToLearn) return <Loader />;
+
   return (
     <div className={s.learnWrapper}>
       <h2>{`Learn ${packName || 'some pack'}`}</h2>

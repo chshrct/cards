@@ -18,6 +18,7 @@ export const ErrorMessage: FC = () => {
     const timeoutId = setTimeout(() => {
       setIsErrorVisible(false);
     }, ERROR_VISIBLE_TIMER);
+
     return () => {
       clearTimeout(timeoutId);
     };
@@ -28,12 +29,14 @@ export const ErrorMessage: FC = () => {
       const timeoutId = setTimeout(() => {
         dispatch(setError(EMPTY_STRING));
       }, CLEAR_ERROR_TIMER);
+
       return () => {
         clearTimeout(timeoutId);
       };
     }
+
     return () => {};
-  }, [isErrorVisible]);
+  }, [isErrorVisible, dispatch]);
 
   const InfoBannerClassName = isErrorVisible
     ? `${s.InfoBanner} ${s.fadeIn}`

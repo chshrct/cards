@@ -25,6 +25,7 @@ const initialState = {
 };
 
 export const appReducer = (
+  // eslint-disable-next-line default-param-last
   state = initialState,
   { type, payload }: RootAppActionsType,
 ): InitialStateType => {

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers,jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions */
+/* eslint-disable no-magic-numbers */
 import { FC } from 'react';
 
 import arrowLeftBlue from '../../../assets/icons/arrows/arrowLeftBlue.png';
@@ -66,6 +66,7 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
         } 
         of ${totalCount} ${title}s`;
   const finalArrowsStyle = `${isLoading && s.disabled} ${s.arrow}`;
+
   return (
     <div className={s.paginationContainer}>
       <div className={finalListPagesStyle}>{finalListPages}</div>
@@ -75,6 +76,7 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
             <img src={arrowLeftGrey} alt="prev" className={finalArrowsStyle} />
           ) : (
             <img
+              aria-hidden="true"
               src={arrowLeftBlue}
               alt="prev"
               onClick={onPrevious}
@@ -90,8 +92,10 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
               </span>
             );
           }
+
           return (
             <span
+              aria-hidden="true"
               key={paginationRange[i]}
               className={finalPageStyle(pageNumber)}
               onClick={() => !isLoading && onPageChange(pageNumber)}
@@ -105,6 +109,7 @@ export const Paginator: FC<PaginatorPropsType> = (props: PaginatorPropsType) => 
             <img src={arrowRightGrey} alt="next" className={finalArrowsStyle} />
           ) : (
             <img
+              aria-hidden="true"
               src={arrowRightBlue}
               alt="next"
               onClick={onNext}

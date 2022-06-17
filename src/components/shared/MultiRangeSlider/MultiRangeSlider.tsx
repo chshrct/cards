@@ -61,6 +61,7 @@ export const MultiRangeSlider: FC<PropsType> = ({ min, max, onChange }) => {
         ref={minValRef}
         onChange={event => {
           const value = Math.min(+event.target.value, maxVal - ONE);
+
           setMinVal(value);
           event.target.value = value.toString();
         }}
@@ -76,6 +77,7 @@ export const MultiRangeSlider: FC<PropsType> = ({ min, max, onChange }) => {
         ref={maxValRef}
         onChange={event => {
           const value = Math.max(+event.target.value, minVal + ONE);
+
           setMaxVal(value);
           event.target.value = value.toString();
         }}

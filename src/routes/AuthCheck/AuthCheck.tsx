@@ -11,6 +11,8 @@ type Props = {
 
 export const AuthCheck: FC<Props> = ({ children }) => {
   const isAuth = useAppSelector(state => state.auth.isAuth);
+
   if (!isAuth) return <Navigate to={AppRoutePaths.LOGIN} />;
+
   return children || null;
 };

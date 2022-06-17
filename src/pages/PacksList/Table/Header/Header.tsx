@@ -7,6 +7,7 @@ import { SortTitle } from './SortTitle/SortTitle';
 
 export const Header: React.FC = () => {
   const isLoading = useAppSelector(state => state.app.isLoading);
+
   return (
     <div className={s.head}>
       <SortTitle

@@ -12,9 +12,12 @@ const Portal: FC<PropsType> = ({ children }) => {
   ) as MutableRefObject<HTMLDivElement>;
 
   useLayoutEffect(() => {
-    document.body.appendChild(container.current);
+    const containerToAppend = container.current;
+
+    document.body.appendChild(containerToAppend);
+
     return () => {
-      document.body.removeChild(container.current);
+      document.body.removeChild(containerToAppend);
     };
   }, []);
 

@@ -13,6 +13,7 @@ export const Header: FC = () => {
   const onButtonClick = (): void => {
     dispatch(logoutUser());
   };
+
   return (
     <div className={s.headerWrapper}>
       <Nav />

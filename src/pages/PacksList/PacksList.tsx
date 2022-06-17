@@ -54,11 +54,12 @@ export const PacksList: FC = () => {
         dispatch(fetchPacks({ page: ONE }));
       }, DELAY);
     }
+
     return () => {
       clearTimeout(timeoutId.current);
       timeoutId.current = undefined;
     };
-  }, [inputTitle, minCardsCount, maxCardsCount]);
+  }, [inputTitle, minCardsCount, maxCardsCount, dispatch]);
 
   const changeTitle = (e: ChangeEvent<HTMLInputElement>): void => {
     dispatch(changeInputTitle(e.currentTarget.value));
@@ -88,6 +89,7 @@ export const PacksList: FC = () => {
   };
 
   const packs = useAppSelector(state => state.packs.packs.cardPacks);
+
   return (
     <div className={s.packsListContainer}>
       <div className={s.sideBar}>

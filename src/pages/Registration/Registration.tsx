@@ -27,7 +27,7 @@ export const Registration: React.FC = () => {
 
   useEffect(() => {
     dispatch(setError(EMPTY_STRING));
-  }, [location]);
+  }, [location, dispatch]);
 
   const formik = useFormik({
     initialValues: {

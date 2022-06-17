@@ -28,7 +28,6 @@ type SuperInputTextPropsType = DefaultInputPropsType & {
 };
 
 export const SuperInputText: FC<SuperInputTextPropsType> = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type,
   onChange,
   onChangeText,
@@ -70,6 +69,7 @@ export const SuperInputText: FC<SuperInputTextPropsType> = ({
   } ${className}`;
 
   let eye = null;
+
   if (type === 'password')
     eye =
       inputType === 'password' ? (

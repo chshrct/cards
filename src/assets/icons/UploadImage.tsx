@@ -1,5 +1,6 @@
 import { ElementType } from 'react';
 
+// eslint-disable-next-line react/prop-types
 export const UploadImage: ElementType = ({ className }) => {
   return (
     <svg

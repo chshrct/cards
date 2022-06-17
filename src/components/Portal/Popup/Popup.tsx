@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/control-has-associated-label */
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useId } from 'react';
 
 import Portal from '../Portal';
 
@@ -13,6 +11,8 @@ type PropsType = {
 };
 
 export const Popup: FC<PropsType> = ({ children, isOpened = false, onClose }) => {
+  const id = useId();
+
   if (!isOpened) {
     return null;
   }
@@ -20,7 +20,17 @@ export const Popup: FC<PropsType> = ({ children, isOpened = false, onClose }) =>
   return (
     <Portal>
       <div className={s.container} role="dialog">
-        <div className={s.overlay} role="button" tabIndex={0} onClick={onClose} />
+        <label htmlFor={id}>
+          {' '}
+          <div
+            aria-hidden="true"
+            id={id}
+            className={s.overlay}
+            role="button"
+            tabIndex={0}
+            onClick={onClose}
+          />
+        </label>
         <div className={s.content}>{children}</div>
       </div>
     </Portal>
