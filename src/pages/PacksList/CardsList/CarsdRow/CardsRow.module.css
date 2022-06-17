@@ -57,3 +57,11 @@
   align-self: center;
   margin: 15px 0 35px 0;
 }
+
+.question>pre {
+  overflow: hidden !important;
+}
+
+.answer>pre {
+  overflow: hidden !important;
+}

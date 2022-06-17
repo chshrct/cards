@@ -3,6 +3,8 @@
 import React, { ChangeEvent, useState } from 'react';
 
 import { Rating } from 'react-simple-star-rating';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { CardType } from '../../../../api/cardsApi';
 import { SuperButton } from '../../../../components';
@@ -67,8 +69,16 @@ export const CardsRow: React.FC<CardsRowType> = ({ card, className, packUserId }
   };
   return (
     <div className={`${s.body} ${className}`}>
-      <div className={s.question}>{card.question}</div>
-      <div className={s.answer}>{card.answer}</div>
+      <div className={s.question}>
+        <SyntaxHighlighter language="javascript" style={docco} wrapLongLines>
+          {card.question}
+        </SyntaxHighlighter>
+      </div>
+      <div className={s.answer}>
+        <SyntaxHighlighter language="javascript" style={docco} wrapLongLines>
+          {card.answer}
+        </SyntaxHighlighter>
+      </div>
       <div className={s.updated}>
         {card.updated.slice(SLICE_BEGIN_INDEX, SLICE_END_INDEX)}
       </div>
