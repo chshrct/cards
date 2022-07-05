@@ -26,9 +26,6 @@ export const SuperRange: FC<SuperRangePropsType> = ({
     onChangeRange?.(+e.currentTarget.value);
   };
 
-  // eslint-disable-next-line no-debugger
-  debugger;
-
   const finalRangeClassName = `${s.range} ${className || EMPTY_STRING}`;
 
   return (
